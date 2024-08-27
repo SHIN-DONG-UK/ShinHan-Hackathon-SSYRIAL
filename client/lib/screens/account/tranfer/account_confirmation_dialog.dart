@@ -67,7 +67,7 @@ class AccountConfirmationDialog extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () => Navigator.of(context).pop(true),
+                      onPressed: () => Navigator.of(context).pop(true), // true를 반환하고 팝됨
                       child: Text("네", style: TextStyle(color: Colors.white, fontSize: 16)),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -134,7 +134,7 @@ class AccountConfirmationDialog extends StatelessWidget {
               ),
               SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => {Navigator.of(context).pop()},
                 child: Text("돌아가기", style: TextStyle(color: Colors.white, fontSize: 16)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey,

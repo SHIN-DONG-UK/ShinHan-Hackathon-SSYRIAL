@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ssyrial/screens/account/tranfer/account_confirmation_dialog.dart';
 import 'package:ssyrial/screens/account/tranfer/account_number_input_dialog.dart';
 import 'package:ssyrial/screens/account/tranfer/bank_selection_dialog.dart';
+import 'package:ssyrial/screens/account/tranfer/how_much_reject_password_dialog.dart';
 
 class AccountInfoInputScreen extends StatefulWidget {
   final String initialTitle; // 초기 화면의 제목
@@ -185,8 +186,8 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
   }
 
   // 확인 다이얼로그 표시 함수
-  void _showConfirmationDialog() {
-    showDialog(
+  void _showConfirmationDialog() async {
+    bool? result = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
         return AccountConfirmationDialog(
@@ -195,5 +196,11 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
         );
       },
     );
+    if(result == true){
+      Navigator.push(context, MaterialPageRoute(
+          builder: (context){
+        return HowMuchScreen();
+      },
+    ));}
   }
 }

@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MainScreen(),
-    );
-  }
-}
 
-class MainScreen extends StatefulWidget {
+class HowMuchScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<HowMuchScreen> {
   int balance = 0; // 잔고(숫자) API에서 가져온 값을 저장
   TextEditingController _controller = TextEditingController();
 
