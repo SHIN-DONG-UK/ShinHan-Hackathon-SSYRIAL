@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import shinhan.hackathon.ssyrial.model.ApiResponse;
 import shinhan.hackathon.ssyrial.model.demandDeposit.CreateDemandDepositAccountModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.CreateDemandDepositModel;
+import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountBalanceModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositListModel;
 import shinhan.hackathon.ssyrial.service.DemandDepositService;
 
@@ -82,4 +83,16 @@ public class DemandDepositController extends BaseController {
         request.getUserKey(), request.getAccountTypeUniqueNo());
     return successResponse(response);
   }
+
+  /* 
+    /api/demandDeposit/inquireDemandDepositAccountBalance : 계좌 잔액 조회
+  */ 
+  @PostMapping("/inquireDemandDepositAccountBalance")
+  public ResponseEntity<ApiResponse<InquireDemandDepositAccountBalanceModel.Response>> inquireDemandDepositAccountBalance(
+      @RequestBody InquireDemandDepositAccountBalanceModel.Request request) {
+        InquireDemandDepositAccountBalanceModel.Response response = demandDepositService.inquireDemandDepositAccountBalance(
+        request.getUserKey(), request.getAccountNo());
+    return successResponse(response);
+  }
+
 }

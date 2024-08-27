@@ -142,11 +142,10 @@ public class DemandDepositService extends ShinhanApiService {
    * @param accountNo 계좌번호
    * @return InquireDemandDepositAccountBalanceModel.Response - 계좌 잔액 정보가 담긴 응답
    */
-  public InquireDemandDepositAccountBalanceModel.Response inquireDemandDepositAccountBalance(String accountNo) {
+  public InquireDemandDepositAccountBalanceModel.Response inquireDemandDepositAccountBalance(String userKey, String accountNo) {
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccountBalance",
-        "inquireDemandDepositAccountBalance", null);
-
+        "inquireDemandDepositAccountBalance", userKey);
     // 요청 객체 생성
     InquireDemandDepositAccountBalanceModel.Request request = InquireDemandDepositAccountBalanceModel.Request.builder()
         .Header(header)
