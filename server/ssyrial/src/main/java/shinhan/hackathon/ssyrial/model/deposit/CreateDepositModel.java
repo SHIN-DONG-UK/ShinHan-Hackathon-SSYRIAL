@@ -38,6 +38,7 @@ package shinhan.hackathon.ssyrial.model.deposit;
 
 import lombok.Getter;
 import lombok.Setter;
+import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -49,101 +50,101 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class CreateDepositModel {
 
+  /**
+   * 예금 상품 등록 요청 데이터를 담는 내부 클래스입니다.
+   */
+  @Getter
+  @Setter
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  public static class Request {
+    @JsonProperty("Header")
+    private CommonHeaderModel.Request header;
+
+    @JsonProperty("bankCode")
+    private String bankCode; // 필수: 은행코드, 길이: 20
+
+    @JsonProperty("accountName")
+    private String accountName; // 필수: 상품명, 길이: 20
+
+    @JsonProperty("accountDescription")
+    private String accountDescription; // 선택: 상품설명, 길이: 20
+
+    @JsonProperty("subscriptionPeriod")
+    private String subscriptionPeriod; // 필수: 가입기간, 길이: 20
+
+    @JsonProperty("minSubscriptionBalance")
+    private Long minSubscriptionBalance; // 필수: 최소가입가능금액
+
+    @JsonProperty("maxSubscriptionBalance")
+    private Long maxSubscriptionBalance; // 필수: 최대가입가능금액
+
+    @JsonProperty("interestRate")
+    private Double interestRate; // 필수: 이자율
+
+    @JsonProperty("rateDescription")
+    private String rateDescription; // 선택: 이자율 설명, 길이: 255
+  }
+
+  /**
+   * 예금 상품 등록 응답 데이터를 담는 내부 클래스입니다.
+   */
+  @Getter
+  @Setter
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class Response {
+
+    @JsonProperty("Header")
+    private CommonHeaderModel.Response Header;
+
+    @JsonProperty("REC")
+    private DepositAccountInfo REC; // 예금계좌정보
+
     /**
-     * 예금 상품 등록 요청 데이터를 담는 내부 클래스입니다.
+     * 예금계좌정보 데이터를 담는 내부 클래스입니다.
      */
     @Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    @Builder
-    public static class Request {
-        @JsonProperty("Header")
-        private CommonHeaderModel.Request Header;
+    public static class DepositAccountInfo {
+      @JsonProperty("accountTypeUniqueNo")
+      private String accountTypeUniqueNo; // 필수: 상품 고유번호, 길이: 20
 
-        @JsonProperty("bankCode")
-        private String bankCode; // 필수: 은행코드, 길이: 20
+      @JsonProperty("bankCode")
+      private String bankCode; // 필수: 은행코드, 길이: 3
 
-        @JsonProperty("accountName")
-        private String accountName; // 필수: 상품명, 길이: 20
+      @JsonProperty("bankName")
+      private String bankName; // 필수: 은행명, 길이: 20
 
-        @JsonProperty("accountDescription")
-        private String accountDescription; // 선택: 상품설명, 길이: 20
+      @JsonProperty("accountTypeCode")
+      private String accountTypeCode; // 필수: 상품구분코드, 길이: 3
 
-        @JsonProperty("subscriptionPeriod")
-        private String subscriptionPeriod; // 필수: 가입기간, 길이: 20
+      @JsonProperty("accountTypeName")
+      private String accountTypeName; // 필수: 상품구분명, 길이: 20
 
-        @JsonProperty("minSubscriptionBalance")
-        private Long minSubscriptionBalance; // 필수: 최소가입가능금액
+      @JsonProperty("accountName")
+      private String accountName; // 필수: 상품명, 길이: 20
 
-        @JsonProperty("maxSubscriptionBalance")
-        private Long maxSubscriptionBalance; // 필수: 최대가입가능금액
+      @JsonProperty("accountDescription")
+      private String accountDescription; // 선택: 상품설명, 길이: 255
 
-        @JsonProperty("interestRate")
-        private Double interestRate; // 필수: 이자율
+      @JsonProperty("subscriptionPeriod")
+      private String subscriptionPeriod; // 필수: 가입기간, 길이: 20
 
-        @JsonProperty("rateDescription")
-        private String rateDescription; // 선택: 이자율 설명, 길이: 255
+      @JsonProperty("minSubscriptionBalance")
+      private Long minSubscriptionBalance; // 필수: 최소가입가능금액
+
+      @JsonProperty("maxSubscriptionBalance")
+      private Long maxSubscriptionBalance; // 필수: 최대가입가능금액
+
+      @JsonProperty("interestRate")
+      private Double interestRate; // 필수: 이자율
+
+      @JsonProperty("rateDescription")
+      private String rateDescription; // 선택: 이자율 설명, 길이: 255
     }
-
-    /**
-     * 예금 상품 등록 응답 데이터를 담는 내부 클래스입니다.
-     */
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Response {
-
-        @JsonProperty("Header")
-        private CommonHeaderModel.Response Header;
-
-        @JsonProperty("REC")
-        private DepositAccountInfo REC; // 예금계좌정보
-
-        /**
-         * 예금계좌정보 데이터를 담는 내부 클래스입니다.
-         */
-        @Getter
-        @Setter
-        @NoArgsConstructor
-        @AllArgsConstructor
-        public static class DepositAccountInfo {
-            @JsonProperty("accountTypeUniqueNo")
-            private String accountTypeUniqueNo; // 필수: 상품 고유번호, 길이: 20
-
-            @JsonProperty("bankCode")
-            private String bankCode; // 필수: 은행코드, 길이: 3
-
-            @JsonProperty("bankName")
-            private String bankName; // 필수: 은행명, 길이: 20
-
-            @JsonProperty("accountTypeCode")
-            private String accountTypeCode; // 필수: 상품구분코드, 길이: 3
-
-            @JsonProperty("accountTypeName")
-            private String accountTypeName; // 필수: 상품구분명, 길이: 20
-
-            @JsonProperty("accountName")
-            private String accountName; // 필수: 상품명, 길이: 20
-
-            @JsonProperty("accountDescription")
-            private String accountDescription; // 선택: 상품설명, 길이: 255
-
-            @JsonProperty("subscriptionPeriod")
-            private String subscriptionPeriod; // 필수: 가입기간, 길이: 20
-
-            @JsonProperty("minSubscriptionBalance")
-            private Long minSubscriptionBalance; // 필수: 최소가입가능금액
-
-            @JsonProperty("maxSubscriptionBalance")
-            private Long maxSubscriptionBalance; // 필수: 최대가입가능금액
-
-            @JsonProperty("interestRate")
-            private Double interestRate; // 필수: 이자율
-
-            @JsonProperty("rateDescription")
-            private String rateDescription; // 선택: 이자율 설명, 길이: 255
-        }
-    }
+  }
 }

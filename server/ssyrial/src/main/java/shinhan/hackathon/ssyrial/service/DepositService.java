@@ -43,11 +43,11 @@ public class DepositService extends ShinhanApiService {
    * 예금 상품을 등록하는 API 요청을 보냅니다.
    *
    * @param bankCode           은행 코드
-   * @param depositName        상품 이름
-   * @param depositDescription 상품 설명
+   * @param accountName        상품 이름
+   * @param accountDescription 상품 설명
    * @return CreateDepositModel.Response - 등록된 상품 정보가 담긴 응답
    */
-  public CreateDepositModel.Response createDeposit(String bankCode, String depositName, String depositDescription) {
+  public CreateDepositModel.Response createDeposit(String bankCode, String accountName, String accountDescription) {
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("createDeposit", "createDeposit", null);
 
@@ -55,8 +55,8 @@ public class DepositService extends ShinhanApiService {
     CreateDepositModel.Request request = CreateDepositModel.Request.builder()
         .header(header)
         .bankCode(bankCode)
-        .depositName(depositName)
-        .depositDescription(depositDescription)
+        .accountName(accountName)
+        .accountDescription(accountDescription)
         .build();
 
     // API 요청 보내기
@@ -81,7 +81,8 @@ public class DepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/deposit/inquireDepositProducts", HttpMethod.POST, request, InquireDepositProductsModel.Response.class, true);
+    return sendRequest("/deposit/inquireDepositProducts", HttpMethod.POST, request,
+        InquireDepositProductsModel.Response.class, true);
   }
 
   /**
@@ -89,20 +90,22 @@ public class DepositService extends ShinhanApiService {
    *
    * 이 메서드는 납입 고유번호를 받아 납입 상세를 조회하는 API 요청을 보냅니다.
    *
-   * @param paymentUniqueNo 납입 고유번호
+   * @param accountNo 납입 고유번호
    * @return InquireDepositPaymentModel.Response - 납입 상세 정보가 담긴 응답
    */
-  public InquireDepositPaymentModel.Response inquireDepositPaymentModel(Long paymentUniqueNo) {
+  public InquireDepositPaymentModel.Response inquireDepositPaymentModel(String accountNo) {
     // 공통 헤더 생성
-    CommonHeaderModel.Request header = createCommonHeader("inquireDepositPaymentModel", "inquireDepositPaymentModel", null);
+    CommonHeaderModel.Request header = createCommonHeader("inquireDepositPaymentModel", "inquireDepositPaymentModel",
+        null);
 
     // 요청 객체 생성
     InquireDepositPaymentModel.Request request = InquireDepositPaymentModel.Request.builder()
         .Header(header)
-        .paymentUniqueNo(paymentUniqueNo)
+        .accountNo(accountNo)
         .build();
 
     // API 요청 보내기
-    return sendRequest("/deposit/inquireDepositPaymentModel", HttpMethod.POST, request, InquireDepositPaymentModel.Response.class, true);
+    return sendRequest("/deposit/inquireDepositPaymentModel", HttpMethod.POST, request,
+        InquireDepositPaymentModel.Response.class, true);
   }
 }
