@@ -60,7 +60,7 @@ public class DepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/deposit/createDeposit", HttpMethod.POST, request, CreateDepositModel.Response.class, true);
+    return sendRequest("/edu/deposit/createDeposit", HttpMethod.POST, request, CreateDepositModel.Response.class, true);
   }
 
   /**
@@ -81,7 +81,7 @@ public class DepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/deposit/inquireDepositProducts", HttpMethod.POST, request,
+    return sendRequest("/edu/deposit/inquireDepositProducts", HttpMethod.POST, request,
         InquireDepositProductsModel.Response.class, true);
   }
 
@@ -105,7 +105,7 @@ public class DepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/deposit/inquireDepositPaymentModel", HttpMethod.POST, request,
+    return sendRequest("/edu/deposit/inquireDepositPaymentModel", HttpMethod.POST, request,
         InquireDepositPaymentModel.Response.class, true);
   }
 }

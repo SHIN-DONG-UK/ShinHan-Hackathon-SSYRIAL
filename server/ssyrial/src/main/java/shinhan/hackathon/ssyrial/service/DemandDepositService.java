@@ -55,7 +55,7 @@ public class DemandDepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/demandDeposit/createDemandDeposit", HttpMethod.POST, request,
+    return sendRequest("/edu/demandDeposit/createDemandDeposit", HttpMethod.POST, request,
         CreateDemandDepositModel.Response.class, true);
   }
 
@@ -77,7 +77,7 @@ public class DemandDepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/demandDeposit/inquireDemandDepositList", HttpMethod.POST, request,
+    return sendRequest("/edu/demandDeposit/inquireDemandDepositList", HttpMethod.POST, request,
         InquireDemandDepositListModel.Response.class, true);
   }
 
@@ -103,12 +103,12 @@ public class DemandDepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/demandDeposit/createDemandDepositAccount", HttpMethod.POST, request,
+    return sendRequest("/edu/demandDeposit/createDemandDepositAccount", HttpMethod.POST, request,
         CreateDemandDepositAccountModel.Response.class, true);
   }
-// ----------------------- 명석이가 만듦
+  // ----------------------- 명석이가 만듦
 
-// ------------------------용현이가 만듦
+  // ------------------------용현이가 만듦
   /**
    * 계좌에 대한 예금주를 조회하는 메서드입니다.
    *
@@ -119,16 +119,18 @@ public class DemandDepositService extends ShinhanApiService {
    */
   public InquireDemandDepositAccountHolderNameModel.Response inquireDemandDepositAccountHolderName(String accountNo) {
     // 공통 헤더 생성
-    CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccountHolderName", "inquireDemandDepositAccountHolderName", null);
+    CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccountHolderName",
+        "inquireDemandDepositAccountHolderName", null);
 
     // 요청 객체 생성
-    InquireDemandDepositAccountHolderNameModel.Request request = InquireDemandDepositAccountHolderNameModel.Request.builder()
+    InquireDemandDepositAccountHolderNameModel.Request request = InquireDemandDepositAccountHolderNameModel.Request
+        .builder()
         .Header(header)
         .accountNo(accountNo)
         .build();
 
     // API 요청 보내기
-    return sendRequest("/demandDeposit/inquireDemandDepositAccountHolderName", HttpMethod.POST, request,
+    return sendRequest("/edu/demandDeposit/inquireDemandDepositAccountHolderName", HttpMethod.POST, request,
         InquireDemandDepositAccountHolderNameModel.Response.class, true);
   }
 
@@ -142,7 +144,8 @@ public class DemandDepositService extends ShinhanApiService {
    */
   public InquireDemandDepositAccountBalanceModel.Response inquireDemandDepositAccountBalance(String accountNo) {
     // 공통 헤더 생성
-    CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccountBalance", "inquireDemandDepositAccountBalance", null);
+    CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccountBalance",
+        "inquireDemandDepositAccountBalance", null);
 
     // 요청 객체 생성
     InquireDemandDepositAccountBalanceModel.Request request = InquireDemandDepositAccountBalanceModel.Request.builder()
@@ -151,7 +154,7 @@ public class DemandDepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/demandDeposit/inquireDemandDepositAccountBalance", HttpMethod.POST, request,
+    return sendRequest("/edu/demandDeposit/inquireDemandDepositAccountBalance", HttpMethod.POST, request,
         InquireDemandDepositAccountBalanceModel.Response.class, true);
   }
 
@@ -160,10 +163,10 @@ public class DemandDepositService extends ShinhanApiService {
    *
    * 이 메서드는 입금 계좌와 출금 계좌, 거래 금액 등을 받아 이체를 수행하는 API 요청을 보냅니다.
    *
-   * @param depositAccountNo           입금 계좌번호
-   * @param withdrawalAccountNo        출금 계좌번호
-   * @param transactionBalance         거래금액
-   * @param depositTransactionSummary  입금 계좌에 대한 거래 요약 내용
+   * @param depositAccountNo             입금 계좌번호
+   * @param withdrawalAccountNo          출금 계좌번호
+   * @param transactionBalance           거래금액
+   * @param depositTransactionSummary    입금 계좌에 대한 거래 요약 내용
    * @param withdrawalTransactionSummary 출금 계좌에 대한 거래 요약 내용
    * @return UpdateDemandDepositAccountTransferModel.Response - 이체 거래 정보가 담긴 응답
    */
@@ -172,7 +175,8 @@ public class DemandDepositService extends ShinhanApiService {
       String depositTransactionSummary, String withdrawalTransactionSummary) {
 
     // 공통 헤더 생성
-    CommonHeaderModel.Request header = createCommonHeader("updateDemandDepositAccountTransfer", "updateDemandDepositAccountTransfer", null);
+    CommonHeaderModel.Request header = createCommonHeader("updateDemandDepositAccountTransfer",
+        "updateDemandDepositAccountTransfer", null);
 
     // 요청 객체 생성
     UpdateDemandDepositAccountTransferModel.Request request = UpdateDemandDepositAccountTransferModel.Request.builder()
@@ -185,7 +189,7 @@ public class DemandDepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/demandDeposit/updateDemandDepositAccountTransfer", HttpMethod.POST, request,
+    return sendRequest("/edu/demandDeposit/updateDemandDepositAccountTransfer", HttpMethod.POST, request,
         UpdateDemandDepositAccountTransferModel.Response.class, true);
   }
 
@@ -194,18 +198,19 @@ public class DemandDepositService extends ShinhanApiService {
    *
    * 이 메서드는 계좌번호, 조회 시작일자, 조회 종료일자 등을 받아 거래 내역 목록을 조회하는 API 요청을 보냅니다.
    *
-   * @param accountNo      계좌번호
-   * @param startDate      조회 시작일자 (YYYYMMDD)
-   * @param endDate        조회 종료일자 (YYYYMMDD)
+   * @param accountNo       계좌번호
+   * @param startDate       조회 시작일자 (YYYYMMDD)
+   * @param endDate         조회 종료일자 (YYYYMMDD)
    * @param transactionType 거래 구분 (M:입금, D:출금, A:전체)
-   * @param orderByType    정렬 순서 (ASC:오름차순, DESC:내림차순)
+   * @param orderByType     정렬 순서 (ASC:오름차순, DESC:내림차순)
    * @return InquireTransactionHistoryListModel.Response - 거래 내역 목록이 담긴 응답
    */
   public InquireTransactionHistoryListModel.Response inquireTransactionHistoryList(
       String accountNo, String startDate, String endDate, String transactionType, String orderByType) {
 
     // 공통 헤더 생성
-    CommonHeaderModel.Request header = createCommonHeader("inquireTransactionHistoryList", "inquireTransactionHistoryList", null);
+    CommonHeaderModel.Request header = createCommonHeader("inquireTransactionHistoryList",
+        "inquireTransactionHistoryList", null);
 
     // 요청 객체 생성
     InquireTransactionHistoryListModel.Request request = InquireTransactionHistoryListModel.Request.builder()
@@ -218,7 +223,7 @@ public class DemandDepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/demandDeposit/inquireTransactionHistoryList", HttpMethod.POST, request,
+    return sendRequest("/edu/demandDeposit/inquireTransactionHistoryList", HttpMethod.POST, request,
         InquireTransactionHistoryListModel.Response.class, true);
   }
 
@@ -227,7 +232,7 @@ public class DemandDepositService extends ShinhanApiService {
    *
    * 이 메서드는 계좌번호와 거래 고유번호를 받아 거래 내역을 단건 조회하는 API 요청을 보냅니다.
    *
-   * @param accountNo          계좌번호
+   * @param accountNo           계좌번호
    * @param transactionUniqueNo 거래 고유번호
    * @return InquireTransactionHistoryModel.Response - 거래 내역이 담긴 응답
    */
@@ -235,7 +240,8 @@ public class DemandDepositService extends ShinhanApiService {
       Long transactionUniqueNo) {
 
     // 공통 헤더 생성
-    CommonHeaderModel.Request header = createCommonHeader("inquireTransactionHistory", "inquireTransactionHistory", null);
+    CommonHeaderModel.Request header = createCommonHeader("inquireTransactionHistory", "inquireTransactionHistory",
+        null);
 
     // 요청 객체 생성
     InquireTransactionHistoryModel.Request request = InquireTransactionHistoryModel.Request.builder()
@@ -245,7 +251,7 @@ public class DemandDepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/demandDeposit/inquireTransactionHistory", HttpMethod.POST, request,
+    return sendRequest("/edu/demandDeposit/inquireTransactionHistory", HttpMethod.POST, request,
         InquireTransactionHistoryModel.Response.class, true);
   }
 }
