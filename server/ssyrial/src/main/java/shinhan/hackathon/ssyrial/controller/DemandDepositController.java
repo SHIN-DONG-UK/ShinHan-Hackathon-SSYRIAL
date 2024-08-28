@@ -169,7 +169,7 @@ public class DemandDepositController extends BaseController {
   public ResponseEntity<ApiResponse<UpdateDemandDepositAccountTransferModel.Response>> updateDemandDepositAccountTransfer(
       @RequestBody UpdateDemandDepositAccountTransferModel.Request request) {
         UpdateDemandDepositAccountTransferModel.Response response = demandDepositService
-        .UpdateDemandDepositAccountTransfer(
+        .updateDemandDepositAccountTransfer(
           request.getUserKey(),request.getDepositAccountNo(),request.getTransactionBalance(),request.getWithdrawalAccountNo(),request.getDepositTransactionSummary(),request.getWithdrawalTransactionSummary() );
     return successResponse(response);
   }
