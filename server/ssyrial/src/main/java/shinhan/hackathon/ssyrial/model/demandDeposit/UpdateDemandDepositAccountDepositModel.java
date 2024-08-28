@@ -74,7 +74,7 @@ public class UpdateDemandDepositAccountDepositModel {
     private CommonHeaderModel.Response Header;
 
     @JsonProperty("REC")
-    private List<TransactionRecord> REC;
+    private TransactionRecord REC;
 
     /**
      * 거래 정보 데이터를 담는 내부 클래스입니다.
