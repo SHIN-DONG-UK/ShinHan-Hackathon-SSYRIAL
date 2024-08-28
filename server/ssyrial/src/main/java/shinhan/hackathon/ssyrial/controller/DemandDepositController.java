@@ -95,4 +95,14 @@ public class DemandDepositController extends BaseController {
     return successResponse(response);
   }
 
+  /* 
+    /api/demandDeposit/inquireDemandDepositAccountHolderName : 예금주 조회
+  */ 
+  @PostMapping("/inquireDemandDepositAccountHolderName")
+  public ResponseEntity<ApiResponse<InquireDemandDepositAccountHolderNameModel.Response>> inquireDemandDepositAccountHolderName(
+      @RequestBody InquireDemandDepositAccountHolderNameModel.Request request) {
+        InquireDemandDepositAccountHolderNameModel.Response response = demandDepositService.inquireDemandDepositAccountHolderName(
+        request.getAccountNo());
+    return successResponse(response);
+
 }
