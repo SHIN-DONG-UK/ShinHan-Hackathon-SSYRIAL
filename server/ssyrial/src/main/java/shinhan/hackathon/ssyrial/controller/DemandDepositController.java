@@ -3,17 +3,7 @@ package shinhan.hackathon.ssyrial.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shinhan.hackathon.ssyrial.model.ApiResponse;
-import shinhan.hackathon.ssyrial.model.demandDeposit.CreateDemandDepositAccountModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.CreateDemandDepositModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountBalanceModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositListModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireTransactionHistoryListModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountHolderNameModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountListModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireTransactionHistoryModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.UpdateDemandDepositAccountTransferModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.UpdateDemandDepositAccountDepositModel;
+import shinhan.hackathon.ssyrial.model.demandDeposit.*;
 import shinhan.hackathon.ssyrial.service.DemandDepositService;
 
 /**

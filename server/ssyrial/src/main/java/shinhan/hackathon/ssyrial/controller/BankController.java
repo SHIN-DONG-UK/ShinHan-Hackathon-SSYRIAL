@@ -3,7 +3,7 @@ package shinhan.hackathon.ssyrial.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shinhan.hackathon.ssyrial.model.ApiResponse;
-import shinhan.hackathon.ssyrial.model.bank.InquireBankCodes;
+import shinhan.hackathon.ssyrial.model.bank.*;
 import shinhan.hackathon.ssyrial.service.BankService;
 
 /**

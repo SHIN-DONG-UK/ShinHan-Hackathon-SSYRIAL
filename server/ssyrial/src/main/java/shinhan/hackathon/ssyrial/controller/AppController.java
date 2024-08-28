@@ -3,8 +3,7 @@ package shinhan.hackathon.ssyrial.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shinhan.hackathon.ssyrial.model.ApiResponse;
-import shinhan.hackathon.ssyrial.model.api.IssuedApiKeyModel;
-import shinhan.hackathon.ssyrial.model.api.ReIssuedApiKeyModel;
+import shinhan.hackathon.ssyrial.model.api.*;
 import shinhan.hackathon.ssyrial.service.AppService;
 
 /**
