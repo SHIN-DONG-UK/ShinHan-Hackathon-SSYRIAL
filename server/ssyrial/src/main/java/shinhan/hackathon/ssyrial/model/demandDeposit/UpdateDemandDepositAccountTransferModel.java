@@ -32,7 +32,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+
 
 /**
  * UpdateDemandDepositAccountTransferModel 클래스는 계좌 이체 요청 및 응답 데이터를 담는 모델 클래스입니다.
