@@ -9,6 +9,7 @@ import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccount
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositListModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountHolderNameModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountListModel;
+import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountModel;
 import shinhan.hackathon.ssyrial.service.DemandDepositService;
 
 /**
@@ -113,11 +114,23 @@ public class DemandDepositController extends BaseController {
   * /api/demandDeposit/inquireDemandDepositAccountList : 계좌 목록 조회
   */
   @PostMapping("/inquireDemandDepositAccountList")
-  public ResponseEntity<ApiResponse<InquireDemandDepositAccountListModel.Response>> InquireDemandDepositAccountList(
+  public ResponseEntity<ApiResponse<InquireDemandDepositAccountListModel.Response>> inquireDemandDepositAccountList(
       @RequestBody InquireDemandDepositAccountListModel.Request request) {
     InquireDemandDepositAccountListModel.Response response = demandDepositService
         .inquireDemandDepositAccountList(
           request.getUserKey());
+    return successResponse(response);
+  }
+
+  /*
+  * /api/demandDeposit/inquireDemandDepositAccount : 계좌 조회 (단건)
+  */
+  @PostMapping("/inquireDemandDepositAccount")
+  public ResponseEntity<ApiResponse<InquireDemandDepositAccountModel.Response>> inquireDemandDepositAccount(
+      @RequestBody InquireDemandDepositAccountModel.Request request) {
+    InquireDemandDepositAccountModel.Response response = demandDepositService
+        .inquireDemandDepositAccount(
+          request.getUserKey(), request.getAccountNo());
     return successResponse(response);
   }
 }

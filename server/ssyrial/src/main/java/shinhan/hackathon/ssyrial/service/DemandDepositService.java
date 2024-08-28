@@ -13,6 +13,7 @@ import shinhan.hackathon.ssyrial.model.demandDeposit.UpdateDemandDepositAccountT
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireTransactionHistoryListModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireTransactionHistoryModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountListModel;
+import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountModel;
 
 /**
  * DemandDepositService 클래스는 수시입출금 상품 관련 비즈니스 로직을 처리하는 서비스 클래스입니다.
@@ -272,5 +273,26 @@ public class DemandDepositService extends ShinhanApiService {
     // API 요청 보내기
     return sendRequest("/edu/demandDeposit/inquireDemandDepositAccountList", HttpMethod.POST, request,
     InquireDemandDepositAccountListModel.Response.class, true);
+  }
+
+  
+  /*
+  InquireDemandDepositAccountModel 계좌 조회 (단건)
+   */
+  public InquireDemandDepositAccountModel.Response inquireDemandDepositAccount(String userKey, String accountNo) {
+
+    // 공통 헤더 생성
+    CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccount", "inquireDemandDepositAccount",
+        userKey);
+
+    // 요청 객체 생성
+    InquireDemandDepositAccountModel.Request request = InquireDemandDepositAccountModel.Request.builder()
+        .Header(header)
+        .accountNo(accountNo)
+        .build();
+
+    // API 요청 보내기
+    return sendRequest("/edu/demandDeposit/inquireDemandDepositAccount", HttpMethod.POST, request,
+    InquireDemandDepositAccountModel.Response.class, true);
   }
 }
