@@ -13,6 +13,7 @@ import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccount
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireTransactionHistoryModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.UpdateDemandDepositAccountTransferModel;
+import shinhan.hackathon.ssyrial.model.demandDeposit.UpdateDemandDepositAccountDepositModel;
 import shinhan.hackathon.ssyrial.service.DemandDepositService;
 
 /**
@@ -171,6 +172,18 @@ public class DemandDepositController extends BaseController {
         UpdateDemandDepositAccountTransferModel.Response response = demandDepositService
         .updateDemandDepositAccountTransfer(
           request.getUserKey(),request.getDepositAccountNo(),request.getTransactionBalance(),request.getWithdrawalAccountNo(),request.getDepositTransactionSummary(),request.getWithdrawalTransactionSummary() );
+    return successResponse(response);
+  }
+
+  /*
+  * /api/demandDeposit/updateDemandDepositAccountDeposit : 계좌 입금
+  */
+   @PostMapping("/updateDemandDepositAccountDeposit")
+  public ResponseEntity<ApiResponse<UpdateDemandDepositAccountDepositModel.Response>> updateDemandDepositAccountDeposit(
+      @RequestBody UpdateDemandDepositAccountDepositModel.Request request) {
+        UpdateDemandDepositAccountDepositModel.Response response = demandDepositService
+        .updateDemandDepositAccountDeposit(
+          request.getUserKey(),request.getDepositAccountNo(),request.getTransactionBalance(),request.getTransactionSummary());
     return successResponse(response);
   }
 
