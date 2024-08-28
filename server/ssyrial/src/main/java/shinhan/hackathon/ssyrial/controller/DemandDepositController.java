@@ -119,4 +119,5 @@ public class DemandDepositController extends BaseController {
         .inquireDemandDepositAccountList(
           request.getUserKey());
     return successResponse(response);
+  }
 }
