@@ -63,6 +63,7 @@ public enum ErrorCode {
   // 서버가 처리 할 방법을 모르는 경우 발생
   INTERNAL_SERVER_ERROR(500, "G999", "Internal Server Error Exception"),
 
+  BUSINESS_EXCEPTION_ERROR(200, "B999", "Business Exception Error"),
   /**
    * ******************************* Custom Error CodeList
    * ***************************************
