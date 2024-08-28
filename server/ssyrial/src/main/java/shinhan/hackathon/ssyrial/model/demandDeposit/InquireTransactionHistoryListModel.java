@@ -95,13 +95,19 @@ public class InquireTransactionHistoryListModel {
     private CommonHeaderModel.Response Header;
 
     @JsonProperty("REC")
-    private List<TransactionHistoryInfo> REC; // 거래내역 리스트 (필수 아님)
+    private REC REC; // 거래내역 리스트 (필수 아님)
 
-    @JsonProperty("totalCount")
-    private String totalCount; // 선택: 조회총건수
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class REC {
+      @JsonProperty("totalCount")
+      private String totalCount; // 선택: 조회총건수
 
-    @JsonProperty("list")
-    private TransactionHistoryInfo list; // 선택: 거래목록 리스트
+      @JsonProperty("list")
+      private List<TransactionHistoryInfo> list; // 선택: 거래목록 리스트
+    }
 
     /**
      * 거래내역 정보를 담는 내부 클래스입니다.
