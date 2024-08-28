@@ -24,12 +24,13 @@ package shinhan.hackathon.ssyrial.model.transactionMemo;
 
 import lombok.Getter;
 import lombok.Setter;
-import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 
 /**
  * TransactionMemoModel 클래스는 거래내역 메모 작성 및 수정 요청 및 응답 데이터를 담는 모델 클래스입니다.

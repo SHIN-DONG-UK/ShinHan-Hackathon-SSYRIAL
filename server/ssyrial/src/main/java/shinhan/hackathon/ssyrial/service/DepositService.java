@@ -15,9 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
-import shinhan.hackathon.ssyrial.model.deposit.CreateDepositModel;
-import shinhan.hackathon.ssyrial.model.deposit.InquireDepositProductsModel;
-import shinhan.hackathon.ssyrial.model.deposit.InquireDepositPaymentModel;
+import shinhan.hackathon.ssyrial.model.deposit.*;
 
 /**
  * DepositService 클래스는 예금 상품 관련 비즈니스 로직을 처리하는 서비스 클래스입니다.

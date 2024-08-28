@@ -38,12 +38,13 @@ package shinhan.hackathon.ssyrial.model.deposit;
 
 import lombok.Getter;
 import lombok.Setter;
-import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 
 /**
  * CreateDepositModel 클래스는 예금 상품 등록 요청 및 응답 데이터를 담는 모델 클래스입니다.

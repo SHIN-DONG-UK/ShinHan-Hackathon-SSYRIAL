@@ -33,16 +33,18 @@ package shinhan.hackathon.ssyrial.model.demandDeposit;
 
 import lombok.Getter;
 import lombok.Setter;
-import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotBlank;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 
 /**
  * InquireTransactionHistoryListModel 클래스는 계좌 거래 내역 조회 요청 및 응답 데이터를 담는 모델
@@ -61,7 +63,7 @@ public class InquireTransactionHistoryListModel {
   public static class Request {
     @JsonProperty("Header")
     private CommonHeaderModel.Request Header;
-    
+
     @NotBlank(message = "사용자 키는 필수 입력 항목입니다.")
     private String userKey;
 

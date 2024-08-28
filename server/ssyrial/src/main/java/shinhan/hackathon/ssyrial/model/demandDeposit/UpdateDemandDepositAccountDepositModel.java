@@ -21,14 +21,15 @@ package shinhan.hackathon.ssyrial.model.demandDeposit;
 
 import lombok.Getter;
 import lombok.Setter;
-import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import jakarta.validation.constraints.NotBlank;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.validation.constraints.NotBlank;
+
+import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 
 /**
  * DepositToAccountModel 클래스는 계좌 입금 요청 및 응답 데이터를 담는 모델 클래스입니다.
@@ -49,7 +50,7 @@ public class UpdateDemandDepositAccountDepositModel {
 
     @NotBlank(message = "사용자 키는 필수 입력 항목입니다.")
     private String userKey;
-    
+
     @JsonProperty("accountNo")
     private String accountNo;
 

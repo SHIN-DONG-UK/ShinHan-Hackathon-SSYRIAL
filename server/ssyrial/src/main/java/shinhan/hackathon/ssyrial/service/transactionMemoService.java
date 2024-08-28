@@ -8,7 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
-import shinhan.hackathon.ssyrial.model.transactionMemo.TransactionMemoModel;
+import shinhan.hackathon.ssyrial.model.transactionMemo.*;
 
 @Service
 public class TransactionMemoService extends ShinhanApiService {
@@ -17,7 +17,8 @@ public class TransactionMemoService extends ShinhanApiService {
     super(restTemplate, apiKey);
   }
 
-  public TransactionMemoModel.Response transactionMemo(String accountNo, String transactionUniqueNo, String transactionMemo) {
+  public TransactionMemoModel.Response transactionMemo(String accountNo, String transactionUniqueNo,
+      String transactionMemo) {
     // 공통 헤더 생성, userKey는 필요하지 않음
     CommonHeaderModel.Request header = createCommonHeader("transactionMemo", "transactionMemo", null);
 

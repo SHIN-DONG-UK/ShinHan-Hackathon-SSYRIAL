@@ -3,8 +3,7 @@ package shinhan.hackathon.ssyrial.service;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import shinhan.hackathon.ssyrial.model.member.MemberModel;
-import shinhan.hackathon.ssyrial.model.member.MemberSearchModel;
+import shinhan.hackathon.ssyrial.model.member.*;
 
 /**
  * MemberService 클래스는 회원 등록 및 검색과 관련된 비즈니스 로직을 처리하는 서비스 클래스입니다.

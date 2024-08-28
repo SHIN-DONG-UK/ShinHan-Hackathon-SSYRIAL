@@ -22,15 +22,15 @@ package shinhan.hackathon.ssyrial.model.demandDeposit;
 
 import lombok.Getter;
 import lombok.Setter;
-import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import jakarta.validation.constraints.NotBlank;
-
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.validation.constraints.NotBlank;
+
+import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 
 /**
  * InquireDemandDepositAccountHolderNameModel 클래스는 특정 계좌의 예금주명 조회 요청 및 응답 데이터를
@@ -49,7 +49,7 @@ public class InquireDemandDepositAccountHolderNameModel {
   public static class Request {
     @JsonProperty("Header")
     private CommonHeaderModel.Request Header;
-        
+
     @NotBlank(message = "사용자 키는 필수 입력 항목입니다.")
     private String userKey;
 
