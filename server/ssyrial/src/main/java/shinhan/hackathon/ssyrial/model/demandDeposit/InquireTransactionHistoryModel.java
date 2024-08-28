@@ -51,6 +51,9 @@ public class InquireTransactionHistoryModel {
   public static class Request {
     @JsonProperty("Header")
     private CommonHeaderModel.Request Header;
+    
+    @NotBlank(message = "사용자 키는 필수 입력 항목입니다.")
+    private String userKey;
 
     @JsonProperty("accountNo")
     private String accountNo; // 필수: 계좌번호, 길이: 16
