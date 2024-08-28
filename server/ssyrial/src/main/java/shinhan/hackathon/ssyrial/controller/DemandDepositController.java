@@ -10,7 +10,7 @@ import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositListMod
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountHolderNameModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountListModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.inquireTransactionHistoryList;
+import shinhan.hackathon.ssyrial.model.demandDeposit.inquireTransactionHistoryListModel;
 import shinhan.hackathon.ssyrial.service.DemandDepositService;
 
 /**
