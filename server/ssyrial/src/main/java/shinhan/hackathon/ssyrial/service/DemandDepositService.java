@@ -173,7 +173,7 @@ public class DemandDepositService extends ShinhanApiService {
    */
   public UpdateDemandDepositAccountTransferModel.Response updateDemandDepositAccountTransfer(
     String  userKey,
-      String depositAccountNo, String withdrawalAccountNo, Long transactionBalance,
+      String depositAccountNo, String withdrawalAccountNo, String transactionBalance,
       String depositTransactionSummary, String withdrawalTransactionSummary) {
 
     // 공통 헤더 생성

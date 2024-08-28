@@ -62,7 +62,7 @@ public class UpdateDemandDepositAccountTransferModel {
     private String depositAccountNo; // 필수: 입금계좌번호, 길이: 16
 
     @JsonProperty("transactionBalance")
-    private Long transactionBalance; // 필수: 거래금액
+    private String transactionBalance; // 필수: 거래금액
 
     @JsonProperty("withdrawalAccountNo")
     private String withdrawalAccountNo; // 필수: 출금계좌번호, 길이: 16
