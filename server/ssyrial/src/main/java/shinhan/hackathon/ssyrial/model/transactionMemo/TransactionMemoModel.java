@@ -52,7 +52,7 @@ public class TransactionMemoModel {
     private String accountNo; // 필수: 계좌번호, 길이: 16
 
     @JsonProperty("transactionUniqueNo")
-    private Long transactionUniqueNo; // 필수: 거래고유번호
+    private String transactionUniqueNo; // 필수: 거래고유번호
 
     @JsonProperty("transactionMemo")
     private String transactionMemo; // 선택: 메모, 길이: 255
@@ -82,13 +82,13 @@ public class TransactionMemoModel {
     @AllArgsConstructor
     public static class MemoDetails {
       @JsonProperty("memoUniqueNo")
-      private Long memoUniqueNo; // 선택: 메모 고유번호
+      private String memoUniqueNo; // 선택: 메모 고유번호
 
       @JsonProperty("accountNo")
       private String accountNo; // 필수: 계좌번호, 길이: 16
 
       @JsonProperty("transactionUniqueNo")
-      private Long transactionUniqueNo; // 필수: 거래 고유번호
+      private String transactionUniqueNo; // 필수: 거래 고유번호
 
       @JsonProperty("transactionMemo")
       private String transactionMemo; // 선택: 메모, 길이: 255
