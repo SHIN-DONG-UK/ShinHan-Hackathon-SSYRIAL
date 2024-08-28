@@ -70,7 +70,7 @@ public class InquireDemandDepositAccountHolderNameModel {
     private CommonHeaderModel.Response Header;
 
     @JsonProperty("REC")
-    private List<AccountOwnerInfo> REC; // 계좌 정보 리스트 (필수 아님)
+    private AccountOwnerInfo REC; // 계좌 정보 리스트 (필수 아님)
 
     /**
      * 계좌 정보를 담는 내부 클래스입니다.
