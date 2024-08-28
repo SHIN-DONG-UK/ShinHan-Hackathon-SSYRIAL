@@ -41,6 +41,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * InquireTransactionHistoryListModel 클래스는 계좌 거래 내역 조회 요청 및 응답 데이터를 담는 모델
