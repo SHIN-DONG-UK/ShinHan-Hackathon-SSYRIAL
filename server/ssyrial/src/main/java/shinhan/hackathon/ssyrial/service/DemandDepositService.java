@@ -271,6 +271,6 @@ public class DemandDepositService extends ShinhanApiService {
 
     // API 요청 보내기
     return sendRequest("/edu/demandDeposit/inquireDemandDepositAccountList", HttpMethod.POST, request,
-        inquireDemandDepositAccountList.Response.class, true);
+    InquireDemandDepositAccountListModel.Response.class, true);
   }
 }
