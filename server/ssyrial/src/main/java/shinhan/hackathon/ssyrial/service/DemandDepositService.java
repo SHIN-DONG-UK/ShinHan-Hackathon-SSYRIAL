@@ -12,6 +12,7 @@ import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccount
 import shinhan.hackathon.ssyrial.model.demandDeposit.UpdateDemandDepositAccountTransferModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireTransactionHistoryListModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireTransactionHistoryModel;
+import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountListModel;
 
 /**
  * DemandDepositService 클래스는 수시입출금 상품 관련 비즈니스 로직을 처리하는 서비스 클래스입니다.
