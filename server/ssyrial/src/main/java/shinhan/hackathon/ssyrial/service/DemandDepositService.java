@@ -266,7 +266,8 @@ public class DemandDepositService extends ShinhanApiService {
 
     // 요청 객체 생성
     InquireDemandDepositAccountListModel.Request request = InquireDemandDepositAccountListModel.Request.builder()
-        .Header(header);
+        .Header(header)
+        .build();
 
     // API 요청 보내기
     return sendRequest("/edu/demandDeposit/inquireDemandDepositAccountList", HttpMethod.POST, request,
