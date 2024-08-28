@@ -117,10 +117,10 @@ public class DemandDepositService extends ShinhanApiService {
    * @param accountNo 계좌번호
    * @return InquireDemandDepositAccountHolderNameModel.Response - 예금주 정보가 담긴 응답
    */
-  public InquireDemandDepositAccountHolderNameModel.Response inquireDemandDepositAccountHolderName(String accountNo) {
+  public InquireDemandDepositAccountHolderNameModel.Response inquireDemandDepositAccountHolderName(String userKey, String accountNo) {
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccountHolderName",
-        "inquireDemandDepositAccountHolderName", null);
+        "inquireDemandDepositAccountHolderName", userKey);
 
     // 요청 객체 생성
     InquireDemandDepositAccountHolderNameModel.Request request = InquireDemandDepositAccountHolderNameModel.Request

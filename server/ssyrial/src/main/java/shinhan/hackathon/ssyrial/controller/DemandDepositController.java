@@ -104,7 +104,7 @@ public class DemandDepositController extends BaseController {
   public ResponseEntity<ApiResponse<InquireDemandDepositAccountHolderNameModel.Response>> inquireDemandDepositAccountHolderName(
       @RequestBody InquireDemandDepositAccountHolderNameModel.Request request) {
     InquireDemandDepositAccountHolderNameModel.Response response = demandDepositService
-        .inquireDemandDepositAccountHolderName(
+        .inquireDemandDepositAccountHolderName(request.getUserKey(),
             request.getAccountNo());
     return successResponse(response);
   }
