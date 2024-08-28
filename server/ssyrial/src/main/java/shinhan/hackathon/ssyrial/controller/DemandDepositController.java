@@ -156,7 +156,7 @@ public class DemandDepositController extends BaseController {
       @RequestBody InquireTransactionHistoryModel.Request request) {
         InquireTransactionHistoryModel.Response response = demandDepositService
         .inquireTransactionHistory(
-          request.getUserKey(), request.getAccountNo(), request.transactionUniqueNo());
+          request.getUserKey(), request.getAccountNo(), request.getTransactionUniqueNo());
     return successResponse(response);
   }
 

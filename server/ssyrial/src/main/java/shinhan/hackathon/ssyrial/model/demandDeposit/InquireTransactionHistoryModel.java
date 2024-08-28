@@ -61,7 +61,7 @@ public class InquireTransactionHistoryModel {
     private String accountNo; // 필수: 계좌번호, 길이: 16
 
     @JsonProperty("transactionUniqueNo")
-    private Long transactionUniqueNo; // 필수: 거래고유번호
+    private String transactionUniqueNo; // 필수: 거래고유번호
   }
 
   /**
