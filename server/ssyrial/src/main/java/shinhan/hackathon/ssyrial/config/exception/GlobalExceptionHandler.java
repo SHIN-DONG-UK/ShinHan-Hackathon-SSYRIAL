@@ -168,20 +168,6 @@ public class GlobalExceptionHandler {
     return new ResponseEntity<>(response, HTTP_STATUS_OK);
   }
 
-  /**
-   * BusinessException에서 발생한 에러
-   *
-   * @param ex BusinessExceptionHandler
-   * @return ResponseEntity
-   */
-  @ExceptionHandler(BusinessExceptionHandler.class)
-  public ResponseEntity<ErrorResponse> handleCustomException(BusinessExceptionHandler ex) {
-    // 로깅 시 줄바꿈이 포함된 메시지 출력
-    log.error("BusinessException occurred: \n{}", ex.getMessage());
-    final ErrorResponse response = ErrorResponse.of(ErrorCode.BUSINESS_EXCEPTION_ERROR, ex.getMessage());
-    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-  }
-
   // ==================================================================================================================
 
   /**
