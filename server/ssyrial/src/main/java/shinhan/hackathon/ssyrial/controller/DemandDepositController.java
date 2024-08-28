@@ -173,7 +173,7 @@ public class DemandDepositController extends BaseController {
       @RequestBody UpdateDemandDepositAccountDepositModel.Request request) {
         UpdateDemandDepositAccountDepositModel.Response response = demandDepositService
         .updateDemandDepositAccountDeposit(
-          request.getUserKey(),request.getDepositAccountNo(),request.getTransactionBalance(),request.getTransactionSummary());
+          request.getUserKey(),request.getAccountNo(),request.getTransactionBalance(),request.getTransactionSummary());
     return successResponse(response);
   }
 
