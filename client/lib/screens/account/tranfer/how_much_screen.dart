@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:ssyrial/screens/account/tranfer/how_much_keypad_dialog.dart';
 
 
 class HowMuchScreen extends StatefulWidget {
+  final String initialMoney = "입력해 주세요.";
+
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _HowMuchScreenState createState() => _HowMuchScreenState();
 }
 
-class _MainScreenState extends State<HowMuchScreen> {
-  int balance = 0; // 잔고(숫자) API에서 가져온 값을 저장
+class _HowMuchScreenState extends State<HowMuchScreen> {
+  String _balance = ''; // 잔고(숫자) API에서 가져온 값을 저장
+  String _enteredMoney = ''; // 보낼 돈을 저장해놓는 변수
+  
   TextEditingController _controller = TextEditingController();
 
   @override
@@ -20,35 +25,26 @@ class _MainScreenState extends State<HowMuchScreen> {
     // 여기에 실제 API 호출을 통해 데이터를 가져오는 로직이 들어가야 합니다.
     // 예시로 임의의 값을 설정합니다.
     setState(() {
-      balance = 100000; // API로부터 받은 잔고
+      _balance = "100000"; // API로부터 받은 잔고
     });
   }
-
+///////////////////////////////////////////////////////////////////
+  // 숫자 팝업창
   void _showInputDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('보낼 돈 입력'),
-          content: TextField(
-            controller: _controller,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(hintText: "보낼 돈을 입력하세요"),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('확인'),
-              onPressed: () {
-                // 입력된 값을 처리하는 로직 추가
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+        return HowMuchKeypadDialog(
+          onNumberEntered: (enteredNumber) {
+            setState(() {
+              _enteredMoney = enteredNumber; // 입력된 계좌 번호 저장
+            });
+          },
         );
       },
     );
   }
-
+////////////////////////////////////////////////////////////////
   void _showConfirmationDialog() {
     showDialog(
       context: context,
@@ -80,39 +76,29 @@ class _MainScreenState extends State<HowMuchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('예제 화면'),
+        title: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child : Text('돌아가기'),
+        ),
       ),
       body: Column(
         children: <Widget>[
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context); // 돌아가기 버튼 -> 스크린 팝
-            },
-            child: Text('돌아가기'),
-          ),
-          Text('얼마'),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Text('남은돈'),
-                    Text(balance.toString()), // 잔고(숫자)
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Text('보낼돈'),
-                    ElevatedButton(
-                      onPressed: _showInputDialog, // 숫자를 입력할 수 있는 새로운 팝업창 생성
-                      child: Text('입력받기'),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          Text('얼마를 보낼까요?'),
+          Center(
+            child: Container(
+              child: Column(
+                children: [
+                  Text('남은 돈'),
+                  Text('1,500,000 원'),
+                  Text('보낼 돈'),
+                  TextButton(
+                    onPressed: _showInputDialog,
+                      child: Text(_enteredMoney.isEmpty ? widget.initialMoney : _enteredMoney))
+                ],
+              )
+            )
           ),
           Visibility(
             visible: false, // 숨겨져 있는 버튼

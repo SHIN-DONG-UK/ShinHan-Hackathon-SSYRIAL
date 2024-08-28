@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
+class eHowMuchScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HowMuchScreen(),
-    );
-  }
+  _eHowMuchScreenState createState() => _eHowMuchScreenState();
 }
 
-class HowMuchScreen extends StatefulWidget {
-  @override
-  _HowMuchScreenState createState() => _HowMuchScreenState();
-}
-
-class _HowMuchScreenState extends State<HowMuchScreen> {
+class _eHowMuchScreenState extends State<eHowMuchScreen> {
   // Controller for the amount input
   final TextEditingController _amountController = TextEditingController();
 

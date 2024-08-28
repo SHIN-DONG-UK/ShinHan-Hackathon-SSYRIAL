@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ssyrial/screens/account/tranfer/account_confirmation_dialog.dart';
 import 'package:ssyrial/screens/account/tranfer/account_number_input_dialog.dart';
 import 'package:ssyrial/screens/account/tranfer/bank_selection_dialog.dart';
-import 'package:ssyrial/screens/account/tranfer/how_much_reject_password_dialog.dart';
+import 'package:ssyrial/screens/account/tranfer/how_much_screen.dart';
 
 class AccountInfoInputScreen extends StatefulWidget {
   final String initialTitle; // 초기 화면의 제목
