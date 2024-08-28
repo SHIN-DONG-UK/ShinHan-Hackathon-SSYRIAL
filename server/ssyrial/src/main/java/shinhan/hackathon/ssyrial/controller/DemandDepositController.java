@@ -139,9 +139,9 @@ public class DemandDepositController extends BaseController {
   * /api/demandDeposit/inquireTransactionHistoryList : 계좌 거래 내역 조회
   */
    @PostMapping("/inquireTransactionHistoryList")
-  public ResponseEntity<ApiResponse<InquireTransactionHistoryListModel.Response>> inquireTransactionHistoryList(
-      @RequestBody InquireTransactionHistoryListModel.Request request) {
-    InquireTransactionHistoryListModel.Response response = demandDepositService
+  public ResponseEntity<ApiResponse<inquireTransactionHistoryListModel.Response>> inquireTransactionHistoryList(
+      @RequestBody inquireTransactionHistoryListModel.Request request) {
+    inquireTransactionHistoryListModel.Response response = demandDepositService
         .inquireTransactionHistoryList(
           request.getUserKey(), request.getAccountNo(), request.getStartDate(), request.getEndDate(), request.getTransactionType(), request.getOrderByType());
     return successResponse(response);

@@ -206,12 +206,12 @@ public class DemandDepositService extends ShinhanApiService {
    * @param orderByType     정렬 순서 (ASC:오름차순, DESC:내림차순)
    * @return InquireTransactionHistoryListModel.Response - 거래 내역 목록이 담긴 응답
    */
-  public InquireTransactionHistoryListModel.Response inquireTransactionHistoryList(
+  public InquireTransactionHistoryListModel.Response inquireTransactionHistoryList(String userKey,
       String accountNo, String startDate, String endDate, String transactionType, String orderByType) {
 
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("inquireTransactionHistoryList",
-        "inquireTransactionHistoryList", null);
+        "inquireTransactionHistoryList", userKey);
 
     // 요청 객체 생성
     InquireTransactionHistoryListModel.Request request = InquireTransactionHistoryListModel.Request.builder()
