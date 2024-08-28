@@ -237,12 +237,12 @@ public class DemandDepositService extends ShinhanApiService {
    * @param transactionUniqueNo 거래 고유번호
    * @return InquireTransactionHistoryModel.Response - 거래 내역이 담긴 응답
    */
-  public InquireTransactionHistoryModel.Response inquireTransactionHistory(String accountNo,
+  public InquireTransactionHistoryModel.Response inquireTransactionHistory(String userKey, String accountNo,
       String transactionUniqueNo) {
 
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("inquireTransactionHistory", "inquireTransactionHistory",
-        null);
+    userKey);
 
     // 요청 객체 생성
     InquireTransactionHistoryModel.Request request = InquireTransactionHistoryModel.Request.builder()
