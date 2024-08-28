@@ -10,12 +10,8 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicLong;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 /**
  * CommonHeaderModel 클래스는 API 요청/응답 시 공통으로 사용되는 헤더 데이터를 담는 모델 클래스입니다.
@@ -92,9 +88,7 @@ public class CommonHeaderModel {
      * @return 20자리의 고유한 번호
      */
     private static String generateUniqueTransactionNumber(LocalDateTime now) {
-      // 한국 시간대 설정
-      ZonedDateTime zonedDateTime = now.atZone(ZoneId.of("Asia/Seoul"));
-      String dateTime = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+      String dateTime = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
       long sequenceNumber = sequence.getAndIncrement() % 1000000; // 6자리 순차 번호
       return String.format("%s%06d", dateTime, sequenceNumber);
     }
