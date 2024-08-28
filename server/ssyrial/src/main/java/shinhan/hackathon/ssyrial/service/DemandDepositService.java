@@ -172,12 +172,13 @@ public class DemandDepositService extends ShinhanApiService {
    * @return UpdateDemandDepositAccountTransferModel.Response - 이체 거래 정보가 담긴 응답
    */
   public UpdateDemandDepositAccountTransferModel.Response updateDemandDepositAccountTransfer(
+    String  userKey,
       String depositAccountNo, String withdrawalAccountNo, Long transactionBalance,
       String depositTransactionSummary, String withdrawalTransactionSummary) {
 
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("updateDemandDepositAccountTransfer",
-        "updateDemandDepositAccountTransfer", null);
+        "updateDemandDepositAccountTransfer", userKey);
 
     // 요청 객체 생성
     UpdateDemandDepositAccountTransferModel.Request request = UpdateDemandDepositAccountTransferModel.Request.builder()
