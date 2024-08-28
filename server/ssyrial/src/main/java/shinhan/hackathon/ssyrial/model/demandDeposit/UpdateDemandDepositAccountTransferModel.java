@@ -27,15 +27,16 @@ package shinhan.hackathon.ssyrial.model.demandDeposit;
 
 import lombok.Getter;
 import lombok.Setter;
+import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 
-import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 
 /**
  * UpdateDemandDepositAccountTransferModel 클래스는 계좌 이체 요청 및 응답 데이터를 담는 모델 클래스입니다.

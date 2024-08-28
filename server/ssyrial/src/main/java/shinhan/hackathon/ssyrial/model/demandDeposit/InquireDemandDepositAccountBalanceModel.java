@@ -58,7 +58,7 @@ public class InquireDemandDepositAccountBalanceModel {
 
     @JsonProperty("accountNo")
     private String accountNo; // 필수: 계좌번호, 길이: 16
-
+    
   }
 
   /**

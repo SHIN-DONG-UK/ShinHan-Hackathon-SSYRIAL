@@ -3,7 +3,8 @@ package shinhan.hackathon.ssyrial.service;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import shinhan.hackathon.ssyrial.model.api.*;
+import shinhan.hackathon.ssyrial.model.api.IssuedApiKeyModel;
+import shinhan.hackathon.ssyrial.model.api.ReIssuedApiKeyModel;
 
 /**
  * AppService 클래스는 API 키 발급 및 재발급과 관련된 비즈니스 로직을 처리하는 서비스 클래스입니다.

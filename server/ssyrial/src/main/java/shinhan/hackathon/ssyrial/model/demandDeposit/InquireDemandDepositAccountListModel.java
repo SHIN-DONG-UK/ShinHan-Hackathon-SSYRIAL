@@ -30,17 +30,15 @@ package shinhan.hackathon.ssyrial.model.demandDeposit;
 
 import lombok.Getter;
 import lombok.Setter;
+import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import jakarta.validation.constraints.NotBlank;
-
 import java.util.List;
 
-import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * InquireDemandDepositAccountListModel 클래스는 사용자의 계좌 목록 전체 조회 요청 및 응답 데이터를 담는 모델

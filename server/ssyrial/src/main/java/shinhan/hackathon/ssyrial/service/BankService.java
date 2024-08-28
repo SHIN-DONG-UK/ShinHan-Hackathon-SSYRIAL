@@ -4,7 +4,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
-import shinhan.hackathon.ssyrial.model.bank.*;
+import shinhan.hackathon.ssyrial.model.bank.InquireBankCodes;
 
 /**
  * BankService 클래스는 은행 코드 조회와 관련된 비즈니스 로직을 처리하는 서비스 클래스입니다.
