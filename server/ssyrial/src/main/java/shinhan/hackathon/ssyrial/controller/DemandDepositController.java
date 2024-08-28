@@ -177,4 +177,15 @@ public class DemandDepositController extends BaseController {
     return successResponse(response);
   }
 
+  /*
+  * /api/demandDeposit/deleteDemandDepositAccount : 계좌 해지
+  */
+  @PostMapping("/deleteDemandDepositAccount")
+  public ResponseEntity<ApiResponse<DeleteDemandDepositAccountModel.Response>> deleteDemandDepositAccount(
+      @RequestBody DeleteDemandDepositAccountModel.Request request) {
+        DeleteDemandDepositAccountModel.Response response = demandDepositService
+        .deleteDemandDepositAccount(
+          request.getUserKey(),request.getAccountNo(),request.getRefundAccountNo());
+    return successResponse(response);
+  }
 }
