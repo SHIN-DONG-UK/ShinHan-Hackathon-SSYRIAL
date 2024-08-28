@@ -20,7 +20,7 @@
  accountBalance - 계좌해지 잔액 - Long - 길이X - 필수Y
  */
 
- package shinhan.hackathon.ssyrial.model.demandDeposit;
+package shinhan.hackathon.ssyrial.model.demandDeposit;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -51,7 +51,7 @@ public class DeleteDemandDepositAccountModel {
   public static class Request {
     @JsonProperty("Header")
     private CommonHeaderModel.Request Header;
-    
+
     @NotBlank(message = "사용자 키는 필수 입력 항목입니다.")
     private String userKey;
 
@@ -75,7 +75,7 @@ public class DeleteDemandDepositAccountModel {
     private CommonHeaderModel.Response Header;
 
     @JsonProperty("REC")
-    private List<TerminateAccountInfo> REC;
+    private TerminateAccountInfo REC;
 
     /**
      * 해지 계좌 정보를 담는 내부 클래스입니다.
