@@ -10,6 +10,7 @@ import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositListMod
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountHolderNameModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountListModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountModel;
+import shinhan.hackathon.ssyrial.model.demandDeposit.inquireTransactionHistoryList;
 import shinhan.hackathon.ssyrial.service.DemandDepositService;
 
 /**
@@ -133,4 +134,17 @@ public class DemandDepositController extends BaseController {
           request.getUserKey(), request.getAccountNo());
     return successResponse(response);
   }
+
+  /*
+  * /api/demandDeposit/inquireTransactionHistoryList : 계좌 거래 내역 조회
+  */
+   @PostMapping("/inquireTransactionHistoryList")
+  public ResponseEntity<ApiResponse<InquireTransactionHistoryListModel.Response>> inquireTransactionHistoryList(
+      @RequestBody InquireTransactionHistoryListModel.Request request) {
+    InquireTransactionHistoryListModel.Response response = demandDepositService
+        .inquireTransactionHistoryList(
+          request.getUserKey(), request.getAccountNo(), request.getStartDate(), request.getEndDate(), request.getTransactionType(), request.getOrderByType());
+    return successResponse(response);
+  }
+
 }
