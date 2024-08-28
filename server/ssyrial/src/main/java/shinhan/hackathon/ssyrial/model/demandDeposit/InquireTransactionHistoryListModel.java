@@ -42,6 +42,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * InquireTransactionHistoryListModel 클래스는 계좌 거래 내역 조회 요청 및 응답 데이터를 담는 모델
@@ -77,6 +78,7 @@ public class InquireTransactionHistoryListModel {
     private String transactionType; // 필수: 거래구분, 길이: 1 (M:입금, D:출금, A:전체)
 
     @JsonProperty("orderByType")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String orderByType; // 선택: 정렬순서, 길이: 4 (ASC:오름차순, DESC:내림차순)
   }
 
@@ -99,7 +101,7 @@ public class InquireTransactionHistoryListModel {
     private String totalCount; // 선택: 조회총건수
 
     @JsonProperty("list")
-    private List<TransactionHistoryInfo> list; // 선택: 거래목록 리스트
+    private TransactionHistoryInfo list; // 선택: 거래목록 리스트
 
     /**
      * 거래내역 정보를 담는 내부 클래스입니다.
