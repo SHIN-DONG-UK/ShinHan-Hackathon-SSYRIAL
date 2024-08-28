@@ -65,11 +65,9 @@ public abstract class ShinhanApiService {
       return objectMapper.readValue(responseBody, responseType);
 
     } catch (HttpClientErrorException e) {
-      logger.error("Error calling Shinhan API: {}", e.getResponseBodyAsString());
       throw new BusinessExceptionHandler(e.getResponseBodyAsString(), ErrorCode.BUSINESS_EXCEPTION_ERROR);
     } catch (Exception e) {
-      logger.error("Unexpected error occurred: {}", e.getMessage(), e);
-      throw new BusinessExceptionHandler("Unexpected error occurred", ErrorCode.BUSINESS_EXCEPTION_ERROR);
+      throw new BusinessExceptionHandler(e.getMessage(), ErrorCode.BUSINESS_EXCEPTION_ERROR);
     }
   }
 
@@ -81,8 +79,7 @@ public abstract class ShinhanApiService {
       bodyMap.put("apiKey", apiKey);
       return bodyMap;
     } catch (Exception e) {
-      logger.error("Failed to add apiKey to request body: {}", e.getMessage());
-      throw new BusinessExceptionHandler("Failed to add apiKey to request body", ErrorCode.BUSINESS_EXCEPTION_ERROR);
+      throw new BusinessExceptionHandler(e.getMessage(), ErrorCode.BUSINESS_EXCEPTION_ERROR);
     }
   }
 }
