@@ -253,4 +253,22 @@ public class DemandDepositService extends ShinhanApiService {
     return sendRequest("/edu/demandDeposit/inquireTransactionHistory", HttpMethod.POST, request,
         InquireTransactionHistoryModel.Response.class, true);
   }
+
+  /*
+  InquireDemandDepositAccountListModel 계좌 목록 조회
+   */
+  public InquireDemandDepositAccountListModel.Response inquireDemandDepositAccountList(String userKey) {
+
+    // 공통 헤더 생성
+    CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccountList", "inquireDemandDepositAccountList",
+        userKey);
+
+    // 요청 객체 생성
+    InquireDemandDepositAccountListModel.Request request = InquireDemandDepositAccountListModel.Request.builder()
+        .Header(header);
+
+    // API 요청 보내기
+    return sendRequest("/edu/demandDeposit/inquireDemandDepositAccountList", HttpMethod.POST, request,
+        inquireDemandDepositAccountList.Response.class, true);
+  }
 }
