@@ -7,6 +7,7 @@ import shinhan.hackathon.ssyrial.model.demandDeposit.CreateDemandDepositAccountM
 import shinhan.hackathon.ssyrial.model.demandDeposit.CreateDemandDepositModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountBalanceModel;
 import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositListModel;
+import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountHolderNameModel;
 import shinhan.hackathon.ssyrial.service.DemandDepositService;
 
 /**
@@ -98,12 +99,12 @@ public class DemandDepositController extends BaseController {
   /* 
     /api/demandDeposit/inquireDemandDepositAccountHolderName : 예금주 조회
   */ 
-  /* 
+  
   @PostMapping("/inquireDemandDepositAccountHolderName")
   public ResponseEntity<ApiResponse<InquireDemandDepositAccountHolderNameModel.Response>> inquireDemandDepositAccountHolderName(
       @RequestBody InquireDemandDepositAccountHolderNameModel.Request request) {
         InquireDemandDepositAccountHolderNameModel.Response response = demandDepositService.inquireDemandDepositAccountHolderName(
         request.getAccountNo());
     return successResponse(response);
-*/
+
 }
