@@ -85,26 +85,27 @@ public class DemandDepositController extends BaseController {
     return successResponse(response);
   }
 
-  /* 
-    /api/demandDeposit/inquireDemandDepositAccountBalance : 계좌 잔액 조회
-  */ 
+  /*
+   * /api/demandDeposit/inquireDemandDepositAccountBalance : 계좌 잔액 조회
+   */
   @PostMapping("/inquireDemandDepositAccountBalance")
   public ResponseEntity<ApiResponse<InquireDemandDepositAccountBalanceModel.Response>> inquireDemandDepositAccountBalance(
       @RequestBody InquireDemandDepositAccountBalanceModel.Request request) {
-        InquireDemandDepositAccountBalanceModel.Response response = demandDepositService.inquireDemandDepositAccountBalance(
+    InquireDemandDepositAccountBalanceModel.Response response = demandDepositService.inquireDemandDepositAccountBalance(
         request.getUserKey(), request.getAccountNo());
     return successResponse(response);
   }
 
-  /* 
-    /api/demandDeposit/inquireDemandDepositAccountHolderName : 예금주 조회
-  */ 
-  
+  /*
+   * /api/demandDeposit/inquireDemandDepositAccountHolderName : 예금주 조회
+   */
+
   @PostMapping("/inquireDemandDepositAccountHolderName")
   public ResponseEntity<ApiResponse<InquireDemandDepositAccountHolderNameModel.Response>> inquireDemandDepositAccountHolderName(
       @RequestBody InquireDemandDepositAccountHolderNameModel.Request request) {
-        InquireDemandDepositAccountHolderNameModel.Response response = demandDepositService.inquireDemandDepositAccountHolderName(
-        request.getAccountNo());
+    InquireDemandDepositAccountHolderNameModel.Response response = demandDepositService
+        .inquireDemandDepositAccountHolderName(
+            request.getAccountNo());
     return successResponse(response);
-
+  }
 }
