@@ -39,6 +39,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * InquireDemandDepositAccountModel 클래스는 특정 계좌에 대한 정보 조회 요청 및 응답 데이터를 담는 모델
@@ -57,6 +58,9 @@ public class InquireDemandDepositAccountModel {
   public static class Request {
     @JsonProperty("Header")
     private CommonHeaderModel.Request Header;
+
+    @NotBlank(message = "사용자 키는 필수 입력 항목입니다.")
+    private String userKey;
 
     @JsonProperty("accountNo")
     private String accountNo; // 필수: 계좌번호, 길이: 16
