@@ -5,26 +5,22 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Base64;
 
 @Configuration
 public class FirebaseConfig {
 
   private static final Logger logger = LoggerFactory.getLogger(FirebaseConfig.class);
-  private static final String FIREBASE_CONFIG_ENV = "FIREBASE_CONFIG";
 
-  private final Environment env;
-
-  public FirebaseConfig(Environment env) {
-    this.env = env;
-  }
+  // .env 파일 또는 application.properties 파일에서 firebase.adminsdk 값을 가져옴
+  @Value("${firebase.adminsdk}")
+  private String firebaseConfig;
 
   @Bean
   public FirebaseApp firebaseApp() {
@@ -40,12 +36,12 @@ public class FirebaseConfig {
   }
 
   private InputStream loadServiceAccount() throws IOException {
-    String firebaseConfig = env.getProperty(FIREBASE_CONFIG_ENV);
     if (firebaseConfig == null || firebaseConfig.isEmpty()) {
-      throw new IllegalArgumentException("Firebase configuration not found in environment variables.");
+      throw new IllegalArgumentException("Firebase configuration not found.");
     }
-    byte[] decodedBytes = Base64.getDecoder().decode(firebaseConfig);
-    return new ByteArrayInputStream(decodedBytes);
+
+    // JSON 형식의 환경 변수를 InputStream으로 변환
+    return new ByteArrayInputStream(firebaseConfig.getBytes());
   }
 
   private FirebaseOptions buildFirebaseOptions(InputStream serviceAccount) throws IOException {
