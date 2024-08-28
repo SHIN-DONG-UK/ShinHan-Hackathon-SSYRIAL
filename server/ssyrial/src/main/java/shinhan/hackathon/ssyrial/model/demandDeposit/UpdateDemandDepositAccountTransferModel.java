@@ -51,6 +51,9 @@ public class UpdateDemandDepositAccountTransferModel {
     @JsonProperty("Header")
     private CommonHeaderModel.Request Header;
 
+    @NotBlank(message = "사용자 키는 필수 입력 항목입니다.")
+    private String userKey;
+
     @JsonProperty("depositAccountNo")
     private String depositAccountNo; // 필수: 입금계좌번호, 길이: 16
 
