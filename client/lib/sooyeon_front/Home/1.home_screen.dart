@@ -1,147 +1,154 @@
 import 'package:flutter/material.dart';
+import 'package:ssyrial/sooyeon_front/1.member_resiteration_start.dart';
 import '2.sign_in_password.dart';
 
-void main() {
-  runApp(MyApp());
-}
+// 상수 정의
+const Color kAppBarBackgroundColor = Colors.white;
+const Color kAppBarIconColor = Colors.black;
+const Color kLoginButtonColor = Colors.blue;
+const Color kAccountCreationColor = Colors.orange;
+const Color kEasyScreenColor = Colors.green;
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SOL Bank',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      home: HomeScreen(),
-    );
-  }
-}
+const TextStyle kAppBarTextStyle = TextStyle(color: kAppBarIconColor, fontWeight: FontWeight.bold);
+const TextStyle kButtonTextStyle = TextStyle(color: Colors.white, fontSize: 18);
+const TextStyle kFeatureTextStyleActive = TextStyle(color: Colors.blue);
+const TextStyle kFeatureTextStyleInactive = TextStyle(color: Colors.grey);
+const TextStyle kAccountCreationTextStyle = TextStyle(color: Colors.white);
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Text(
-            '홈',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          onPressed: () {},
-        ),
-        actions: [
-          IconButton(icon: Icon(Icons.message, color: Colors.black), onPressed: () {}),
-          IconButton(icon: Icon(Icons.mic, color: Colors.black), onPressed: () {}),
-          IconButton(icon: Icon(Icons.person, color: Colors.black), onPressed: () {}),
-        ],
-      ),
+      appBar: buildAppBar(), // AppBar 빌드
       body: Column(
         children: [
-          Container(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey[300]!),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Column(
+          Column(
+            children: [
+              Image.asset('assets/images/sol_bank_logo.png', height: 90), // 은행 로고 이미지
+              buildLoginButton(() => onLoginButtonPressed(context)), // 로그인 버튼 추가
+              buildFeatureRow(), // 기능 선택 Row 추가
+              Row(
                 children: [
-                  Image.asset('assets/sol_bank_logo.png', height: 90),
-                  ElevatedButton(
-                    child: Text('로그인'),
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text('Super SOL', style: TextStyle(color: Colors.blue)),
-                      Text('카드', style: TextStyle(color: Colors.grey)),
-                      Text('은행', style: TextStyle(color: Colors.grey)),
-                      Text('보험', style: TextStyle(color: Colors.grey)),
-                    ],
-                  ),
-                  SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          height: 100,
-                          color: Colors.orange,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('계좌 생성하기', style: TextStyle(color: Colors.white)),
-                              Icon(Icons.star, color: Colors.white),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: GestureDetector(
-                          onTap: () {
-                            // 버튼 클릭 시 SignInScreen 화면으로 이동
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => SignInScreen()),
-                            );
-                          },
-                          child: Container(
-                            height: 100,
-                            color: Colors.green,
-                            child: Center(
-                              child: Text(
-                                '쉬운 화면\n실행하기',
-                                style: TextStyle(color: Colors.white, fontSize: 18),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  buildAccountCreationButton(), // 계좌 생성 버튼 추가
+                  buildEasyScreenButton(() => onEasyScreenButtonPressed(context)), // 쉬운 화면 버튼 추가
                 ],
               ),
-            ),
+            ],
           ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(children: [Icon(Icons.home), Text('홈')]),
-                Column(children: [Icon(Icons.search), Text('자산관리')]),
-                Column(children: [Icon(Icons.send), Text('상품')]),
-                Column(children: [Icon(Icons.account_balance), Text('헤택')]),
-                Column(children: [Icon(Icons.menu), Text('전체메뉴')]),
-              ],
-            ),
-          ),
+          buildBottomNavigationBar(), // 하단 네비게이션 바 추가
         ],
       ),
+    );
+  }
+}
+
+// HomeScreenWidget Extension
+extension HomeScreenWidget on HomeScreen {
+  // AppBar의 위젯들을 하나로 묶어서 관리
+  AppBar buildAppBar() {
+    return AppBar(
+      backgroundColor: kAppBarBackgroundColor, // AppBar 배경색 설정
+      elevation: 0, // 그림자 제거
+      leading: IconButton(
+        icon: Text('홈', style: kAppBarTextStyle), // 홈 버튼 텍스트 스타일 적용
+        onPressed: () {}, // 홈 버튼 눌렀을 때의 동작
+      ),
+      actions: [
+        IconButton(icon: Icon(Icons.message, color: kAppBarIconColor), onPressed: () {}), // 메시지 아이콘
+        IconButton(icon: Icon(Icons.mic, color: kAppBarIconColor), onPressed: () {}), // 마이크 아이콘
+        IconButton(icon: Icon(Icons.person, color: kAppBarIconColor), onPressed: () {}), // 사용자 아이콘
+      ],
+    );
+  }
+
+  // 로그인 버튼 위젯
+  Widget buildLoginButton(VoidCallback onPressed) {
+    return ElevatedButton(
+      child: Text('로그인', style: kButtonTextStyle), // 버튼 텍스트 스타일 적용
+      onPressed: onPressed, // 로그인 버튼 눌렀을 때의 동작
+      style: ElevatedButton.styleFrom(
+        backgroundColor: kLoginButtonColor, // 버튼 배경색 설정
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero), // 버튼 모서리 스타일 설정
+      ),
+    );
+  }
+
+  // 기능 선택을 위한 Row
+  Widget buildFeatureRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Row 안의 텍스트들을 균등하게 배치
+      children: [
+        Text('Super SOL', style: kFeatureTextStyleActive),
+        Text('카드', style: kFeatureTextStyleInactive),
+        Text('은행', style: kFeatureTextStyleInactive),
+        Text('보험', style: kFeatureTextStyleInactive),
+      ],
+    );
+  }
+
+  // 계좌 생성 버튼 위젯
+  Widget buildAccountCreationButton() {
+    return Container(
+      height: 100, // 버튼 높이 설정
+      color: kAccountCreationColor, // 버튼 배경색 설정
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, // 콘텐츠를 가운데 정렬
+        children: [
+          Text('계좌 생성하기', style: kAccountCreationTextStyle), // 텍스트 스타일 적용
+          Icon(Icons.star, color: Colors.white), // 아이콘 색상 설정
+        ],
+      ),
+    );
+  }
+
+  // 쉬운 화면 버튼 위젯
+  Widget buildEasyScreenButton(VoidCallback onPressed) {
+    return GestureDetector(
+      onTap: onPressed, // 쉬운 화면 버튼 눌렀을 때의 동작
+      child: Container(
+        height: 100, // 버튼 높이 설정
+        color: kEasyScreenColor, // 버튼 배경색 설정
+        child: Center(
+          child: Text(
+            '쉬운 화면\n실행하기',
+            style: kButtonTextStyle, // 텍스트 스타일 적용
+            textAlign: TextAlign.center, // 텍스트 가운데 정렬
+          ),
+        ),
+      ),
+    );
+  }
+
+  // 하단 네비게이션 바 위젯
+  Widget buildBottomNavigationBar() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Row 안의 아이콘과 텍스트들을 균등하게 배치
+      children: [
+        Column(children: [Icon(Icons.home), Text('홈')]), // 홈 아이콘과 텍스트
+        Column(children: [Icon(Icons.search), Text('자산관리')]), // 자산관리 아이콘과 텍스트
+        Column(children: [Icon(Icons.send), Text('상품')]), // 상품 아이콘과 텍스트
+        Column(children: [Icon(Icons.account_balance), Text('혜택')]), // 혜택 아이콘과 텍스트
+        Column(children: [Icon(Icons.menu), Text('전체메뉴')]), // 전체메뉴 아이콘과 텍스트
+      ],
+    );
+  }
+}
+
+// HomeScreenFunction Extension
+extension HomeScreenFunction on HomeScreen {
+  // 로그인 버튼을 눌렀을 때의 동작
+  void onLoginButtonPressed(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignInScreen()), // SignInScreen 화면으로 이동
+    );
+  }
+
+  // 쉬운 화면 버튼을 눌렀을 때의 동작
+  void onEasyScreenButtonPressed(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CancelMemberRegistrationScreen()), // SignInScreen 화면으로 이동
     );
   }
 }
