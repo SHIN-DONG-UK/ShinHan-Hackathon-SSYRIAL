@@ -67,7 +67,7 @@ extension STTScreenWidgets on _STTScreenState {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
-        "들은 내용: ${detectedText.isEmpty ? "녹음 중..." : detectedText}", // 녹음 중 또는 STT 결과 표시
+        detectedText.isNotEmpty ? "들은 내용: $detectedText" : "녹음 중...",
         style: widget.detectedTextStyle ?? TextStyle(fontSize: 18),
       ),
     );
@@ -102,10 +102,8 @@ extension STTScreenWidgets on _STTScreenState {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context); // "네" 버튼 클릭 시 화면 종료
-          },
-          child: Text("네"),
+          onPressed: () => Navigator.pop(context), // "네" 버튼 클릭 시 화면 종료
+          child: const Text("네"),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blue, // "네" 버튼 색상 설정
           ),
@@ -113,7 +111,7 @@ extension STTScreenWidgets on _STTScreenState {
         SizedBox(width: 20),
         ElevatedButton(
           onPressed: restartRecording, // "아니요" 버튼 클릭 시 녹음 재시작
-          child: Text("아니요"),
+          child: const Text("아니요"),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.grey, // "아니요" 버튼 색상 설정
           ),
@@ -130,17 +128,14 @@ extension STTScreenFunctions on _STTScreenState {
 
   void simulateSTT() {
     Future.delayed(Duration(seconds: 1), () {
+      if (!isRecording) return; // 녹음 중이 아닌 경우 종료
+
       setState(() {
-        if (sttCounter % 2 == 0) {
-          detectedText = "송금";
-        } else {
-          detectedText = "통장 정리";
-        }
+        detectedText = (sttCounter % 2 == 0) ? "송금" : "통장 정리";
         sttCounter++;
-        if (isRecording) {
-          simulateSTT(); // 계속해서 시뮬레이션 반복
-        }
       });
+
+      simulateSTT(); // 계속해서 시뮬레이션 반복
     });
   }
 

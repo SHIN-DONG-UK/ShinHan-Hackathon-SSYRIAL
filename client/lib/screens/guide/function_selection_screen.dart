@@ -55,24 +55,33 @@ class FunctionSelectionScreen extends StatelessWidget {
     );
   }
 }
+
 extension Widgets on FunctionSelectionScreen {
   // 기능 버튼을 그리드 형태로 배치하는 위젯
-  Widget _buildFunctionButtons(context) {
-    return GridView.count(
-      crossAxisCount: 2,
+  Widget _buildFunctionButtons(BuildContext context) {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 3,
+        mainAxisSpacing: 16,
+        crossAxisSpacing: 16,
+      ),
       shrinkWrap: true,
-      childAspectRatio: 3,
-      mainAxisSpacing: 16,
-      crossAxisSpacing: 16,
-      children: buttonLabels.map((label) {
-        return ElevatedButton(
-          onPressed: () => _onFunctionButtonPressed(label, context),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: buttonColor, // 버튼 배경색 설정
-          ),
-          child: Text(label, style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
-        );
-      }).toList(),
+      itemCount: buttonLabels.length,
+      itemBuilder: (context, index) {
+        return _buildFunctionButton(context, buttonLabels[index]);
+      },
+    );
+  }
+
+  // 개별 기능 버튼 생성 함수
+  Widget _buildFunctionButton(BuildContext context, String label) {
+    return ElevatedButton(
+      onPressed: () => _onFunctionButtonPressed(label, context),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: buttonColor, // 버튼 배경색 설정
+      ),
+      child: Text(label, style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
     );
   }
 
@@ -96,9 +105,7 @@ extension Widgets on FunctionSelectionScreen {
         Text('또는 버튼을 누르고 말해보세요'), // 설명 텍스트
         IconButton(
           icon: Icon(micIcon), // 마이크 아이콘 설정
-          onPressed: () {
-            _showSTTDialog(context); // 마이크 아이콘 클릭 시 STT 다이얼로그 호출
-          },
+          onPressed: () => _showSTTDialog(context), // 마이크 아이콘 클릭 시 STT 다이얼로그 호출
         ),
       ],
     );
@@ -116,6 +123,7 @@ extension Functions on FunctionSelectionScreen {
       );
     } else {
       // 다른 기능에 대한 처리
+      // 추가 기능을 구현하거나 다른 화면으로의 이동을 여기에 처리할 수 있습니다.
     }
   }
 
