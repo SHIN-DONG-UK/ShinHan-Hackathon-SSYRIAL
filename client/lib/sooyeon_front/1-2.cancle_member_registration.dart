@@ -1,22 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Home/1.home_screen.dart';  // HomeScreen을 임포트
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Sign Up Cancel Dialog Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomeScreen(),  // 기본 홈 화면을 HomeScreen으로 설정
-    );
-  }
-}
 
 class CancelMemberRegistrationScreen extends StatelessWidget {
   @override
