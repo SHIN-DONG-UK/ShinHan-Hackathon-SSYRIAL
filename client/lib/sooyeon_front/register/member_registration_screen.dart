@@ -7,6 +7,7 @@ import 'authentication_screen.dart';
 import 'constants.dart';
 import 'personal_information_input_screen.dart';
 import '../9.save_your_password.dart'; // SaveYourPassword 화면 임포트
+import 'package:ssyrial/config/tts_config.dart'; // Import TTSConfig
 
 enum ScreenState {
   start,
@@ -34,6 +35,7 @@ class _MemberRegistrationStartScreenState
   TextEditingController _birthdayController = TextEditingController();
   String? _selectedGender;
   bool _isAuthenticated = false;
+  final TTSConfig ttsConfig = TTSConfig(); // TTSConfig instance
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,9 @@ class _MemberRegistrationStartScreenState
                     });
                   },
                   children: [
-                    StartScreen(),
+                    StartScreen(
+                      onTTSComplete: _onNextPressed, // Navigate when TTS completes
+                    ),
                     PhoneAuthScreen(),
                     PersonalInfoConsentScreen(
                       isChecked: _isChecked,
@@ -97,7 +101,9 @@ class _MemberRegistrationStartScreenState
     });
   }
 
-  void _onNextPressed() {
+  Future<void> _onNextPressed() async {
+    await ttsConfig.stop(); // Stop any ongoing TTS
+
     if (_currentScreen.index == ScreenState.values.length - 1) {
       // 마지막 페이지면 새로운 페이지로 이동
       Navigator.push(
