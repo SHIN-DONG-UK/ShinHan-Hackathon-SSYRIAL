@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Jukgeumlist extends StatelessWidget {
+class Jukgeumlist extends StatefulWidget {
   const Jukgeumlist({super.key});
 
 
@@ -88,5 +88,11 @@ class Jukgeumlist extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
 }

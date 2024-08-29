@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 class Ipchulgeumlist extends StatelessWidget {
   const Ipchulgeumlist({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -22,7 +19,8 @@ class Ipchulgeumlist extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue, // 버튼 배경색
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15), // 버튼 패딩
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 15), // 버튼 패딩
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12), // 버튼 모서리 둥글게
                   ),
@@ -49,10 +47,17 @@ class Ipchulgeumlist extends StatelessWidget {
                 child: ListView(
                   children: [
                     ElevatedButton(
-                      onPressed: (){print("hello");},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Ipchulgeumlist()),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue, // 버튼 배경색
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15), // 버튼 패딩
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15), // 버튼 패딩
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12), // 버튼 모서리 둥글게
                         ),
@@ -67,16 +72,13 @@ class Ipchulgeumlist extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     SizedBox(height: 16.0),
-
                     ElevatedButton(
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue, // 버튼 배경색
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15), // 버튼 패딩
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15), // 버튼 패딩
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12), // 버튼 모서리 둥글게
                         ),
@@ -91,16 +93,13 @@ class Ipchulgeumlist extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     SizedBox(height: 16.0),
-
                     ElevatedButton(
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue, // 버튼 배경색
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15), // 버튼 패딩
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15), // 버튼 패딩
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12), // 버튼 모서리 둥글게
                         ),
