@@ -18,7 +18,7 @@ public class DepositController extends BaseController {
   }
 
   /*
-   * createDepositAccount
+   * createDepositAccount (예금 계좌 생성)
    */
   @PostMapping("/createDepositAccount")
   public ResponseEntity<ApiResponse<CreateDepositAccountModel.Response>> createDepositAccount(
@@ -28,5 +28,15 @@ public class DepositController extends BaseController {
     return successResponse(response);
   }
 
-  
+
+  /*
+   * createDeposit (예금 상품 등록)
+   */
+  @PostMapping("/createDeposit")
+  public ResponseEntity<ApiResponse<CreateDepositModel.Response>> createDeposit(
+      @RequestBody CreateDepositModel.Request request) {
+    CreateDepositModel.Response response = depositService.createDeposit(
+        request.getBankCode(),request.getAccountName(),request.getAccountDescription(),request.getSubscriptionPeriod(),request.getMinSubscriptionBalance(),request.getMaxSubscriptionBalance(),request.getInterestRate(),request.getRateDescription());
+    return successResponse(response);
+  }
 }
