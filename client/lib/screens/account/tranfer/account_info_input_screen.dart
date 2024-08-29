@@ -4,6 +4,7 @@ import 'package:ssyrial/screens/account/tranfer/account_confirmation_dialog.dart
 import 'package:ssyrial/screens/account/tranfer/account_number_input_dialog.dart';
 import 'package:ssyrial/screens/account/tranfer/bank_selection_dialog.dart';
 import 'package:ssyrial/screens/account/tranfer/how_much_screen.dart';
+import 'package:ssyrial/widgets/custom_dialog_donguk.dart';
 
 class AccountInfoInputScreen extends StatefulWidget {
   final String initialTitle; // 초기 화면의 제목

@@ -1,170 +1,43 @@
 import 'package:flutter/material.dart';
 
-class eHowMuchScreen extends StatefulWidget {
-  @override
-  _eHowMuchScreenState createState() => _eHowMuchScreenState();
-}
-
-class _eHowMuchScreenState extends State<eHowMuchScreen> {
-  // Controller for the amount input
-  final TextEditingController _amountController = TextEditingController();
-
+class SendMoneyRejectPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('금액 입력'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 1. TextButton1 : 돌아가기
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // 현재 화면 닫기
-              },
-              child: Text(
-                '돌아가기',
-                style: TextStyle(color: Colors.blue),
+      backgroundColor: Colors.white, // Background color of the entire screen
+      body: Center(
+        child: Container(
+          width: 300,  // Width of the red container
+          padding: EdgeInsets.all(16),  // Padding inside the red container
+          decoration: BoxDecoration(
+            color: Colors.red,  // Red color for the container
+            borderRadius: BorderRadius.circular(16),  // Rounded corners for the container
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,  // Makes the column take up the minimum space it needs
+            mainAxisAlignment: MainAxisAlignment.center,  // Centers its children vertically
+            crossAxisAlignment: CrossAxisAlignment.center,  // Centers its children horizontally
+            children: [
+              // "X" image
+              Image.asset(
+                'assets/x_image.png',  // Path to the "X" image
+                width: 50,  // Width of the image
+                height: 50,  // Height of the image
               ),
-            ),
-            SizedBox(height: 20),
-
-            // 2. Text1 : 얼마를 보낼까요?
-            Text(
-              '얼마를 보낼까요?',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-
-            // 3. Container1(회색)
-            Container(
-              color: Colors.grey[200],
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // a. Container(회색) - 잔고
-                  Container(
-                    color: Colors.grey[300],
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      '잔고',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-
-                  // b. Container1(흰색) - 1,500,000 원
-                  Container(
-                    color: Colors.white,
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      '1,500,000 원',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-
-                  // c. Text : 보낼 돈
-                  Text(
-                    '보낼 돈',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 10),
-
-                  // d. Container2(흰색) - 입력해 주세요.
-                  GestureDetector(
-                    onTap: () {
-                      _showAmountInputDialog(context);
-                    },
-                    child: Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        '입력해 주세요.',
-                        style: TextStyle(fontSize: 16, color: Colors.blue),
-                      ),
-                    ),
-                  ),
-                ],
+              SizedBox(height: 16),  // Space between the image and the text
+              // Text indicating password rejection
+              Text(
+                '비밀번호가 틀렸어요',  // Korean text for "The password is incorrect"
+                style: TextStyle(
+                  color: Colors.white,  // White color for the text
+                  fontSize: 18,  // Font size of the text
+                  fontWeight: FontWeight.bold,  // Bold text
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-
-            // 4. TextButton2 : 보내기
-            TextButton(
-              onPressed: () {
-                _showConfirmationDialog(context);
-              },
-              child: Text(
-                '보내기',
-                style: TextStyle(color: Colors.blue),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    );
-  }
-
-  // Function to show the amount input dialog
-  void _showAmountInputDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('금액 입력'),
-          content: TextField(
-            controller: _amountController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: '금액을 입력하세요',
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('확인'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // Function to show the confirmation dialog
-  void _showConfirmationDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('확인'),
-          content: Text('정말로 이 금액을 송금하시겠습니까?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('취소'),
-            ),
-            TextButton(
-              onPressed: () {
-                // Add the action to perform on confirmation
-                Navigator.of(context).pop(); // Close the confirmation dialog
-                Navigator.of(context).pop(); // Optionally close the current screen
-                // Perform the actual send action here
-              },
-              child: Text('확인'),
-            ),
-          ],
-        );
-      },
     );
   }
 }

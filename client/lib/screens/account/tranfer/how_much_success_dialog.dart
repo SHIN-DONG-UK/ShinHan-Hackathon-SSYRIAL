@@ -1,37 +1,6 @@
 import 'package:flutter/material.dart';
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MainScreen(),
-    );
-  }
-}
-
-class MainScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('송금 완료'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return TransferSuccessPopup();
-              },
-            );
-          },
-          child: Text('송금 완료 팝업 열기'),
-        ),
-      ),
-    );
-  }
-}
+import 'package:ssyrial/screens/guide/function_selection_screen.dart';
+import 'package:ssyrial/screens/account/tranfer/how_much_memo_dialog.dart';
 
 class TransferSuccessPopup extends StatelessWidget {
   @override
@@ -127,8 +96,11 @@ class TransferSuccessPopup extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // 현재 팝업 닫기
-                  _showReasonPopup(context); // 보낸 이유 팝업 열기
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context){
+                          return WhatToWritePopup();
+                  });
                 },
                 child: Text(
                   '네',
@@ -137,12 +109,14 @@ class TransferSuccessPopup extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // 현재 팝업 닫기
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => SendMoneyScreen(), // send_money_screen 페이지로 이동
-                    ),
-                  );
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context){
+                      return const FunctionSelectionScreen();
+                    }),
+                    (route) => false,
+                  ); // 현재 팝업 닫기
+
                 },
                 child: Text(
                   '아니오',
@@ -152,41 +126,6 @@ class TransferSuccessPopup extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  // 보낸 이유 팝업을 여는 함수
-  void _showReasonPopup(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text('보낸 이유를 입력해주세요.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // 팝업 닫기
-              },
-              child: Text('확인'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-// send_money_screen 페이지 예시
-class SendMoneyScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('송금 화면'),
-      ),
-      body: Center(
-        child: Text('여기에 송금 화면이 표시됩니다.'),
       ),
     );
   }

@@ -1,37 +1,5 @@
 import 'package:flutter/material.dart';
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MainScreen(),
-    );
-  }
-}
-
-class MainScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('입력 팝업 예제'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return WhatToWritePopup();
-              },
-            );
-          },
-          child: Text('팝업 열기'),
-        ),
-      ),
-    );
-  }
-}
+import 'package:ssyrial/screens/guide/function_selection_screen.dart';
 
 class WhatToWritePopup extends StatefulWidget {
   @override
@@ -98,11 +66,12 @@ class _WhatToWritePopupState extends State<WhatToWritePopup> {
             children: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // 현재 팝업 닫기
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => SendMoneyScreen(), // send_money_screen 페이지로 이동
-                    ),
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return const FunctionSelectionScreen(); // send_money_screen 페이지로 이동
+                    }),
+                  (route) => false,
                   );
                 },
                 child: Text(
@@ -113,11 +82,6 @@ class _WhatToWritePopupState extends State<WhatToWritePopup> {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // 현재 팝업 닫기
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => SendMoneySuccessScreen(), // send_money_success 페이지로 이동
-                    ),
-                  );
                 },
                 child: Text(
                   '취소',

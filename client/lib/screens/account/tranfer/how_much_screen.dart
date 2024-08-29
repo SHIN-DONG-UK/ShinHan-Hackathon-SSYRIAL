@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/screens/account/tranfer/how_much_keypad_dialog.dart';
+import 'package:ssyrial/screens/account/tranfer/how_much_check_dialog.dart';
 
 
 class HowMuchScreen extends StatefulWidget {
@@ -49,25 +50,7 @@ class _HowMuchScreenState extends State<HowMuchScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('확인'),
-          content: Text('정말 보내시겠습니까?'),
-          actions: <Widget>[
-            TextButton(
-              child: Text('취소'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text('확인'),
-              onPressed: () {
-                // 전송 로직 추가
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
+        return ConfirmationPopup();
       },
     );
   }
@@ -101,7 +84,7 @@ class _HowMuchScreenState extends State<HowMuchScreen> {
             )
           ),
           Visibility(
-            visible: false, // 숨겨져 있는 버튼
+            visible: _enteredMoney.isEmpty ? false : true, // 숨겨져 있는 버튼
             child: ElevatedButton(
               onPressed: _showConfirmationDialog, // 한 번 더 확인하는 팝업 생성
               child: Text('보내기'),

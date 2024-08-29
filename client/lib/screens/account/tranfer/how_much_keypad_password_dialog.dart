@@ -1,188 +1,196 @@
 import 'package:flutter/material.dart';
+import 'package:ssyrial/screens/account/tranfer/how_much_reject_password_dialog.dart';
+import 'package:ssyrial/screens/account/tranfer/how_much_success_dialog.dart';
 
-class MyApp extends StatelessWidget {
+// 계좌 번호 입력 다이얼로그를 나타내는 StatefulWidget 클래스
+class HowMuchKeypadPasswordDialog extends StatefulWidget {
+  final String title; // 다이얼로그의 제목
+  final TextStyle? titleTextStyle; // 제목의 텍스트 스타일 (옵션)
+  final TextStyle? moneyTextStyle; // 입력된 금액 텍스트 스타일 (옵션)
+  final TextStyle? buttonTextStyle; // 버튼의 텍스트 스타일 (옵션)
+  final String password = '123'; // 임의로 정해둔 비밀번호
+
+  HowMuchKeypadPasswordDialog({
+    this.title = "비밀번호를\n입력하세요",
+    this.titleTextStyle,
+    this.moneyTextStyle,
+    this.buttonTextStyle,
+  });
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MainScreen(),
-    );
-  }
+  _HowMuchKeypadPasswordDialogState createState() => _HowMuchKeypadPasswordDialogState();
 }
 
-class MainScreen extends StatelessWidget {
+class _HowMuchKeypadPasswordDialogState extends State<HowMuchKeypadPasswordDialog> {
+  String _enteredNumber = ""; // 입력된 계좌 번호를 저장하는 변수
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('숫자 입력 팝업 예제'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return NumberInputPopup();
-              },
-            );
-          },
-          child: Text('팝업 열기'),
+    return Align(
+      alignment: Alignment.topCenter, // 다이얼로그를 화면 상단에 고정
+      child: Material(
+        color: Colors.transparent, // 다이얼로그의 배경을 투명하게 설정
+        child: Container(
+          width: MediaQuery.of(context).size.width, // 화면 가로를 가득 채움
+          padding: EdgeInsets.all(16), // 컨테이너의 내부 여백 설정
+          decoration: BoxDecoration(
+            color: Colors.white, // 다이얼로그의 배경색을 흰색으로 설정
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // 다이얼로그의 높이를 내용에 맞게 조정
+            children: [
+              // 다이얼로그의 제목 표시
+              Text(
+                widget.title,
+                style: widget.titleTextStyle ?? TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 16), // 제목과 입력된 계좌 번호 사이의 간격
+
+              // 입력된 번호를 보여주는 컨테이너
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey), // 회색 테두리 설정
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  _enteredNumber, // 입력된 금액을 표시
+                  style: widget.moneyTextStyle ?? TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(height: 16), // 계좌 번호와 키패드 사이의 간격
+
+              // 숫자 키패드 생성
+              _buildNumericKeypad(),
+              SizedBox(height: 16), // 키패드와 버튼들 사이의 간격
+
+              // 취소 및 입력 버튼
+              Row(
+                children: [
+                  // 취소 버튼
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(), // 다이얼로그 닫기
+                      child: Text("취소", style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red, // 버튼 배경색 빨간색
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16), // 두 버튼 사이의 간격
+
+                  // 입력 버튼
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // 비밀번호 일치 여부 판단
+                        if (_enteredNumber == widget.password) {
+                          // Password matches, show success dialog
+                          Navigator.pop(context);
+                          _showSuccessDialog(context);
+                        } else {
+                          // Password does not match, show error dialog
+                          _showErrorDialog(context);
+                        }
+                      },
+                      child: Text("입력", style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue, // 버튼 배경색 파란색
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-}
 
-class NumberInputPopup extends StatefulWidget {
-  @override
-  _NumberInputPopupState createState() => _NumberInputPopupState();
-}
-
-class _NumberInputPopupState extends State<NumberInputPopup> {
-  String inputText = ''; // 박스1.텍스트 위젯에 표시될 문자열
-
-  void _addDigit(String digit) {
-    setState(() {
-      inputText += digit; // 입력한 숫자를 추가
-    });
-  }
-
-  void _clearText() {
-    setState(() {
-      inputText = ''; // 텍스트 위젯 클리어
-    });
-  }
-
-  void _deleteLastCharacter() {
-    setState(() {
-      if (inputText.isNotEmpty) {
-        inputText = inputText.substring(0, inputText.length - 1); // 마지막 글자 삭제
-      }
-    });
-  }
-
-  void _onCancel() {
-    Navigator.of(context).pop(); // 현재 팝업이 사라지게 함
-  }
-
-  Future<void> _onComplete() async {
-    // 여기에 실제 API 호출을 통해 데이터를 보내는 로직이 들어가야 합니다.
-    // 예시로 API 호출을 흉내내는 딜레이를 추가했습니다.
-    await Future.delayed(Duration(seconds: 1)); // 비동기 처리를 모방하기 위한 딜레이
-    Navigator.of(context).pop(); // 팝업을 닫음
-    _showTransferInfoPopup(); // 송금 정보 팝업을 보여줌
-  }
-
-  void _showTransferInfoPopup() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text('송금 정보가 서버에 전송되었습니다.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // 팝업 닫기
-              },
-              child: Text('확인'),
-            ),
-          ],
-        );
-      },
+  // 숫자 키패드를 생성하는 함수
+  Widget _buildNumericKeypad() {
+    return GridView.count(
+      crossAxisCount: 3, // 3개의 열로 구성된 그리드
+      shrinkWrap: true, // 그리드뷰의 높이를 내용에 맞게 조정
+      childAspectRatio: 1.5, // 버튼의 가로 세로 비율 설정
+      mainAxisSpacing: 8, // 버튼들 사이의 세로 간격
+      crossAxisSpacing: 8, // 버튼들 사이의 가로 간격
+      children: List.generate(12, (index) {
+        if (index == 9) {
+          // 전체삭제 버튼
+          return _buildKeypadButton(
+            text: "전체삭제",
+            onPressed: () => setState(() => _enteredNumber = ""), // 입력된 계좌번호 초기화
+            color: Colors.grey[300]!,
+          );
+        } else if (index == 10) {
+          // 0 버튼
+          return _buildKeypadButton(
+            text: "0",
+            onPressed: () => setState(() => _enteredNumber += "0"),
+          );
+        } else if (index == 11) {
+          // 하나삭제 버튼
+          return _buildKeypadButton(
+            text: "하나삭제",
+            onPressed: () {
+              // 마지막 입력된 문자 삭제
+              if (_enteredNumber.isNotEmpty) {
+                setState(() => _enteredNumber = _enteredNumber.substring(0, _enteredNumber.length - 1));
+              }
+            },
+            color: Colors.grey[300]!,
+          );
+        } else {
+          // 1~9 숫자 버튼
+          return _buildKeypadButton(
+            text: (index + 1).toString(),
+            onPressed: () => setState(() => _enteredNumber += (index + 1).toString()),
+          );
+        }
+      }),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // 텍스트 위젯
-          Text('숫자를 입력하세요', style: TextStyle(fontSize: 20)),
-          SizedBox(height: 20),
-          // 박스1 - 입력된 텍스트 표시
-          Container(
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(inputText, style: TextStyle(fontSize: 24)),
-          ),
-          SizedBox(height: 20),
-          // 박스2 - 숫자 버튼들
-          Column(
-            children: [
-              // row1
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildNumberButton('1'),
-                  _buildNumberButton('2'),
-                  _buildNumberButton('3'),
-                ],
-              ),
-              // row2
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildNumberButton('4'),
-                  _buildNumberButton('5'),
-                  _buildNumberButton('6'),
-                ],
-              ),
-              // row3
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildNumberButton('7'),
-                  _buildNumberButton('8'),
-                  _buildNumberButton('9'),
-                ],
-              ),
-              // row4
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    onPressed: _clearText,
-                    child: Text('모두 지우기'),
-                  ),
-                  _buildNumberButton('0'),
-                  ElevatedButton(
-                    onPressed: _deleteLastCharacter,
-                    child: Text('하나 지우기'),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          // 박스3 - 취소 및 완료 버튼
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: _onCancel,
-                child: Text('취소'),
-              ),
-              ElevatedButton(
-                onPressed: _onComplete,
-                child: Text('완료'),
-              ),
-            ],
-          ),
-        ],
+  // 키패드 버튼을 생성하는 함수
+  Widget _buildKeypadButton({required String text, required VoidCallback onPressed, Color color = Colors.white}) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      child: Text(text, style: TextStyle(fontSize: 20, color: Colors.black)), // 버튼 텍스트 스타일
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color, // 버튼 배경색
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)), // 버튼 모서리 둥글게 설정
+        elevation: 0, // 버튼 그림자 없음
       ),
     );
   }
 
-  // 숫자 버튼 생성 메서드
-  Widget _buildNumberButton(String number) {
-    return ElevatedButton(
-      onPressed: () => _addDigit(number),
-      child: Text(number),
+  // 성공 다이얼로그를 보여주는 함수
+  void _showSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return TransferSuccessPopup();
+      },
+    );
+  }
+
+  // 오류 다이얼로그를 보여주는 함수
+  void _showErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SendMoneyRejectPassword();
+      },
     );
   }
 }

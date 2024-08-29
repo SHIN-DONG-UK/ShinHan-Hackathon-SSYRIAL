@@ -1,39 +1,12 @@
 import 'package:flutter/material.dart';
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MainScreen(),
-    );
-  }
-}
-
-class MainScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('메인 화면'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ConfirmationPopup();
-              },
-            );
-          },
-          child: Text('팝업 열기'),
-        ),
-      ),
-    );
-  }
-}
+import 'package:ssyrial/screens/account/tranfer/how_much_keypad_password_dialog.dart';
+import 'package:ssyrial/screens/account/tranfer/how_much_success_dialog.dart';
 
 class ConfirmationPopup extends StatelessWidget {
+  final String titleText = '이 금액이 맞나요?';
+  final String Password = '123';
+  String enteredPassword = '';
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -42,7 +15,7 @@ class ConfirmationPopup extends StatelessWidget {
         children: [
           // 텍스트 위젯1
           Text(
-            '확인하시겠습니까?',
+            titleText,
             style: TextStyle(fontSize: 20),
           ),
           SizedBox(height: 20),
@@ -105,25 +78,36 @@ class ConfirmationPopup extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return PasswordPadPopup();
+        return HowMuchKeypadPasswordDialog();
       },
     );
   }
-}
 
-class PasswordPadPopup extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('비밀번호를 입력하세요.', style: TextStyle(fontSize: 18)),
-          SizedBox(height: 20),
-          // 여기에서 비밀번호 숫자 패드 구현
-          // 예시로 숫자 버튼 1~9를 배치할 수 있습니다.
-        ],
-      ),
+  void _showSuccessDialog(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return TransferSuccessPopup();
+        });
+  }
+
+  // 오류 다이얼로그를 보여주는 함수
+  void _showErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text('비밀번호가 틀립니다. 다시 시도해주세요.', style: TextStyle(fontSize: 18)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // 오류 다이얼로그 닫기
+              },
+              child: Text('확인'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
