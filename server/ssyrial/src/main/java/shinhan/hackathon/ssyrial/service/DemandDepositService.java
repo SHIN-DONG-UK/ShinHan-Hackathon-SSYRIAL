@@ -4,19 +4,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.CreateDemandDepositAccountModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.CreateDemandDepositModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.DeleteDemandDepositAccountModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositListModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountHolderNameModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountBalanceModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.UpdateDemandDepositAccountTransferModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireTransactionHistoryListModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireTransactionHistoryModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountListModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.InquireDemandDepositAccountModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.UpdateDemandDepositAccountDepositModel;
-import shinhan.hackathon.ssyrial.model.demandDeposit.DeleteDemandDepositAccountModel;
+import shinhan.hackathon.ssyrial.model.demandDeposit.*;
 
 /**
  * DemandDepositService 클래스는 수시입출금 상품 관련 비즈니스 로직을 처리하는 서비스 클래스입니다.
@@ -122,7 +110,8 @@ public class DemandDepositService extends ShinhanApiService {
    * @param accountNo 계좌번호
    * @return InquireDemandDepositAccountHolderNameModel.Response - 예금주 정보가 담긴 응답
    */
-  public InquireDemandDepositAccountHolderNameModel.Response inquireDemandDepositAccountHolderName(String userKey, String accountNo) {
+  public InquireDemandDepositAccountHolderNameModel.Response inquireDemandDepositAccountHolderName(String userKey,
+      String accountNo) {
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccountHolderName",
         "inquireDemandDepositAccountHolderName", userKey);
@@ -147,7 +136,8 @@ public class DemandDepositService extends ShinhanApiService {
    * @param accountNo 계좌번호
    * @return InquireDemandDepositAccountBalanceModel.Response - 계좌 잔액 정보가 담긴 응답
    */
-  public InquireDemandDepositAccountBalanceModel.Response inquireDemandDepositAccountBalance(String userKey, String accountNo) {
+  public InquireDemandDepositAccountBalanceModel.Response inquireDemandDepositAccountBalance(String userKey,
+      String accountNo) {
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccountBalance",
         "inquireDemandDepositAccountBalance", userKey);
@@ -175,7 +165,7 @@ public class DemandDepositService extends ShinhanApiService {
    * @return UpdateDemandDepositAccountTransferModel.Response - 이체 거래 정보가 담긴 응답
    */
   public UpdateDemandDepositAccountTransferModel.Response updateDemandDepositAccountTransfer(
-    String  userKey,
+      String userKey,
       String depositAccountNo, String withdrawalAccountNo, String transactionBalance,
       String depositTransactionSummary, String withdrawalTransactionSummary) {
 
@@ -246,7 +236,7 @@ public class DemandDepositService extends ShinhanApiService {
 
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("inquireTransactionHistory", "inquireTransactionHistory",
-    userKey);
+        userKey);
 
     // 요청 객체 생성
     InquireTransactionHistoryModel.Request request = InquireTransactionHistoryModel.Request.builder()
@@ -261,12 +251,13 @@ public class DemandDepositService extends ShinhanApiService {
   }
 
   /*
-  InquireDemandDepositAccountListModel 계좌 목록 조회
+   * InquireDemandDepositAccountListModel 계좌 목록 조회
    */
   public InquireDemandDepositAccountListModel.Response inquireDemandDepositAccountList(String userKey) {
 
     // 공통 헤더 생성
-    CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccountList", "inquireDemandDepositAccountList",
+    CommonHeaderModel.Request header = createCommonHeader("inquireDemandDepositAccountList",
+        "inquireDemandDepositAccountList",
         userKey);
 
     // 요청 객체 생성
@@ -276,12 +267,11 @@ public class DemandDepositService extends ShinhanApiService {
 
     // API 요청 보내기
     return sendRequest("/edu/demandDeposit/inquireDemandDepositAccountList", HttpMethod.POST, request,
-    InquireDemandDepositAccountListModel.Response.class, true);
+        InquireDemandDepositAccountListModel.Response.class, true);
   }
 
-  
   /*
-  InquireDemandDepositAccountModel 계좌 조회 (단건)
+   * InquireDemandDepositAccountModel 계좌 조회 (단건)
    */
   public InquireDemandDepositAccountModel.Response inquireDemandDepositAccount(String userKey, String accountNo) {
 
@@ -297,16 +287,18 @@ public class DemandDepositService extends ShinhanApiService {
 
     // API 요청 보내기
     return sendRequest("/edu/demandDeposit/inquireDemandDepositAccount", HttpMethod.POST, request,
-    InquireDemandDepositAccountModel.Response.class, true);
+        InquireDemandDepositAccountModel.Response.class, true);
   }
-  
+
   /*
-  UpdateDemandDepositAccountDepositModel 계좌 입금
+   * UpdateDemandDepositAccountDepositModel 계좌 입금
    */
-  public UpdateDemandDepositAccountDepositModel.Response updateDemandDepositAccountDeposit(String userKey, String accountNo, String transactionBalance, String transactionSummary) {
+  public UpdateDemandDepositAccountDepositModel.Response updateDemandDepositAccountDeposit(String userKey,
+      String accountNo, String transactionBalance, String transactionSummary) {
 
     // 공통 헤더 생성
-    CommonHeaderModel.Request header = createCommonHeader("updateDemandDepositAccountDeposit", "updateDemandDepositAccountDeposit",
+    CommonHeaderModel.Request header = createCommonHeader("updateDemandDepositAccountDeposit",
+        "updateDemandDepositAccountDeposit",
         userKey);
 
     // 요청 객체 생성
@@ -319,13 +311,14 @@ public class DemandDepositService extends ShinhanApiService {
 
     // API 요청 보내기
     return sendRequest("/edu/demandDeposit/updateDemandDepositAccountDeposit", HttpMethod.POST, request,
-    UpdateDemandDepositAccountDepositModel.Response.class, true);
+        UpdateDemandDepositAccountDepositModel.Response.class, true);
   }
 
-    /*
-  DeleteDemandDepositAccountModel 계좌 입금
+  /*
+   * DeleteDemandDepositAccountModel 계좌 입금
    */
-  public DeleteDemandDepositAccountModel.Response deleteDemandDepositAccount(String userKey, String accountNo, String refundAccountNo) {
+  public DeleteDemandDepositAccountModel.Response deleteDemandDepositAccount(String userKey, String accountNo,
+      String refundAccountNo) {
 
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("deleteDemandDepositAccount", "deleteDemandDepositAccount",
@@ -340,6 +333,6 @@ public class DemandDepositService extends ShinhanApiService {
 
     // API 요청 보내기
     return sendRequest("/edu/demandDeposit/deleteDemandDepositAccount", HttpMethod.POST, request,
-    DeleteDemandDepositAccountModel.Response.class, true);
+        DeleteDemandDepositAccountModel.Response.class, true);
   }
 }

@@ -8,7 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
-import shinhan.hackathon.ssyrial.model.transactionMemo.TransactionMemoModel;
+import shinhan.hackathon.ssyrial.model.transactionMemo.*;
 
 @Service
 public class TransactionMemoService extends ShinhanApiService {

@@ -24,16 +24,15 @@ package shinhan.hackathon.ssyrial.model.demandDeposit;
 
 import lombok.Getter;
 import lombok.Setter;
-import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotBlank;
+
+import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 
 /**
  * DeleteDemandDepositAccountModel 클래스는 계좌 해지 요청 및 응답 데이터를 담는 모델 클래스입니다.
