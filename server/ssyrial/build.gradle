@@ -37,9 +37,6 @@ dependencies {
     compileOnly  'org.projectlombok:lombok' // Getter, Setter, Constructor 등을 자동으로 생성해주는 라이브러리'
     annotationProcessor 'org.projectlombok:lombok' // Lombok 어노테이션 처리기
 
-    // API 문서화
-    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0' // OpenAPI 문서 자동 생성 및 Swagger UI 제공
-
     // Firebase 연동
     implementation 'com.google.firebase:firebase-admin:9.0.0' // Firebase Admin SDK (인증, Firestore, 메시징 등 Firebase 서비스와 통신)
 
@@ -49,6 +46,9 @@ dependencies {
     // 테스트 관련 라이브러리
     testImplementation 'org.springframework.boot:spring-boot-starter-test' // 단위 테스트 및 통합 테스트를 위한 라이브러리 모음 (JUnit, Mockito 포함)
     testImplementation 'io.rest-assured:rest-assured' // RESTful API 테스트를 위한 라이브러리 (API 엔드포인트 테스트용)
+ 
+    // Swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 }
 
 tasks.named('test') {
