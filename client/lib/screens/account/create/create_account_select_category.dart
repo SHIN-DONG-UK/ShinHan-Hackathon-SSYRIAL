@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'list/ipchulgeumlist.dart';
-import 'list/jukgeumlist.dart';
-import 'list/yegeumlist.dart';
+import 'package:ssyrial/screens/account/create/ipchulgeumlist.dart';
+import 'package:ssyrial/screens/account/create/Yegeumlist.dart';
+import 'package:ssyrial/screens/account/create/Jukgeumlist.dart';
 
 class CreateAccoutSelectCategory extends StatelessWidget {
   const CreateAccoutSelectCategory({super.key});

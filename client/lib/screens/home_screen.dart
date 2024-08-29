@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ssyrial/screens/account/create/create_account_select_category.dart';
 import 'package:ssyrial/screens/auth/help_screen.dart';
 import 'package:ssyrial/widgets/custom_dialog.dart';
+
 
 class HomeScreen extends StatelessWidget {
   final String title; // 화면의 제목
@@ -29,18 +31,35 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(buttonPadding), // 버튼 주위의 패딩 설정
-          child: ElevatedButton(
-            onPressed: () {
-              // 도움말 다이얼로그 표시
-              showDialog(
-                context: context,
-                builder: (context) => CustomDialog(child: HelpScreen()),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: buttonColor, // 버튼 배경색 설정
-            ),
-            child: Text(buttonText, style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  // 도움말 다이얼로그 표시
+                  showDialog(
+                    context: context,
+                    builder: (context) => CustomDialog(child: HelpScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: buttonColor, // 버튼 배경색 설정
+                ),
+                child: Text(buttonText, style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CreateAccoutSelectCategory()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: buttonColor, // 버튼 배경색 설정
+                ),
+                child: Text("계좌 생성하기", style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
+              ),
+            ],
           ),
         ),
       ),

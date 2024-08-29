@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shinhan/ipchulgeumokcheck/ipchulgeumabiliablecheck.dart';
+import 'package:ssyrial/screens/account/create/ipchulgeumabiliablecheck.dart';
 
 class Ipchulgeumlist extends StatelessWidget {
   const Ipchulgeumlist({super.key});

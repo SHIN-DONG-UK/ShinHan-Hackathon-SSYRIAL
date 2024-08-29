@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shinhan/main.dart';
+
+import '../../guide/function_selection_screen.dart';
 
 class CreateFinishedScreen extends StatelessWidget {
   const CreateFinishedScreen({super.key});
@@ -31,7 +32,7 @@ class CreateFinishedScreen extends StatelessWidget {
                 onPressed: () =>{
                 Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MyApp()),
+                MaterialPageRoute(builder: (context) => const FunctionSelectionScreen()),
                 )
                 },
                 style: ElevatedButton.styleFrom(

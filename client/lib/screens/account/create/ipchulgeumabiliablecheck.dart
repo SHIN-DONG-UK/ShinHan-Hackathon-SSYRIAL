@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../createaccountfinalcheck/1_finalcheckscreen.dart';
+
 import 'dart:async';
+
+import 'package:ssyrial/screens/account/create/finalcheckscreen.dart';
 
 class Ipchulgeumabiliablecheck extends StatefulWidget {
   const Ipchulgeumabiliablecheck({super.key});
