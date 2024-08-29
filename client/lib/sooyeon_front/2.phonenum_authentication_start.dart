@@ -101,22 +101,3 @@ class PhoneNumAuthenticationStart extends StatelessWidget {
     );
   }
 }
-
-// MyApp 클래스 정의
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Phone Num Authentication',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: PhoneNumAuthenticationStart(), // PhoneNumAuthenticationStart를 홈 화면으로 설정
-    );
-  }
-}
-
-// main 함수
-void main() {
-  runApp(MyApp());
-}
