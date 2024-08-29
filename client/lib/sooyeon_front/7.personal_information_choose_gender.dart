@@ -123,23 +123,3 @@ class _PersonalInformationChooseGenderState extends State<PersonalInformationCho
     });
   }
 }
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Personal Information Input',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: PersonalInformationChooseGender(
-        birthday: '000303', // 하드코딩된 생년월일 예시
-        initialName: '박수연',
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(MyApp());
-}
