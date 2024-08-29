@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '1.home_screen.dart';  // HomeScreen을 임포트
+import 'Home/1.home_screen.dart';  // HomeScreen을 임포트
 
 void main() {
   runApp(MyApp());
