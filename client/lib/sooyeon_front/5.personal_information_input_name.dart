@@ -110,21 +110,3 @@ class _PersonalInformationInputNameState
     super.dispose();
   }
 }
-
-// main 함수
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Personal Information Input',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: PersonalInformationInputName(),
-    );
-  }
-}
