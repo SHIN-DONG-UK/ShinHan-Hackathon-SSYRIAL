@@ -76,10 +76,10 @@ public class CreateDepositModel {
     private String subscriptionPeriod; // 필수: 가입기간, 길이: 20
 
     @JsonProperty("minSubscriptionBalance")
-    private Long minSubscriptionBalance; // 필수: 최소가입가능금액
+    private String minSubscriptionBalance; // 필수: 최소가입가능금액
 
     @JsonProperty("maxSubscriptionBalance")
-    private Long maxSubscriptionBalance; // 필수: 최대가입가능금액
+    private String maxSubscriptionBalance; // 필수: 최대가입가능금액
 
     @JsonProperty("interestRate")
     private Double interestRate; // 필수: 이자율
