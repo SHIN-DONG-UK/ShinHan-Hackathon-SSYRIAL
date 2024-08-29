@@ -85,9 +85,15 @@ class _MemberRegistrationStartScreenState
                   ],
                 ),
               ),
-              if (_canProceed())
-                _buildActionButton(
+              const SizedBox(height: 20),
+              Visibility(
+                visible: _canProceed(),
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                child: _buildActionButton(
                     context, '다음', kNextButtonColor, _onNextPressed),
+              ),
             ],
           ),
         ),
