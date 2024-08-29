@@ -44,8 +44,9 @@ dependencies {
 
     // 코드 간소화를 위한 Lombok 라이브러리
     annotationProcessor 'org.projectlombok:lombok' // Lombok 어노테이션 처리기
-    compileOnly 'org.projectlombok:lombok' // Getter, Setter, Constructor 등을 자동으로 생성해주는 라이브러리
-
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    compile 'org.projectlombok:lombok' // Getter, Setter, Constructor 등을 자동으로 생성해주는 라이브러리
+    
     // 테스트 관련 라이브러리
     testImplementation 'org.springframework.boot:spring-boot-starter-test' // 단위 테스트 및 통합 테스트를 위한 라이브러리 모음 (JUnit, Mockito 포함)
     testImplementation 'io.rest-assured:rest-assured' // RESTful API 테스트를 위한 라이브러리 (API 엔드포인트 테스트용)
