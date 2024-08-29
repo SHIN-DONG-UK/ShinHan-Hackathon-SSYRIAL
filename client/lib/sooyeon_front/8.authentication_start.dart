@@ -83,20 +83,3 @@ class NextScreen extends StatelessWidget {
     );
   }
 }
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Authentication App',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: AuthenticationStart(), // 홈 화면을 AuthenticationStart로 설정
-    );
-  }
-}
-
-void main() {
-  runApp(MyApp());
-}
