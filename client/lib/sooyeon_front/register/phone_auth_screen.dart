@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:ssyrial/config/tts_config.dart';
 import 'constants.dart';
 
-class PhoneAuthScreen extends StatelessWidget {
+class PhoneAuthScreen extends StatefulWidget {
+  @override
+  _PhoneAuthScreenState createState() => _PhoneAuthScreenState();
+}
+
+class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
+  final TTSConfig ttsConfig = TTSConfig();
+
+  @override
+  void initState() {
+    super.initState();
+    _speakPhoneAuthMessage();
+  }
+
+  Future<void> _speakPhoneAuthMessage() async {
+    await ttsConfig.initTTS(); // Initialize TTS settings
+    await ttsConfig.speak("번호 인증을 위해 문자를 보내주세요."); // Speak the phone auth message
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

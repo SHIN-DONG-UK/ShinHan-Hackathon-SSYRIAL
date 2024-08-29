@@ -6,8 +6,8 @@ import '../1-2.cancle_member_registration.dart';
 import 'authentication_screen.dart';
 import 'constants.dart';
 import 'personal_information_input_screen.dart';
-import '../9.save_your_password.dart'; // SaveYourPassword 화면 임포트
-import 'package:ssyrial/config/tts_config.dart'; // Import TTSConfig
+import '../9.save_your_password.dart';
+import 'package:ssyrial/config/tts_config.dart';
 
 enum ScreenState {
   start,
@@ -15,27 +15,25 @@ enum ScreenState {
   personalInfoConsent,
   personalInfoInput,
   authenticationStart,
-  completionScreen, // Completion screen for after authentication
+  completionScreen,
 }
 
 class MemberRegistrationStartScreen extends StatefulWidget {
-  const MemberRegistrationStartScreen({super.key});
+  const MemberRegistrationStartScreen({Key? key}) : super(key: key);
 
   @override
-  _MemberRegistrationStartScreenState createState() =>
-      _MemberRegistrationStartScreenState();
+  _MemberRegistrationStartScreenState createState() => _MemberRegistrationStartScreenState();
 }
 
-class _MemberRegistrationStartScreenState
-    extends State<MemberRegistrationStartScreen> {
+class _MemberRegistrationStartScreenState extends State<MemberRegistrationStartScreen> {
   ScreenState _currentScreen = ScreenState.start;
-  List<bool> _isChecked = [false, false, false, false, false];
+  final List<bool> _isChecked = List.filled(5, false);
   final PageController _pageController = PageController();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _birthdayController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _birthdayController = TextEditingController();
   String? _selectedGender;
   bool _isAuthenticated = false;
-  final TTSConfig ttsConfig = TTSConfig(); // TTSConfig instance
+  final TTSConfig _ttsConfig = TTSConfig();
 
   @override
   Widget build(BuildContext context) {
@@ -47,53 +45,11 @@ class _MemberRegistrationStartScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _buildActionButton(
-                  context, '취소하기', kCancelButtonColor, _onCancelPressed),
+              _buildActionButton(context, '취소하기', kCancelButtonColor, _onCancelPressed),
               const SizedBox(height: 20),
-              Expanded(
-                child: PageView(
-                  controller: _pageController,
-                  onPageChanged: (index) {
-                    setState(() {
-                      _currentScreen = ScreenState.values[index];
-                    });
-                  },
-                  children: [
-                    StartScreen(
-                      onTTSComplete: _onNextPressed, // Navigate when TTS completes
-                    ),
-                    PhoneAuthScreen(),
-                    PersonalInfoConsentScreen(
-                      isChecked: _isChecked,
-                      onCheckedChanged: _updateConsentState,
-                    ),
-                    PersonalInformationInputScreen(
-                      nameController: _nameController,
-                      birthdayController: _birthdayController,
-                      selectedGender: _selectedGender,
-                      onNameChanged: (value) => setState(() {}),
-                      onBirthdayChanged: (value) => setState(() {}),
-                      onGenderSelected: (gender) => setState(() {
-                        _selectedGender = gender;
-                      }),
-                    ),
-                    AuthenticationScreen(
-                      onAuthenticationComplete: () => setState(() {
-                        _onAuthenticationStart();
-                      }),
-                    ), // AuthenticationStartScreen 추가
-                  ],
-                ),
-              ),
+              Expanded(child: _buildPageView()),
               const SizedBox(height: 20),
-              Visibility(
-                visible: _canProceed(),
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
-                child: _buildActionButton(
-                    context, '다음', kNextButtonColor, _onNextPressed),
-              ),
+              _buildNextButton(),
             ],
           ),
         ),
@@ -101,25 +57,73 @@ class _MemberRegistrationStartScreenState
     );
   }
 
+  Widget _buildPageView() {
+    return PageView(
+      controller: _pageController,
+      onPageChanged: (index) {
+        setState(() {
+          _currentScreen = ScreenState.values[index];
+        });
+      },
+      children: [
+        StartScreen(onTTSComplete: _onStartScreenTTSComplete),
+        PhoneAuthScreen(),
+        PersonalInfoConsentScreen(
+          isChecked: _isChecked,
+          onCheckedChanged: _updateConsentState,
+        ),
+        PersonalInformationInputScreen(
+          nameController: _nameController,
+          birthdayController: _birthdayController,
+          selectedGender: _selectedGender,
+          onNameChanged: (value) => setState(() {}),
+          onBirthdayChanged: (value) => setState(() {}),
+          onGenderSelected: (gender) => setState(() {
+            _selectedGender = gender;
+          }),
+        ),
+        AuthenticationScreen(
+          onAuthenticationComplete: () => setState(() {
+            _onAuthenticationStart();
+          }),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNextButton() {
+    return Visibility(
+      visible: _canProceed(),
+      maintainSize: true,
+      maintainAnimation: true,
+      maintainState: true,
+      child: _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
+    );
+  }
+
   void _updateConsentState(List<bool> newCheckedValues) {
     setState(() {
-      _isChecked = newCheckedValues;
+      for (int i = 0; i < _isChecked.length; i++) {
+        _isChecked[i] = newCheckedValues[i];
+      }
     });
   }
 
+  Future<void> _onStartScreenTTSComplete() async {
+    if (_currentScreen == ScreenState.start) {
+      await _onNextPressed();
+    }
+  }
+
   Future<void> _onNextPressed() async {
-    await ttsConfig.stop(); // Stop any ongoing TTS
+    await _ttsConfig.stop();
 
     if (_currentScreen.index == ScreenState.values.length - 1) {
-      // 마지막 페이지면 새로운 페이지로 이동
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => SaveYourPassword(), // SaveYourPassword 화면으로 이동
-        ),
+        MaterialPageRoute(builder: (context) => SaveYourPassword()),
       );
     } else {
-      // 다음 페이지로 이동
       int nextIndex = (_currentScreen.index + 1) % ScreenState.values.length;
       setState(() {
         _currentScreen = ScreenState.values[nextIndex];
@@ -133,7 +137,6 @@ class _MemberRegistrationStartScreenState
   }
 
   void _onAuthenticationStart() {
-    // Here you simulate the authentication process completion
     setState(() {
       _isAuthenticated = true;
       _currentScreen = ScreenState.completionScreen;
@@ -143,27 +146,26 @@ class _MemberRegistrationStartScreenState
   void _onCancelPressed() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => CancelMemberRegistrationScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => CancelMemberRegistrationScreen()),
     );
   }
 
   bool _canProceed() {
-    if (_currentScreen == ScreenState.personalInfoConsent) {
-      return _isChecked[0];
+    switch (_currentScreen) {
+      case ScreenState.personalInfoConsent:
+        return _isChecked[0];
+      case ScreenState.personalInfoInput:
+        return _selectedGender != null;
+      case ScreenState.completionScreen:
+        return _isAuthenticated;
+      case ScreenState.authenticationStart:
+        return false;
+      default:
+        return true;
     }
-    if (_currentScreen == ScreenState.personalInfoInput) {
-      return _selectedGender != null;
-    }
-    if (_currentScreen == ScreenState.completionScreen) {
-      return _isAuthenticated; // 활성화된 인증 상태에서만 다음 버튼이 나타남
-    }
-    return _currentScreen != ScreenState.authenticationStart;
   }
 
-  Widget _buildActionButton(
-      BuildContext context, String label, Color color, VoidCallback onPressed) {
+  Widget _buildActionButton(BuildContext context, String label, Color color, VoidCallback onPressed) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(

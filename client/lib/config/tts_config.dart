@@ -26,10 +26,7 @@ class TTSConfig {
 
     // Get available voices and filter for 'ko-KR'
     List<dynamic> allVoices = await flutterTts.getVoices;
-    //voices = allVoices.where((voice) => voice['locale'] == 'ko-KR').toList();
-    voices = allVoices;
-
-    print(voices); // Debugging: print filtered voices
+    voices = allVoices.where((voice) => voice['locale'] == 'ko-KR').toList();
 
     if (voices.isNotEmpty) {
       selectedVoice = voices.first['name'];
