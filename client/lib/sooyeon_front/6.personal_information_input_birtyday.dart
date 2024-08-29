@@ -129,20 +129,3 @@ class _PersonalInformationInputBirthdayState
     super.dispose();
   }
 }
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Personal Information Input',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: PersonalInformationInputBirthday(initialName: '홍길동'), // 하드코딩된 이름을 전달
-    );
-  }
-}
