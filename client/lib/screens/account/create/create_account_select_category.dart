@@ -1,131 +1,204 @@
 import 'package:flutter/material.dart';
-import 'package:ssyrial/screens/account/create/ipchulgeumlist.dart';
-import 'package:ssyrial/screens/account/create/Yegeumlist.dart';
-import 'package:ssyrial/screens/account/create/Jukgeumlist.dart';
+import 'ipchulgeumlist.dart';
+import 'jukgeumlist.dart';
+import 'yegeumlist.dart';
 
 class CreateAccoutSelectCategory extends StatelessWidget {
   const CreateAccoutSelectCategory({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
-
-
-    void nav_to_ipchulgeum_list() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Ipchulgeumlist()),
-      );
-    }
-    void nav_to_yegeum_list() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Yegeumlist()),
-      );
-    }
-    void nav_to_jukgeum_list() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Jukgeumlist()),
-      );
-    }
-
-
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context); // 이전 화면으로 돌아가기
-              },
-              child: const Text('돌아가기'),
+    var screenwidth = MediaQuery.of(context).size.width;
+    var screenheight = MediaQuery.of(context).size.height;
+    return MaterialApp(
+      home: Scaffold(
+        body: Stack(
+          children: [
+            // Background Image
+            Positioned.fill(
+              child: Image.asset(
+                'assets/images/CreateAccount_select_category.png',
+                // Make sure this path is correct
+                fit: BoxFit.fitHeight,
+              ),
             ),
-            const Text('생성할 계좌의\n종류를 선택해주세요.\n버튼을 길게 눌러\n설명을 확인하세요.'),
-            ElevatedButton(
-              onLongPress: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => Dialog(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text('입출금 계좌입니다. 설명 팝업 창'),
-                        const SizedBox(height: 15),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Close'),
-                        ),
-                      ],
-                    ),
-                  ),
+
+            //돌아가기 버튼
+            Positioned(
+              top: screenwidth * 0.02,
+              child: SizedBox(
+                width: screenwidth,
+                height: screenheight * 0.15,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: TextButton.styleFrom(
+                      overlayColor: const Color(0x00000000)),
+                  child: Text(''), // Empty text as the image itself has text
                 ),
               ),
-              onPressed: nav_to_ipchulgeum_list ,
-              child: const Text('입출금'),
             ),
-            ElevatedButton(
-              onLongPress: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => Dialog(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text('예금 계좌입니다. 설명 팝업 창'),
-                        const SizedBox(height: 15),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Close'),
+
+            //입출금 버튼
+            Positioned(
+              bottom: screenheight * 0.02 + screenheight * 0.33,
+              child: SizedBox(
+                width: screenwidth,
+                height: screenheight * 0.14,
+                child: TextButton(
+                  onLongPress: () => showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.transparent,
+                        content: Stack(
+                          children: [
+                            Center(child:Image.asset(
+                              'assets/images/ipchulgeum_explain.png',
+                              fit: BoxFit.fitHeight,
+                            ),),
+                            SizedBox(
+                              width: screenwidth,
+                              height: screenheight,
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: TextButton.styleFrom(
+                                  overlayColor: Color(0),
+                                ),
+                                child: Text(""),
+                              ),
+                            )
+                          ],
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Ipchulgeumlist()),
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    overlayColor: Color(0),
+                  ),
+                  child: Text(''),
                 ),
               ),
-              onPressed: nav_to_yegeum_list ,
-              child: const Text('예금'),
             ),
-            ElevatedButton(
-              onLongPress: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => Dialog(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text('적금 계좌입니다. 설명 팝업 창'),
-                        const SizedBox(height: 15),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Close'),
+
+            //예금 버튼
+            Positioned(
+              bottom: screenheight * 0.02 + screenheight * 0.17,
+              child: SizedBox(
+                width: screenwidth,
+                height: screenheight * 0.14,
+                child: TextButton(
+                  onLongPress: () => showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.transparent,
+                        content: Stack(
+                          children: [
+                            Center(child:Image.asset(
+                              'assets/images/yegeum_explain.png',
+                              fit: BoxFit.fitHeight,
+                            ),),
+                            SizedBox(
+                              width: screenwidth,
+                              height: screenheight,
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: TextButton.styleFrom(
+                                  overlayColor: Color(0),
+                                ),
+                                child: Text(""),
+                              ),
+                            )
+                          ],
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
+
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Yegeumlist()),
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    overlayColor: Color(0),
+                  ),
+                  child: Text(''),
                 ),
               ),
-              onPressed: nav_to_jukgeum_list ,
-              child: const Text('적금'),
+            ),
+
+            //적금 버튼
+            Positioned(
+              bottom: screenheight * 0.028,
+              child: SizedBox(
+                width: screenwidth,
+                height: screenheight * 0.14,
+                child: TextButton(
+                  onLongPress: () => showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.transparent,
+                        content: Stack(
+                          children: [
+                            Center(child:Image.asset(
+                              'assets/images/jukgeum_explain.png',
+                              fit: BoxFit.fitHeight,
+                            ),),
+                            SizedBox(
+                              width: screenwidth,
+                              height: screenheight,
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: TextButton.styleFrom(
+                                  overlayColor: Color(0),
+                                ),
+                                child: Text(""),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Jukgeumlist()),
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    overlayColor: Color(0),
+                  ),
+                  child: Text(''),
+                ),
+              ),
             ),
           ],
-        )
-
-
+        ),
       ),
     );
   }

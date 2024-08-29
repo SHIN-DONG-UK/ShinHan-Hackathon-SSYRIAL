@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ssyrial/screens/account/create/ipchulgeumabiliablecheck.dart';
 
 class Ipchulgeumlist extends StatelessWidget {
   const Ipchulgeumlist({super.key});
@@ -8,13 +7,6 @@ class Ipchulgeumlist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    void nav_to_ipchulgeumabiliablecheck() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Ipchulgeumabiliablecheck()),
-      );
-    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -57,7 +49,7 @@ class Ipchulgeumlist extends StatelessWidget {
                 child: ListView(
                   children: [
                     ElevatedButton(
-                      onPressed:nav_to_ipchulgeumabiliablecheck,
+                      onPressed: (){print("hello");},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue, // 버튼 배경색
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15), // 버튼 패딩
@@ -129,36 +121,6 @@ class Ipchulgeumlist extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildAccountOption(String title, String subtitle) {
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 8.0),
-          Text(
-            subtitle,
-            style: const TextStyle(
-              fontSize: 14.0,
-              color: Colors.white,
-            ),
-          ),
-        ],
       ),
     );
   }
