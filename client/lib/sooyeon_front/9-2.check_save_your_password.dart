@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '9-3.password_fail_popup.dart'; // password_fail_popup.dart를 임포트
-import '10.finish_member_registeration.dart'; // finish_member_registration.dart 파일 임포트
+import '10.finish_member_registration.dart'; // finish_member_registration.dart 파일 임포트
 
 class CheckSaveYourPassword extends StatefulWidget {
   final String enteredPassword;
