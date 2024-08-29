@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ssyrial/config/tts_screen.dart';
 import 'package:ssyrial/screens/account/create/create_account_select_category.dart';
 import 'package:ssyrial/screens/auth/help_screen.dart';
 import 'package:ssyrial/widgets/custom_dialog.dart';
@@ -71,6 +72,15 @@ class HomeScreen extends StatelessWidget {
                   backgroundColor: buttonColor, // 버튼 배경색 설정
                 ),
                 child: Text("수연홈스크린", style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TTSSettingsScreen()),
+                  );
+                },
+                child: Text('TTS 설정'),
               ),
             ],
           ),
