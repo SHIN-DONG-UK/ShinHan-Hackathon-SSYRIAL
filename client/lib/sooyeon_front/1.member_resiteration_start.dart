@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Home/1.home_screen.dart';  // HomeScreen을 임포트
+import '2.phonenum_authentication_start.dart'; // phonenum_authentication_start.dart 파일을 임포트
+import '1-2.cancle_member_registration.dart'; // cancle_member_registration.dart 파일을 임포트
 
 void main() {
   runApp(MyApp());
@@ -9,105 +10,107 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Sign Up Cancel Dialog Demo',
+      title: 'Member Registration Start',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.pink[50],
       ),
-      home: HomeScreen(),  // 기본 홈 화면을 HomeScreen으로 설정
+      home: MemberRegistrationStartScreen(),
     );
   }
 }
 
-class CancelMemberRegistrationScreen extends StatelessWidget {
+class MemberRegistrationStartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('회원 등록 취소'),
-      ),
-      body: Center(
-        child: SignUpCancelDialog(), // 취소 다이얼로그를 화면에 바로 표시
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  // 취소하기 버튼을 누르면 cancle_member_registration.dart 화면으로 이동
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CancelMemberRegistrationScreen(),
+                    ),
+                  );
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Text(
+                    '취소하기',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '시작하기 위해\n회원 등록을\n진행할게요.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      ElevatedButton(
+                        onPressed: () {
+                          // phonenum_authentication_start.dart로 화면 이동
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  PhoneNumAuthenticationStart(), // 전화번호 인증 화면으로 이동
+                            ),
+                          );
+                        },
+                        child: Text(
+                          '시작하기',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
-}
-
-class SignUpCancelDialog extends StatelessWidget {
-  const SignUpCancelDialog({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // 네 버튼 클릭 시 home_screen으로 이동
-            TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.red,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                minimumSize: const Size(100, 40),
-              ),
-              onPressed: () {
-                // 네 버튼을 누르면 HomeScreen으로 이동
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                      (Route<dynamic> route) => false,  // 이전 화면을 모두 제거
-                );
-              },
-              child: const Text(
-                '네',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              '회원 등록을 취소할까요?',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            // 아니오 버튼 클릭 시 다이얼로그 닫기
-            TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.green,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                minimumSize: const Size(100, 40),
-              ),
-              onPressed: () {
-                Navigator.pop(context); // 다이얼로그 닫기
-              },
-              child: const Text(
-                '아니오',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// 다이얼로그를 표시하는 함수
-void showSignUpCancelDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return const SignUpCancelDialog();
-    },
-  );
 }
