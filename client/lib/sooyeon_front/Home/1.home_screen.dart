@@ -15,6 +15,9 @@ const TextStyle kFeatureTextStyleActive = TextStyle(color: Colors.blue);
 const TextStyle kFeatureTextStyleInactive = TextStyle(color: Colors.grey);
 const TextStyle kAccountCreationTextStyle = TextStyle(color: Colors.white);
 
+//TODO: 1. 로그인 버튼 제거
+//TODO: 2. flutter hive 라이브러리를 이용해 회원가입 여부 판별
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
