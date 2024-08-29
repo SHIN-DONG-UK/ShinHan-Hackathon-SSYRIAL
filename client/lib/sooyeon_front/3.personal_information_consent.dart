@@ -94,18 +94,3 @@ class _PersonalInformationConsentState extends State<PersonalInformationConsent>
     );
   }
 }
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Personal Information Consent',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: PersonalInformationConsent(),
-    );
-  }
-}
-
-void main() {
-  runApp(MyApp());
-}
