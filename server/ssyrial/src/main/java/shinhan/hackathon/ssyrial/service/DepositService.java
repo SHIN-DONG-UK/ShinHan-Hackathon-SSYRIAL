@@ -110,7 +110,7 @@ public class DepositService extends ShinhanApiService {
   /*
    * CreateDepositAccount (예금 계좌 개설 기능)
    */
-  public CreateDepositAccountModel.Response createDepositAccountModel(String withdrawalAccountNo, String accountTypeUniqueNo, String depositBalance) {
+  public CreateDepositAccountModel.Response createDepositAccount(String withdrawalAccountNo, String accountTypeUniqueNo, String depositBalance) {
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("createDepositAccountModel", "createDepositAccountModel",
         null);
