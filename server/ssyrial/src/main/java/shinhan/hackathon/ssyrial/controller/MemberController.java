@@ -30,6 +30,40 @@ public class MemberController extends BaseController {
   }
 
   /**
+   * 로그인 요청을 처리합니다. 
+   * 이 메서드는 회원을 검색하고, 만약 회원이 존재하지 않으면 회원을 생성합니다.
+   *
+   * @param request MemberModel.Request - 회원 로그인 요청 데이터
+   * @return ResponseEntity<ApiResponse<MemberModel.Response>> - 회원 정보가 담긴 응답
+   */
+  @PostMapping("/login")
+  public ResponseEntity<ApiResponse<MemberModel.Response>> loginOrCreateMember(
+      @RequestBody MemberModel.Request request) {
+    try {
+      // 먼저 회원 검색 시도
+      MemberSearchModel.Request searchRequest = new MemberSearchModel.Request(
+          request.getApiKey(), request.getUserId());
+      MemberSearchModel.Response searchResponse = memberService.searchMember(searchRequest);
+      
+      // 검색된 회원 정보를 반환
+      MemberModel.Response response = new MemberModel.Response(
+          searchResponse.getUserId(),
+          searchResponse.getUserName(),
+          searchResponse.getInstitutionCode(),
+          searchResponse.getUserKey(),
+          searchResponse.getCreated(),
+          searchResponse.getModified()
+      );
+      return successResponse(response);
+
+    } catch (Exception e) {
+      // 회원 검색에 실패하면 회원 생성 시도
+      MemberModel.Response response = memberService.createMember(request);
+      return successResponse(response);
+    }
+  }
+
+  /**
    * / 엔드포인트로 들어오는 회원 등록(회원가입) 요청을 처리합니다.
    * 
    * 이 메서드는 클라이언트로부터 회원 등록 요청 데이터를 받아서 처리한 후,
@@ -38,7 +72,7 @@ public class MemberController extends BaseController {
    * @param request MemberModel.Request - 회원 등록 요청 데이터
    * @return ResponseEntity<ApiResponse<MemberModel.Response>> - 등록된 회원 정보가 담긴 응답
    */
-  @PostMapping("/")
+  @PostMapping("/create")
   public ResponseEntity<ApiResponse<MemberModel.Response>> createMember(
       @RequestBody MemberModel.Request request) {
     MemberModel.Response response = memberService.createMember(request);

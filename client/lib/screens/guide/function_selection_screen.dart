@@ -104,6 +104,7 @@ extension Widgets on FunctionSelectionScreen {
     );
   }
 }
+
 extension Functions on FunctionSelectionScreen {
   // 기능 버튼이 눌렸을 때 동작
   void _onFunctionButtonPressed(String label, BuildContext context) {

@@ -32,59 +32,6 @@ class _STTScreenState extends State<STTScreen> {
     startRecording(); // 녹음 시작
   }
 
-  // 실제 STT 기능 구현을 위해 녹음을 시작하는 함수
-  void startRecording() {
-    // TODO: 실제 STT 시작 로직 구현
-    simulateSTT(); // STT 결과를 시뮬레이션
-  }
-
-  // STT 결과를 시뮬레이션하는 함수
-  void simulateSTT() {
-    // 1초마다 "송금"과 "통장 정리"를 번갈아가며 표시
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        if (sttCounter % 2 == 0) {
-          detectedText = "송금";
-        } else {
-          detectedText = "통장 정리";
-        }
-        sttCounter++;
-        if (isRecording) {
-          simulateSTT(); // 계속해서 시뮬레이션 반복
-        }
-      });
-    });
-  }
-
-  // 녹음이 끝난 후 확인 상태로 전환하는 함수
-  void stopRecording() {
-    setState(() {
-      isRecording = false; // 녹음 중지
-      updateQuestionText(); // 질문 텍스트 업데이트
-    });
-  }
-
-  // 인식된 텍스트에 따라 질문 텍스트를 업데이트하는 함수
-  void updateQuestionText() {
-    if (detectedText.contains("송금")) {
-      questionText = "송금에 관한 내용이 맞나요?";
-    } else if (detectedText.contains("통장 정리")) {
-      questionText = "통장 정리에 관한 내용이 맞나요?";
-    } else {
-      questionText = "이 내용이 맞나요?";
-    }
-  }
-
-  // 녹음을 다시 시작하는 함수
-  void restartRecording() {
-    setState(() {
-      isRecording = true;
-      detectedText = ""; // STT 텍스트 초기화
-      sttCounter = 0; // 카운터 초기화
-    });
-    startRecording(); // STT 재시작
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -101,8 +48,9 @@ class _STTScreenState extends State<STTScreen> {
       ),
     );
   }
+}
 
-  // 이미지를 빌드하는 함수
+extension STTScreenWidgets on _STTScreenState {
   Widget buildImage() {
     return Image.asset(
       'assets/images/moli.gif', // 예시 이미지
@@ -111,7 +59,6 @@ class _STTScreenState extends State<STTScreen> {
     );
   }
 
-  // STT 결과 텍스트를 표시하는 컨테이너 빌드 함수
   Widget buildSTTContainer() {
     return Container(
       padding: EdgeInsets.all(12),
@@ -120,13 +67,12 @@ class _STTScreenState extends State<STTScreen> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
-        "들은 내용: $detectedText", // 녹음 중 또는 STT 결과 표시
+        "들은 내용: ${detectedText.isEmpty ? "녹음 중..." : detectedText}", // 녹음 중 또는 STT 결과 표시
         style: widget.detectedTextStyle ?? TextStyle(fontSize: 18),
       ),
     );
   }
 
-  // 녹음 버튼을 빌드하는 함수
   Widget buildRecordingButton() {
     return IconButton(
       icon: Icon(
@@ -138,7 +84,6 @@ class _STTScreenState extends State<STTScreen> {
     );
   }
 
-  // 녹음 후 확인 섹션을 빌드하는 함수
   Widget buildConfirmationSection() {
     return Column(
       children: [
@@ -152,7 +97,6 @@ class _STTScreenState extends State<STTScreen> {
     );
   }
 
-  // 확인 버튼들을 빌드하는 함수
   Widget buildConfirmationButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -176,5 +120,53 @@ class _STTScreenState extends State<STTScreen> {
         ),
       ],
     );
+  }
+}
+
+extension STTScreenFunctions on _STTScreenState {
+  void startRecording() {
+    simulateSTT(); // STT 결과를 시뮬레이션
+  }
+
+  void simulateSTT() {
+    Future.delayed(Duration(seconds: 1), () {
+      setState(() {
+        if (sttCounter % 2 == 0) {
+          detectedText = "송금";
+        } else {
+          detectedText = "통장 정리";
+        }
+        sttCounter++;
+        if (isRecording) {
+          simulateSTT(); // 계속해서 시뮬레이션 반복
+        }
+      });
+    });
+  }
+
+  void stopRecording() {
+    setState(() {
+      isRecording = false; // 녹음 중지
+      updateQuestionText(); // 질문 텍스트 업데이트
+    });
+  }
+
+  void updateQuestionText() {
+    if (detectedText.contains("송금")) {
+      questionText = "송금에 관한 내용이 맞나요?";
+    } else if (detectedText.contains("통장 정리")) {
+      questionText = "통장 정리에 관한 내용이 맞나요?";
+    } else {
+      questionText = "이 내용이 맞나요?";
+    }
+  }
+
+  void restartRecording() {
+    setState(() {
+      isRecording = true;
+      detectedText = ""; // STT 텍스트 초기화
+      sttCounter = 0; // 카운터 초기화
+    });
+    startRecording(); // STT 재시작
   }
 }
