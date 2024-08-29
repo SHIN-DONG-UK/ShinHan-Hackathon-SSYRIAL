@@ -1,9 +1,14 @@
 package shinhan.hackathon.ssyrial.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import shinhan.hackathon.ssyrial.model.ApiResponse;
-import shinhan.hackathon.ssyrial.model.api.*;
+import shinhan.hackathon.ssyrial.model.api.IssuedApiKeyModel;
+import shinhan.hackathon.ssyrial.model.api.ReIssuedApiKeyModel;
 import shinhan.hackathon.ssyrial.service.AppService;
 
 /**
@@ -39,8 +44,17 @@ public class AppController extends BaseController {
    * @return ResponseEntity<ApiResponse<IssuedApiKeyModel.Response>> - 발급된 API 키
    *         정보가 담긴 응답
    */
+  @Operation(summary = "Get API Key", description = "API 키 발급 요청을 처리합니다.")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "API 키 발급 성공", 
+                   content = @Content(schema = @Schema(implementation = IssuedApiKeyModel.Response.class))),
+      @ApiResponse(responseCode = "400", description = "잘못된 요청", 
+                   content = @Content),
+      @ApiResponse(responseCode = "500", description = "서버 오류", 
+                   content = @Content)
+  })
   @PostMapping("/getApiKey")
-  public ResponseEntity<ApiResponse<IssuedApiKeyModel.Response>> getApiKey(
+  public ResponseEntity<shinhan.hackathon.ssyrial.model.ApiResponse<IssuedApiKeyModel.Response>> getApiKey(
       @RequestBody IssuedApiKeyModel.Request request) {
     IssuedApiKeyModel.Response response = appService.getIssuedApiKey(request);
     return successResponse(response);
@@ -56,8 +70,17 @@ public class AppController extends BaseController {
    * @return ResponseEntity<ApiResponse<ReIssuedApiKeyModel.Response>> - 재발급된 API
    *         키 정보가 담긴 응답
    */
+  @Operation(summary = "Reissue API Key", description = "API 키 재발급 요청을 처리합니다.")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "API 키 재발급 성공", 
+                   content = @Content(schema = @Schema(implementation = ReIssuedApiKeyModel.Response.class))),
+      @ApiResponse(responseCode = "400", description = "잘못된 요청", 
+                   content = @Content),
+      @ApiResponse(responseCode = "500", description = "서버 오류", 
+                   content = @Content)
+  })
   @PostMapping("/getReApiKey")
-  public ResponseEntity<ApiResponse<ReIssuedApiKeyModel.Response>> getReApiKey(
+  public ResponseEntity<shinhan.hackathon.ssyrial.model.ApiResponse<ReIssuedApiKeyModel.Response>> getReApiKey(
       @RequestBody ReIssuedApiKeyModel.Request request) {
     ReIssuedApiKeyModel.Response response = appService.getReIssuedApiKey(request);
     return successResponse(response);

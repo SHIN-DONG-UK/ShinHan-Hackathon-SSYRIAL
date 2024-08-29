@@ -1,5 +1,6 @@
 package shinhan.hackathon.ssyrial.model.api;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class IssuedApiKeyModel {
   @AllArgsConstructor
   public static class Request {
 
+    @Schema(description = "관리자 이메일", example = "manager@example.com", required = true)
     @NotBlank(message = "managerId는 필수 입력 항목입니다.")
     @Email(message = "managerId는 유효한 이메일 형식이어야 합니다.")
     @Size(max = 30, message = "managerId는 최대 30글자 이내여야 합니다.")
@@ -37,9 +39,17 @@ public class IssuedApiKeyModel {
   @NoArgsConstructor
   @AllArgsConstructor
   public static class Response {
+
+    @Schema(description = "관리자 이메일", example = "manager@example.com")
     private String managerId;
+
+    @Schema(description = "발급된 API 키", example = "ABCD-1234-EFGH-5678")
     private String apiKey;
+
+    @Schema(description = "API 키 발급 날짜", example = "2024-08-29")
     private String createDate;
+
+    @Schema(description = "API 키 만료 날짜", example = "2025-08-29")
     private String expirationDate;
   }
 }
