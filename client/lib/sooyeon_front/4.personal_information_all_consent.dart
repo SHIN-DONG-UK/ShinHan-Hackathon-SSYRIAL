@@ -96,21 +96,3 @@ class _PersonalInformationAllConsentState extends State<PersonalInformationAllCo
     print('개인정보 동의 내용 서버 전송: $isAllConsented');
   }
 }
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Personal Information All Consent',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: PersonalInformationAllConsent(isAllConsented: false),
-      routes: {
-        '/next_screen': (context) => PersonalInformationInputName(),
-      },
-    );
-  }
-}
-
-void main() {
-  runApp(MyApp());
-}
