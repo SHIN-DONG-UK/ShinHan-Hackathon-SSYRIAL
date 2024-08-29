@@ -2,22 +2,6 @@ import 'package:flutter/material.dart';
 import '9-2.check_save_your_password.dart'; // 실제 파일 경로를 사용하세요
 import '9-3.password_fail_popup.dart'; // 실제 파일 경로를 사용하세요
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Password Input App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: SaveYourPassword(), // 홈 화면을 SaveYourPassword로 설정
-    );
-  }
-}
 
 class SaveYourPassword extends StatefulWidget {
   @override
