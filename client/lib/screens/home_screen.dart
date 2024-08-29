@@ -4,6 +4,7 @@ import 'package:ssyrial/screens/account/create/create_account_select_category.da
 import 'package:ssyrial/screens/auth/help_screen.dart';
 import 'package:ssyrial/widgets/custom_dialog.dart';
 import 'package:ssyrial/sooyeon_front/Home/1.home_screen.dart' as sooyeon;
+import 'package:ssyrial/screens/atm/_atm.dart';
 
 class HomeScreen extends StatelessWidget {
   final String title; // 화면의 제목
@@ -59,6 +60,19 @@ class HomeScreen extends StatelessWidget {
                   backgroundColor: buttonColor, // 버튼 배경색 설정
                 ),
                 child: Text("계좌 생성하기", style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ATM()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: buttonColor, // 버튼 배경색 설정
+                ),
+                child: Text("ATM", style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
               ),
               ElevatedButton(
                 onPressed: () {

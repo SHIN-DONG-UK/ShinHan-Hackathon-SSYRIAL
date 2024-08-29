@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ssyrial/screens/account/create/createaccountfin.dart';
+import 'package:ssyrial/screens/atm/atm3.dart';
 
 // 상수 정의
 const Color kAppBarBackgroundColor = Colors.white;
@@ -9,7 +9,7 @@ const Color kAccountCreationColor = Colors.orange;
 const Color kEasyScreenColor = Colors.green;
 
 const TextStyle kAppBarTextStyle =
-    TextStyle(color: kAppBarIconColor, fontWeight: FontWeight.bold);
+TextStyle(color: kAppBarIconColor, fontWeight: FontWeight.bold);
 const TextStyle kButtonTextStyle = TextStyle(color: Colors.white, fontSize: 18);
 const TextStyle kFeatureTextStyleActive = TextStyle(color: Colors.blue);
 const TextStyle kFeatureTextStyleInactive = TextStyle(color: Colors.grey);
@@ -18,7 +18,7 @@ const TextStyle kAccountCreationTextStyle = TextStyle(color: Colors.white);
 var screenwidth;
 var screenheight;
 
-class Finalcheckscreen extends StatelessWidget {
+class ATM2 extends StatelessWidget {
   final String title; // 화면의 제목
   final String buttonText; // 버튼에 표시할 텍스트
   final TextStyle? titleTextStyle; // 제목 텍스트 스타일
@@ -28,7 +28,7 @@ class Finalcheckscreen extends StatelessWidget {
 
   final servicedatas = null; // 상품 정보를 가져와 저장할 변수(리스트가 될 수 있음)
 
-  const Finalcheckscreen({
+  const ATM2({
     super.key,
     this.title = 'SOL Bank',
     this.buttonText = '도움말 모드',
@@ -53,7 +53,7 @@ class Finalcheckscreen extends StatelessWidget {
           // 바탕화면
           Positioned.fill(
             child: Image.asset(
-              'assets/images/CreateAccount_Final_check.png',
+              'assets/images/ATM2.png',
               fit: BoxFit.fitHeight,
             ),
           ),
@@ -87,12 +87,12 @@ class Finalcheckscreen extends StatelessWidget {
                     overlayColor: Colors.transparent,
                   ),
                   onPressed: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Createaccountfin()),
-                        )
-                      },
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ATM3()),
+                    )
+                  },
                   child: Text("")),
             ),
           )
@@ -103,7 +103,7 @@ class Finalcheckscreen extends StatelessWidget {
 }
 
 /// 사용하지 않음
-extension HomeScreenWidget on Finalcheckscreen {
+extension HomeScreenWidget on ATM2 {
   //on 뒤의 항목을 꼭 변경할 것
 
   // 돌아가기 버튼 생성 함수
@@ -118,8 +118,8 @@ extension HomeScreenWidget on Finalcheckscreen {
             onPressed;
           },
           style: TextButton.styleFrom(
-          overlayColor: Colors.transparent,
-        ),
+            overlayColor: Colors.transparent,
+          ),
           child: Text(''),
         ),
       ),
@@ -235,7 +235,7 @@ extension HomeScreenWidget on Finalcheckscreen {
   }
 }
 
-extension HomeScreenFunction on Finalcheckscreen {
+extension HomeScreenFunction on ATM2 {
   // 뒤로가기 버튼을 눌렀을 때의 동작
   void onBackButtonPressed(BuildContext context) {
     Navigator.pop(context); // SignInScreen 화면으로 이동
