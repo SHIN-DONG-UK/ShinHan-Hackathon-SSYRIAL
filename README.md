@@ -1,6 +1,7 @@
 # SSYRIAL
-
+![SSYRIAL-001_0](https://github.com/user-attachments/assets/4e2dfa6b-bbee-477a-870c-f55f5c4361cd)
 ## 👥 팀원 소개
+
 
 <a name="developers"></a>
 
