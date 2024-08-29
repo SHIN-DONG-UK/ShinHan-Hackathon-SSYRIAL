@@ -34,8 +34,9 @@ class CreateAccoutSelectCategory extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   style: TextButton.styleFrom(
-                      overlayColor: const Color(0x00000000)),
-                  child: Text(''), // Empty text as the image itself has text
+                    overlayColor: Colors.transparent,
+                  ),
+                  child: Text(''),
                 ),
               ),
             ),

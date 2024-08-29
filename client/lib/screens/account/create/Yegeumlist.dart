@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 class Yegeumlist extends StatelessWidget {
   const Yegeumlist({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
     var screenwidth = MediaQuery.of(context).size.width;
@@ -32,7 +30,8 @@ class Yegeumlist extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 style: TextButton.styleFrom(
-                    overlayColor: const Color(0x00000000)),
+                  overlayColor: Colors.transparent,
+                ),
                 child: Text(''), // Empty text as the image itself has text
               ),
             ),

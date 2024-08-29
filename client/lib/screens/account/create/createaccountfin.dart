@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ssyrial/screens/account/create/selected_ipchulgeumaccount.dart';
+import 'package:ssyrial/sooyeon_front/Home/1.home_screen.dart' as home;
 
 // 상수 정의
 const Color kAppBarBackgroundColor = Colors.white;
@@ -9,7 +9,7 @@ const Color kAccountCreationColor = Colors.orange;
 const Color kEasyScreenColor = Colors.green;
 
 const TextStyle kAppBarTextStyle =
-    TextStyle(color: kAppBarIconColor, fontWeight: FontWeight.bold);
+TextStyle(color: kAppBarIconColor, fontWeight: FontWeight.bold);
 const TextStyle kButtonTextStyle = TextStyle(color: Colors.white, fontSize: 18);
 const TextStyle kFeatureTextStyleActive = TextStyle(color: Colors.blue);
 const TextStyle kFeatureTextStyleInactive = TextStyle(color: Colors.grey);
@@ -18,7 +18,7 @@ const TextStyle kAccountCreationTextStyle = TextStyle(color: Colors.white);
 var screenwidth;
 var screenheight;
 
-class Ipchulgeumlist extends StatelessWidget {
+class Createaccountfin extends StatelessWidget {
   final String title; // 화면의 제목
   final String buttonText; // 버튼에 표시할 텍스트
   final TextStyle? titleTextStyle; // 제목 텍스트 스타일
@@ -26,9 +26,7 @@ class Ipchulgeumlist extends StatelessWidget {
   final Color buttonColor; // 버튼 배경색
   final double buttonPadding; // 버튼의 패딩
 
-  final servicedatas = null; // 상품 정보를 가져와 저장할 변수(리스트가 될 수 있음)
-
-  const Ipchulgeumlist({
+  const Createaccountfin({
     super.key,
     this.title = 'SOL Bank',
     this.buttonText = '도움말 모드',
@@ -53,144 +51,30 @@ class Ipchulgeumlist extends StatelessWidget {
           // 바탕화면
           Positioned.fill(
             child: Image.asset(
-              'assets/images/CreateAccount_select_ipchulgeum_from_category.png',
+              'assets/images/CreateAccount_FIN.png',
               fit: BoxFit.fitHeight,
             ),
           ),
 
-          //뒤로가기
-          Positioned(
-            top: screenwidth * 0.02,
-            child: SizedBox(
-              width: screenwidth,
-              height: screenheight * 0.15,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  overlayColor: Colors.transparent,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(''),
-              ),
-            ),
-          ),
-
-          //계좌 1
-          Positioned(
-            bottom: screenheight * 0.02 + screenheight * 0.33,
-            child: SizedBox(
-              width: screenwidth,
-              height: screenheight * 0.14,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  overlayColor: Colors.transparent,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            SelectedIpchulgeumaccount()), // SignInScreen 화면으로 이동
-                  );
-                },
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌1",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌1",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          //계좌 2
-          Positioned(
-            bottom: screenheight * 0.02 + screenheight * 0.17,
-            child: SizedBox(
-              width: screenwidth,
-              height: screenheight * 0.14,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  overlayColor: Colors.transparent,
-                ),
-                onPressed: () {},
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌2",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌2",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          //계좌 3
+          //확인하기
           Positioned(
             bottom: screenheight * 0.028,
             child: SizedBox(
               width: screenwidth,
               height: screenheight * 0.14,
               child: TextButton(
-                style: TextButton.styleFrom(
-                  overlayColor: Colors.transparent,
-                ),
-                onPressed: () {},
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌3",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌3",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  style: TextButton.styleFrom(
+                    overlayColor: Colors.transparent,
+                  ),
+
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => home.HomeScreen()),
+                    )
+                  },
+                  child: Text("")),
             ),
           )
         ],
@@ -199,7 +83,8 @@ class Ipchulgeumlist extends StatelessWidget {
   }
 }
 
-extension HomeScreenWidget on Ipchulgeumlist {
+/// 사용하지 않음
+extension HomeScreenWidget on Createaccountfin {
   //on 뒤의 항목을 꼭 변경할 것
 
   // 돌아가기 버튼 생성 함수
@@ -331,8 +216,7 @@ extension HomeScreenWidget on Ipchulgeumlist {
   }
 }
 
-// HomeScreenFunction Extension
-extension HomeScreenFunction on Ipchulgeumlist {
+extension HomeScreenFunction on Createaccountfin {
   // 뒤로가기 버튼을 눌렀을 때의 동작
   void onBackButtonPressed(BuildContext context) {
     Navigator.pop(context); // SignInScreen 화면으로 이동

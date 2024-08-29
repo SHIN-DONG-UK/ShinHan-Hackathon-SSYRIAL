@@ -1,70 +1,155 @@
 import 'package:flutter/material.dart';
-import 'createfinished.dart';
+import 'package:ssyrial/screens/account/create/createaccountfin.dart';
+
+// 상수 정의
+const Color kAppBarBackgroundColor = Colors.white;
+const Color kAppBarIconColor = Colors.black;
+const Color kLoginButtonColor = Colors.blue;
+const Color kAccountCreationColor = Colors.orange;
+const Color kEasyScreenColor = Colors.green;
+
+const TextStyle kAppBarTextStyle =
+    TextStyle(color: kAppBarIconColor, fontWeight: FontWeight.bold);
+const TextStyle kButtonTextStyle = TextStyle(color: Colors.white, fontSize: 18);
+const TextStyle kFeatureTextStyleActive = TextStyle(color: Colors.blue);
+const TextStyle kFeatureTextStyleInactive = TextStyle(color: Colors.grey);
+const TextStyle kAccountCreationTextStyle = TextStyle(color: Colors.white);
+
+var screenwidth;
+var screenheight;
 
 class Finalcheckscreen extends StatelessWidget {
-  const Finalcheckscreen({super.key});
+  final String title; // 화면의 제목
+  final String buttonText; // 버튼에 표시할 텍스트
+  final TextStyle? titleTextStyle; // 제목 텍스트 스타일
+  final TextStyle? buttonTextStyle; // 버튼 텍스트 스타일
+  final Color buttonColor; // 버튼 배경색
+  final double buttonPadding; // 버튼의 패딩
 
+  final servicedatas = null; // 상품 정보를 가져와 저장할 변수(리스트가 될 수 있음)
 
+  const Finalcheckscreen({
+    super.key,
+    this.title = 'SOL Bank',
+    this.buttonText = '도움말 모드',
+    this.titleTextStyle,
+    this.buttonTextStyle,
+    this.buttonColor = Colors.blue, // 기본 버튼 색상
+    this.buttonPadding = 16.0, // 기본 버튼 패딩
+  });
 
   @override
   Widget build(BuildContext context) {
+    //화면 크기 변환 변수
+    screenwidth = MediaQuery.of(context).size.width;
+    screenheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(
+      //위젯(그림 및 버튼) 겹치기용 stack 생성
+      body: Stack(
+        // 그림을 먼저 선언해야 그림이 밑에 깔림
+        children: [
+          // 바탕화면
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/CreateAccount_Final_check.png',
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+
+          //뒤로가기
+          Positioned(
+            top: screenwidth * 0.02,
+            child: SizedBox(
+              width: screenwidth,
+              height: screenheight * 0.15,
+              child: TextButton(
                 onPressed: () {
-                  Navigator.pop(context); // 이전 화면으로 돌아가기
+                  Navigator.pop(context);
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red, // 버튼 배경색
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15), // 버튼 패딩
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12), // 버튼 모서리 둥글게
-                  ),
+                style: TextButton.styleFrom(
+                  overlayColor: Colors.transparent,
                 ),
-                child: const Text(
-                  '아니오',
-                  style: TextStyle(
-                    fontSize: 18, // 글자 크기
-                    fontWeight: FontWeight.bold, // 글자 두께
-                    color: Colors.white, // 글자 색상
-                    letterSpacing: 1.5, // 글자 간격
-                  ),
-                ),
+                child: Text(''),
               ),
-              Text(
-                "이 계좌를\n만들까요?",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.black,
-                ),
+            ),
+          ),
+
+          //확인하기
+          Positioned(
+            bottom: screenheight * 0.028,
+            child: SizedBox(
+              width: screenwidth,
+              height: screenheight * 0.14,
+              child: TextButton(
+                  onPressed: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Createaccountfin()),
+                        )
+                      },
+                  child: Text("")),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+/// 사용하지 않음
+extension HomeScreenWidget on Finalcheckscreen {
+  //on 뒤의 항목을 꼭 변경할 것
+
+  // 돌아가기 버튼 생성 함수
+  Widget buildBackButton(VoidCallback onPressed) {
+    return Positioned(
+      top: screenwidth * 0.02,
+      child: SizedBox(
+        width: screenwidth,
+        height: screenheight * 0.15,
+        child: TextButton(
+          onPressed: () {
+            onPressed;
+          },
+          style: TextButton.styleFrom(
+          overlayColor: Colors.transparent,
+        ),
+          child: Text(''),
+        ),
+      ),
+    );
+  }
+
+  // 계좌1 버튼 생성 함수
+  Widget buildAccount1Button(VoidCallback onPressed) {
+    return Positioned(
+      bottom: screenheight * 0.02 + screenheight * 0.33,
+      child: SizedBox(
+        width: screenwidth,
+        height: screenheight * 0.14,
+        child: TextButton(
+          onPressed: () {},
+          child: Column(
+            children: [
+              SizedBox(
+                height: screenheight * 0.04,
               ),
-              SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: ()=>{Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CreateFinishedScreen()),
-                )},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green, // Button color
-                  padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
+              SizedBox(
                 child: Text(
-                  "네",
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),
+                  "test용 샘플 계좌1",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(
+                height: screenheight * 0.04,
+              ),
+              SizedBox(
+                child: Text(
+                  "test용 샘플 계좌1",
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],
@@ -72,5 +157,94 @@ class Finalcheckscreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // 계좌2 버튼 생성 함수
+  Widget buildAccount2Button(VoidCallback onPressed) {
+    return Positioned(
+      bottom: screenheight * 0.02 + screenheight * 0.17,
+      child: SizedBox(
+        width: screenwidth,
+        height: screenheight * 0.14,
+        child: TextButton(
+          onPressed: () {},
+          child: Column(
+            children: [
+              SizedBox(
+                height: screenheight * 0.04,
+              ),
+              SizedBox(
+                child: Text(
+                  "test용 샘플 계좌2",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(
+                height: screenheight * 0.04,
+              ),
+              SizedBox(
+                child: Text(
+                  "test용 샘플 계좌2",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // 계좌3 버튼 생성 함수
+  Widget buildAccount3Button(VoidCallback onPressed) {
+    return Positioned(
+      bottom: screenheight * 0.028,
+      child: SizedBox(
+        width: screenwidth,
+        height: screenheight * 0.14,
+        child: TextButton(
+          onPressed: () {},
+          child: Column(
+            children: [
+              SizedBox(
+                height: screenheight * 0.04,
+              ),
+              SizedBox(
+                child: Text(
+                  "test용 샘플 계좌3",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(
+                height: screenheight * 0.04,
+              ),
+              SizedBox(
+                child: Text(
+                  "test용 샘플 계좌3",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+extension HomeScreenFunction on Finalcheckscreen {
+  // 뒤로가기 버튼을 눌렀을 때의 동작
+  void onBackButtonPressed(BuildContext context) {
+    Navigator.pop(context); // SignInScreen 화면으로 이동
+  }
+
+  // 쉬운 화면 버튼을 눌렀을 때의 동작
+  void onEasyScreenButtonPressed(BuildContext context) {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //       builder: (context) =>
+    //           CancelMemberRegistrationScreen()), // SignInScreen 화면으로 이동
+    // );
   }
 }

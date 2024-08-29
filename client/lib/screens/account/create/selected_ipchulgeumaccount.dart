@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ssyrial/screens/account/create/selected_ipchulgeumaccount.dart';
+import 'package:ssyrial/screens/account/create/finalcheckscreen.dart';
 
 // 상수 정의
 const Color kAppBarBackgroundColor = Colors.white;
@@ -18,7 +18,7 @@ const TextStyle kAccountCreationTextStyle = TextStyle(color: Colors.white);
 var screenwidth;
 var screenheight;
 
-class Ipchulgeumlist extends StatelessWidget {
+class SelectedIpchulgeumaccount extends StatelessWidget {
   final String title; // 화면의 제목
   final String buttonText; // 버튼에 표시할 텍스트
   final TextStyle? titleTextStyle; // 제목 텍스트 스타일
@@ -28,7 +28,7 @@ class Ipchulgeumlist extends StatelessWidget {
 
   final servicedatas = null; // 상품 정보를 가져와 저장할 변수(리스트가 될 수 있음)
 
-  const Ipchulgeumlist({
+  const SelectedIpchulgeumaccount({
     super.key,
     this.title = 'SOL Bank',
     this.buttonText = '도움말 모드',
@@ -53,7 +53,7 @@ class Ipchulgeumlist extends StatelessWidget {
           // 바탕화면
           Positioned.fill(
             child: Image.asset(
-              'assets/images/CreateAccount_select_ipchulgeum_from_category.png',
+              'assets/images/CreateAccount_selected_ipchulgeum.png',
               fit: BoxFit.fitHeight,
             ),
           ),
@@ -65,131 +65,32 @@ class Ipchulgeumlist extends StatelessWidget {
               width: screenwidth,
               height: screenheight * 0.15,
               child: TextButton(
-                style: TextButton.styleFrom(
-                  overlayColor: Colors.transparent,
-                ),
                 onPressed: () {
                   Navigator.pop(context);
                 },
+                style: TextButton.styleFrom(
+                  overlayColor: Colors.transparent,
+                ),
                 child: Text(''),
               ),
             ),
           ),
 
-          //계좌 1
-          Positioned(
-            bottom: screenheight * 0.02 + screenheight * 0.33,
-            child: SizedBox(
-              width: screenwidth,
-              height: screenheight * 0.14,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  overlayColor: Colors.transparent,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            SelectedIpchulgeumaccount()), // SignInScreen 화면으로 이동
-                  );
-                },
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌1",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌1",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          //계좌 2
-          Positioned(
-            bottom: screenheight * 0.02 + screenheight * 0.17,
-            child: SizedBox(
-              width: screenwidth,
-              height: screenheight * 0.14,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  overlayColor: Colors.transparent,
-                ),
-                onPressed: () {},
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌2",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌2",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          //계좌 3
+          //확인하기
           Positioned(
             bottom: screenheight * 0.028,
             child: SizedBox(
               width: screenwidth,
               height: screenheight * 0.14,
               child: TextButton(
-                style: TextButton.styleFrom(
-                  overlayColor: Colors.transparent,
-                ),
-                onPressed: () {},
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌3",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenheight * 0.04,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "test용 샘플 계좌3",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
+                  style: TextButton.styleFrom(
+                    overlayColor: Colors.transparent,
+                  ),
+
+
+                //버튼 누를 때 얼럿 실행
+                onPressed: () => showFirstAlert(context),
+                child: Text("")
               ),
             ),
           )
@@ -197,9 +98,91 @@ class Ipchulgeumlist extends StatelessWidget {
       ),
     );
   }
+
+  void showFirstAlert(BuildContext context) {
+    // 첫 번째 얼럿 띄우기
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          content: Center(
+            child: Image.asset(
+              'assets/images/POPUP_AT_LEAST_30DAYS.png',
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+        );
+      },
+    );
+
+    // 3초 후에 첫 번째 얼럿을 닫고 두 번째 얼럿을 띄우기
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.of(context).pop(); // 첫 번째 얼럿 닫기
+      showSecondAlert(context); // 두 번째 얼럿 띄우기
+    });
+  }
+
+  void showSecondAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          content: Center(
+            child: Image.asset(
+              'assets/images/POPUP_ALREADY_HAVE_LIMIT_ACCOUNT.png',
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+        );
+      },
+    );
+
+    Future.delayed(
+      Duration(seconds: 3),
+      () {
+        Navigator.of(context).pop(); // 두 번째 얼럿 닫기
+        showThirdAlert(context); // 세 번째 얼럿 띄우기
+      },
+    );
+  }
+
+
+
+  void showThirdAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          content: Center(
+            child: Image.asset(
+              'assets/images/POPUP_FINE.png',
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+        );
+      },
+    );
+
+    Future.delayed(
+      Duration(seconds: 3),
+          () {
+        Navigator.of(context).pop(); // 두 번째 얼럿 닫기
+        Navigator.push(context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  Finalcheckscreen()),
+        ); // 세 번째 얼럿 띄우기
+      },
+    );
+  }
 }
 
-extension HomeScreenWidget on Ipchulgeumlist {
+
+/// 사용하지 않음
+extension HomeScreenWidget on SelectedIpchulgeumaccount {
   //on 뒤의 항목을 꼭 변경할 것
 
   // 돌아가기 버튼 생성 함수
@@ -213,9 +196,7 @@ extension HomeScreenWidget on Ipchulgeumlist {
           onPressed: () {
             onPressed;
           },
-          style: TextButton.styleFrom(
-            overlayColor: Colors.transparent,
-          ),
+          style: TextButton.styleFrom(overlayColor: const Color(0x00000000)),
           child: Text(''),
         ),
       ),
@@ -330,9 +311,7 @@ extension HomeScreenWidget on Ipchulgeumlist {
     );
   }
 }
-
-// HomeScreenFunction Extension
-extension HomeScreenFunction on Ipchulgeumlist {
+extension HomeScreenFunction on SelectedIpchulgeumaccount {
   // 뒤로가기 버튼을 눌렀을 때의 동작
   void onBackButtonPressed(BuildContext context) {
     Navigator.pop(context); // SignInScreen 화면으로 이동
