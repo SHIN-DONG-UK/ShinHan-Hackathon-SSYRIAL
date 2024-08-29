@@ -95,33 +95,3 @@ class _WhatToWritePopupState extends State<WhatToWritePopup> {
     );
   }
 }
-
-// send_money_screen 페이지 예시
-class SendMoneyScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('송금 화면'),
-      ),
-      body: Center(
-        child: Text('여기에 송금 화면이 표시됩니다.'),
-      ),
-    );
-  }
-}
-
-// send_money_success 페이지 예시
-class SendMoneySuccessScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('송금 성공'),
-      ),
-      body: Center(
-        child: Text('송금이 성공적으로 완료되었습니다.'),
-      ),
-    );
-  }
-}
