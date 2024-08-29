@@ -106,4 +106,25 @@ public class DepositService extends ShinhanApiService {
     return sendRequest("/edu/deposit/inquireDepositPaymentModel", HttpMethod.POST, request,
         InquireDepositPaymentModel.Response.class, true);
   }
+
+  /*
+   * CreateDepositAccount (예금 계좌 개설 기능)
+   */
+  public CreateDepositAccountModel.Response createDepositAccountModel(String withdrawalAccountNo, String accountTypeUniqueNo, String depositBalance) {
+    // 공통 헤더 생성
+    CommonHeaderModel.Request header = createCommonHeader("createDepositAccountModel", "createDepositAccountModel",
+        null);
+
+    // 요청 객체 생성
+    CreateDepositAccountModel.Request request = CreateDepositAccountModel.Request.builder()
+        .Header(header)
+        .withdrawalAccountNo(withdrawalAccountNo)
+        .accountTypeUniqueNo(accountTypeUniqueNo)
+        .depositBalance(depositBalance)
+        .build();
+
+    // API 요청 보내기
+    return sendRequest("/edu/deposit/createDepositAccountModel", HttpMethod.POST, request,
+    CreateDepositAccountModel.Response.class, true);
+  }
 }
