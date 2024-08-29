@@ -2,26 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // 서버 연결 시 사용하는 패키지 추가
 import 'dart:async'; // 타이머 기능 추가
 import '3.fail_password_popup.dart'; // Fail Password Popup 연결
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Sign In',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      home: SignInScreen(),
-    );
-  }
-}
+import 'package:ssyrial/screens/account/tranfer/account_info_input_screen.dart';
 
 class SignInScreen extends StatefulWidget {
+
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
@@ -55,16 +39,23 @@ class _SignInScreenState extends State<SignInScreen> {
     });
   }
 
-  // 비밀번호 확인 함수
-  void verifyPassword() {
+// 비밀번호 확인 함수
+  void verifyPassword(BuildContext context) {
     if (password == correctPassword) {
       print('비밀번호 일치');
-      // 비밀번호 일치 시의 로직 추가
+      // 비밀번호 일치 시 AccountInfoInputScreen으로 이동
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AccountInfoInputScreen(), // 이동할 커스텀 위젯
+        ),
+      );
     } else {
       print('비밀번호 불일치');
       showFailPopup(); // 비밀번호 불일치 시 팝업 호출
     }
   }
+
 
   // 비밀번호 불일치 시 Fail Popup을 3초간 보여줌
   void showFailPopup() {
@@ -205,8 +196,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   Expanded(
                     child: ElevatedButton(
                       child: Text('완료'),
-                      onPressed: verifyPassword, // 비밀번호 확인 호출
-                      style: ElevatedButton.styleFrom(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        verifyPassword(context); },// 비밀번호 확인 호출
+                        style: ElevatedButton.styleFrom
+                      (
                         backgroundColor: Colors.blue,
                         minimumSize: Size(double.infinity, 60),
                       ),
