@@ -45,7 +45,7 @@ public class DepositService extends ShinhanApiService {
    * @param accountDescription 상품 설명
    * @return CreateDepositModel.Response - 등록된 상품 정보가 담긴 응답
    */
-  public CreateDepositModel.Response createDeposit(String bankCode, String accountName, String accountDescription) {
+  public CreateDepositModel.Response createDeposit(String bankCode, String accountName, String accountDescription, String subscriptionPeriod, String minSubscriptionBalance, String maxSubscriptionBalance, Double interestRate, String rateDescription) {
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("createDeposit", "createDeposit", null);
 
@@ -55,6 +55,11 @@ public class DepositService extends ShinhanApiService {
         .bankCode(bankCode)
         .accountName(accountName)
         .accountDescription(accountDescription)
+        .subscriptionPeriod(subscriptionPeriod)
+        .minSubscriptionBalance(minSubscriptionBalance)
+        .maxSubscriptionBalance(maxSubscriptionBalance)
+        .interestRate(interestRate)
+        .rateDescription(rateDescription)
         .build();
 
     // API 요청 보내기
@@ -91,7 +96,7 @@ public class DepositService extends ShinhanApiService {
    * @param accountNo 납입 고유번호
    * @return InquireDepositPaymentModel.Response - 납입 상세 정보가 담긴 응답
    */
-  public InquireDepositPaymentModel.Response inquireDepositPaymentModel(String accountNo) {
+  public InquireDepositPaymentModel.Response inquireDepositPayment(String accountNo) {
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("inquireDepositPaymentModel", "inquireDepositPaymentModel",
         null);
