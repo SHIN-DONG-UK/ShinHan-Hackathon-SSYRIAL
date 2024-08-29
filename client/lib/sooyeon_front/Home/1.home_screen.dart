@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ssyrial/sooyeon_front/1.member_resiteration_start.dart';
+import 'package:ssyrial/sooyeon_front/register/member_registration_screen.dart';
 import '2.sign_in_password.dart';
 
 // 상수 정의
@@ -151,7 +151,7 @@ extension HomeScreenFunction on HomeScreen {
   void onEasyScreenButtonPressed(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CancelMemberRegistrationScreen()), // SignInScreen 화면으로 이동
+      MaterialPageRoute(builder: (context) => MemberRegistrationStartScreen()), // SignInScreen 화면으로 이동
     );
   }
 }

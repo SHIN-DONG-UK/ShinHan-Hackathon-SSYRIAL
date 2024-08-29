@@ -2,24 +2,6 @@ import 'package:flutter/material.dart';
 import '2.phonenum_authentication_start.dart'; // phonenum_authentication_start.dart 파일을 임포트
 import '1-2.cancle_member_registration.dart'; // cancle_member_registration.dart 파일을 임포트
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Member Registration Start',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.pink[50],
-      ),
-      home: MemberRegistrationStartScreen(),
-    );
-  }
-}
-
 class MemberRegistrationStartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
