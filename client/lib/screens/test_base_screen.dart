@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ssyrial/screens/test1.dart';
 import 'package:ssyrial/sooyeon_front/register/phone_auth_screen.dart';
 import '../sooyeon_front/1-2.cancle_member_registration.dart';
 import '../sooyeon_front/register/constants.dart';
@@ -6,19 +7,19 @@ import '../sooyeon_front/9.save_your_password.dart';
 import 'package:ssyrial/config/tts_config.dart';
 
 enum ScreenState {
-  phoneAuth
+  test1
   //TODO:여기에 만든 스크린 이름을 대충 넣으면됩니다
 }
 
-class MemberRegistrationStartScreen extends StatefulWidget {
-  const MemberRegistrationStartScreen({Key? key}) : super(key: key);
+class TestScreen extends StatefulWidget {
+  const TestScreen({Key? key}) : super(key: key);
 
   @override
-  _MemberRegistrationStartScreenState createState() => _MemberRegistrationStartScreenState();
+  _TestScreenState createState() => _TestScreenState();
 }
 
-class _MemberRegistrationStartScreenState extends State<MemberRegistrationStartScreen> {
-  ScreenState _currentScreen = ScreenState.phoneAuth;
+class _TestScreenState extends State<TestScreen> {
+  ScreenState _currentScreen = ScreenState.test1;
   final PageController _pageController = PageController();
   final TTSConfig _ttsConfig = TTSConfig();
 
@@ -53,7 +54,7 @@ class _MemberRegistrationStartScreenState extends State<MemberRegistrationStartS
         });
       },
       children: [
-        PhoneAuthScreen(),
+        test1()
         //TODO:여기에 만든 스크린을 넣으면됩니다
       ],
     );
