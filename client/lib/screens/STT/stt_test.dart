@@ -8,7 +8,7 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-void main() => runApp(const SpeechSampleApp());
+//void main() => runApp(const SpeechSampleApp());
 
 class SpeechSampleApp extends StatefulWidget {
   // 생성자 정의, const 키워드는 위젯이 불변임을 나타냄
@@ -56,7 +56,10 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     super.initState();
   }
 
-  // 음성 인식 기능 초기화를 위한 비동기 메서드
+  // 음성 인식 기능 초기화를 위한 비동기 메서드 -> 그대로 사용 가능
+  // [설계]
+  // 그대로 사용하면 될듯
+  // initSpeechState()는 앱 실행시 최초 한 번 수행하면 됨 → 메인 화면에 진입할 때 호출하면 될듯
   Future<void> initSpeechState() async {
     // 초기화 이벤트를 로깅
     _logEvent('Initialize');
@@ -131,6 +134,13 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   }
 
   // 음성 인식 세션을 시작하는 메서드
+  // [설계]
+  // 그대로 사용 가능
+  // 음성인식 버튼을 누르면 호출하도록 하면 될듯
+  // listenFor 설정을 우리가 정해주자
+  // pauseFor 설정도 우리가 정해주자
+  // 함수는 그대로 쓰고 클래스만 정의해주면 될듯
+  // stop이나 cancel은 사용 안해도 될듯?
   void startListening() {
     _logEvent('start listening'); // 시작 이벤트 로깅
     lastWords = ''; // 마지막 단어 초기화
@@ -157,6 +167,8 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   }
 
   // 음성 인식을 중지하는 메서드
+  // [설계]
+  // 사용 x
   void stopListening() {
     _logEvent('stop'); // 중지 이벤트 로깅
     speech.stop(); // 음성 인식 중지
@@ -166,6 +178,8 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   }
 
   // 음성 인식을 취소하는 메서드
+  // [설계]
+  // 사용 x
   void cancelListening() {
     _logEvent('cancel'); // 취소 이벤트 로깅
     speech.cancel(); // 음성 인식 취소
@@ -328,6 +342,12 @@ class SpeechControlWidget extends StatelessWidget {
 }
 
 // 세션 옵션 설정 위젯 정의
+// [설계]
+// 직접 설정하기 위해 만들어둔 위젯
+// 우리는 사용하지 않을거임
+// 우리는 버튼 누르면 인식하고 알아서 종료되어야 함
+// 그리고 인식 결과에서 텍스트를 추출해서 원하는 서비스로 이동해야 함
+// 사용 x
 class SessionOptionsWidget extends StatelessWidget {
   // 생성자에서 필요한 값들을 전달받음
   const SessionOptionsWidget(
@@ -407,6 +427,10 @@ class SessionOptionsWidget extends StatelessWidget {
 }
 
 // 인식 결과를 표시하는 위젯 정의
+// [설계]
+// 사용해야 함
+// 수정해서 사용
+// 인식한 결과를 사용자에게 보여줘야 함
 class RecognitionResultsWidget extends StatelessWidget {
   // 생성자에서 인식 결과와 레벨 값을 전달받음
   const RecognitionResultsWidget(
@@ -459,6 +483,8 @@ class RecognitionResultsWidget extends StatelessWidget {
 }
 
 // 오류 메시지를 표시하는 위젯 정의
+// [설계]
+// 일단 보류
 class ErrorWidget extends StatelessWidget {
   // 생성자에서 오류 메시지를 전달받음
   const ErrorWidget({Key? key, required this.lastError}) : super(key: key);
@@ -475,6 +501,8 @@ class ErrorWidget extends StatelessWidget {
 }
 
 // 음성 인식 상태를 표시하는 위젯 정의
+// [설계]
+// 보류
 class SpeechStatusWidget extends StatelessWidget {
   // 생성자에서 SpeechToText 인스턴스를 전달받음
   const SpeechStatusWidget({Key? key, required this.speech}) : super(key: key);
