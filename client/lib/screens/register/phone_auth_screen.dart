@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/config/tts_config.dart';
-import 'constants.dart';
+import '../../config/constants.dart';
 
 class PhoneAuthScreen extends StatefulWidget {
   @override

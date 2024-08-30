@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:ssyrial/sooyeon_front/Home/1.home_screen.dart' as home;
+import 'package:ssyrial/screens/home_screen.dart' as home;
 
 
 // 상수 정의

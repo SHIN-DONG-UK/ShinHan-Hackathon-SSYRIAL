@@ -89,7 +89,7 @@ class _HowMuchKeypadPasswordDialogState extends State<HowMuchKeypadPasswordDialo
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        // 비밀번호 일치 여부 판단
+                        // [DB] 사용자 비밀번호를 DB에서 가져와서 입력한 번호와 일치하는지 판단해야 함
                         if (_enteredNumber == widget.password) {
                           // Password matches, show success dialog
                           Navigator.pop(context);

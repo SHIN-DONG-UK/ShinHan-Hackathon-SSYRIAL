@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/screens/guide/function_selection_screen.dart';
+import 'package:ssyrial/screens/donguk_home_screen.dart';
 
 class WhatToWritePopup extends StatefulWidget {
   @override
@@ -64,12 +65,13 @@ class _WhatToWritePopupState extends State<WhatToWritePopup> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              // [API] 완료 버튼 클릭 시 메모 사항을 API에 전달해야 함
               TextButton(
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return const FunctionSelectionScreen(); // send_money_screen 페이지로 이동
+                      return DongukHomeScreen(); // send_money_screen 페이지로 이동
                     }),
                   (route) => false,
                   );

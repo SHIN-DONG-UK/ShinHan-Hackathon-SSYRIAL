@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ssyrial/sooyeon_front/register/personal_info_consent_screen.dart';
-import 'package:ssyrial/sooyeon_front/register/phone_auth_screen.dart';
-import 'package:ssyrial/sooyeon_front/register/start_screen.dart';
-import '../1-2.cancle_member_registration.dart';
+import 'package:ssyrial/screens/register/personal_info_consent_screen.dart';
+import 'package:ssyrial/screens/register/phone_auth_screen.dart';
+import 'package:ssyrial/screens/register/start_screen.dart';
 import 'authentication_screen.dart';
-import 'constants.dart';
+import '../../config/constants.dart';
 import 'personal_information_input_screen.dart';
-import '../9.save_your_password.dart';
+import '9.save_your_password.dart';
 import 'package:ssyrial/config/tts_config.dart';
 
 enum ScreenState {
@@ -22,10 +21,12 @@ class MemberRegistrationStartScreen extends StatefulWidget {
   const MemberRegistrationStartScreen({Key? key}) : super(key: key);
 
   @override
-  _MemberRegistrationStartScreenState createState() => _MemberRegistrationStartScreenState();
+  _MemberRegistrationStartScreenState createState() =>
+      _MemberRegistrationStartScreenState();
 }
 
-class _MemberRegistrationStartScreenState extends State<MemberRegistrationStartScreen> {
+class _MemberRegistrationStartScreenState
+    extends State<MemberRegistrationStartScreen> {
   ScreenState _currentScreen = ScreenState.start;
   final List<bool> _isChecked = List.filled(5, false);
   final PageController _pageController = PageController();
@@ -45,9 +46,25 @@ class _MemberRegistrationStartScreenState extends State<MemberRegistrationStartS
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _buildActionButton(context, '취소하기', kCancelButtonColor, _onCancelPressed),
+              _buildActionButton(
+                  context, '취소하기', kCancelButtonColor, _onCancelPressed),
               const SizedBox(height: 20),
-              Expanded(child: _buildPageView()),
+              Expanded(
+                child: Stack(
+                  children: [
+                    _buildPageView(),
+                    Positioned(
+                      left: 0,
+                      bottom: 0,
+                      child: Image.asset(
+                        'assets/images/moli.gif', // 예시 이미지
+                        width: 100,
+                        height: 100,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 20),
               _buildNextButton(),
             ],
@@ -57,6 +74,7 @@ class _MemberRegistrationStartScreenState extends State<MemberRegistrationStartS
     );
   }
 
+
   Widget _buildPageView() {
     return PageView(
       controller: _pageController,
@@ -65,6 +83,7 @@ class _MemberRegistrationStartScreenState extends State<MemberRegistrationStartS
           _currentScreen = ScreenState.values[index];
         });
       },
+      physics: const NeverScrollableScrollPhysics(), // 스와이프를 비활성화합니다.
       children: [
         StartScreen(onTTSComplete: _onStartScreenTTSComplete),
         PhoneAuthScreen(),
@@ -91,13 +110,15 @@ class _MemberRegistrationStartScreenState extends State<MemberRegistrationStartS
     );
   }
 
+
   Widget _buildNextButton() {
     return Visibility(
       visible: _canProceed(),
       maintainSize: true,
       maintainAnimation: true,
       maintainState: true,
-      child: _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
+      child:
+          _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
     );
   }
 
@@ -144,10 +165,7 @@ class _MemberRegistrationStartScreenState extends State<MemberRegistrationStartS
   }
 
   void _onCancelPressed() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CancelMemberRegistrationScreen()),
-    );
+    Navigator.pop(context);
   }
 
   bool _canProceed() {
@@ -165,7 +183,8 @@ class _MemberRegistrationStartScreenState extends State<MemberRegistrationStartS
     }
   }
 
-  Widget _buildActionButton(BuildContext context, String label, Color color, VoidCallback onPressed) {
+  Widget _buildActionButton(
+      BuildContext context, String label, Color color, VoidCallback onPressed) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(

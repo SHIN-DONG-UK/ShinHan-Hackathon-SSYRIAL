@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/screens/guide/function_selection_screen.dart';
 import 'package:ssyrial/screens/account/tranfer/how_much_memo_dialog.dart';
+import 'package:ssyrial/screens/donguk_home_screen.dart';
 
 class TransferSuccessPopup extends StatelessWidget {
   @override
@@ -112,7 +113,7 @@ class TransferSuccessPopup extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context){
-                      return const FunctionSelectionScreen();
+                      return DongukHomeScreen();
                     }),
                     (route) => false,
                   ); // 현재 팝업 닫기
