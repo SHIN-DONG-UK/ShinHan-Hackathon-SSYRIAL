@@ -75,6 +75,7 @@ class _CheckSaveYourPasswordState extends State<CheckSaveYourPassword> {
                 onPressed: password.length == 6 ? () {
                   if (password == widget.enteredPassword) {
                     // 비밀번호가 일치하면 finish_member_registration.dart 화면으로 이동
+                    // [DB] 완료 버튼 클릭 시 DB에 사용자 비밀번호 저장하기
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
