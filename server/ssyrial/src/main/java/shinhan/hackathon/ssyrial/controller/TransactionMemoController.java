@@ -23,7 +23,7 @@ public class TransactionMemoController extends BaseController {
     @RequestBody TransactionMemoModel.Request request
   ) {
     TransactionMemoModel.Response response = TransactionMemoService.transactionMemo(
-        request.getAccountNo(), request.getTransactionUniqueNo(), request.getTransactionMemo()
+       request.getUserKey(), request.getAccountNo(), request.getTransactionUniqueNo(), request.getTransactionMemo()
     );
     return successResponse(response);
   }

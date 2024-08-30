@@ -30,6 +30,7 @@ import lombok.NoArgsConstructor;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.validation.constraints.NotBlank;
 import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 
 /**
@@ -48,6 +49,9 @@ public class TransactionMemoModel {
   public static class Request {
     @JsonProperty("Header")
     private CommonHeaderModel.Request Header;
+    
+    @NotBlank(message = "사용자 키는 필수 입력 항목입니다.")
+    private String userKey;
 
     @JsonProperty("accountNo")
     private String accountNo; // 필수: 계좌번호, 길이: 16

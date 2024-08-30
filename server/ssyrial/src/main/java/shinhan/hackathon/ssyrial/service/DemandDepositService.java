@@ -128,7 +128,7 @@ public class DemandDepositService extends ShinhanApiService {
         InquireDemandDepositAccountHolderNameModel.Response.class, true);
   }
 
-  /**
+  /* InquireDemandDepositAccountBalanceModel
    * 계좌 잔액을 조회하는 메서드입니다.
    *
    * 이 메서드는 계좌번호를 받아 계좌 잔액을 조회하는 API 요청을 보냅니다.

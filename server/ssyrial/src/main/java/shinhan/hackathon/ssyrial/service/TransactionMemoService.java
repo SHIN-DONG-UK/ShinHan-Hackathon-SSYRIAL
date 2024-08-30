@@ -17,10 +17,10 @@ public class TransactionMemoService extends ShinhanApiService {
     super(restTemplate, apiKey);
   }
 
-  public TransactionMemoModel.Response transactionMemo(String accountNo, String transactionUniqueNo,
+  public TransactionMemoModel.Response transactionMemo(String userKey, String accountNo, String transactionUniqueNo,
       String transactionMemo) {
     // 공통 헤더 생성, userKey는 필요하지 않음
-    CommonHeaderModel.Request header = createCommonHeader("transactionMemo", "transactionMemo", null);
+    CommonHeaderModel.Request header = createCommonHeader("transactionMemo", "transactionMemo", userKey);
 
     // 은행 코드 조회 요청 데이터 생성
     TransactionMemoModel.Request request = TransactionMemoModel.Request.builder()
