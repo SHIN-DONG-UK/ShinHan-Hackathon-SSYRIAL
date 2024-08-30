@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:ssyrial/config/constants.dart';
 import 'package:ssyrial/screens/register/finish_member_registration.dart';
@@ -26,8 +27,28 @@ class _MemberRegistrationStartScreenState
     extends State<MemberRegistrationStartScreen> {
   ScreenState _currentScreen = ScreenState.start;
   final PageController _pageController = PageController();
+  final AudioPlayer _audioPlayer = AudioPlayer(); // 오디오 플레이어 인스턴스 생성
   bool _isAuthenticated = false;
   bool _allConsentsChecked = false;
+  String _currentVoiceScript = ""; // 현재 음성 스크립트
+  List<String> _audioQueue = []; // 오디오 파일 순서 리스트
+  List<String> _scriptQueue = []; // 대사 스크립트 순서 리스트
+  int _currentAudioIndex = 0; // 현재 재생 중인 오디오 인덱스
+
+  @override
+  void initState() {
+    super.initState();
+    _audioPlayer.onPlayerComplete.listen((event) {
+      _playNextAudio(); // 현재 오디오가 끝나면 다음 오디오 재생
+    });
+    _playVoiceForCurrentScreen(); // 초기 화면 상태에 맞는 음성 재생
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose(); // 위젯이 해제될 때 오디오 플레이어도 해제
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +71,22 @@ class _MemberRegistrationStartScreenState
                     Positioned(
                       left: 0,
                       bottom: 0,
-                      child: Image.asset(
-                        'assets/images/moli.gif', // 예시 이미지
-                        width: 100,
-                        height: 100,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/images/moli.gif', // 예시 이미지
+                            width: 100,
+                            height: 100,
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            _currentVoiceScript, // 현재 음성 스크립트 표시
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -74,6 +107,7 @@ class _MemberRegistrationStartScreenState
       onPageChanged: (index) {
         setState(() {
           _currentScreen = ScreenState.values[index];
+          _playVoiceForCurrentScreen(); // 페이지 변경 시 음성 재생
         });
       },
       physics: const NeverScrollableScrollPhysics(),
@@ -89,6 +123,36 @@ class _MemberRegistrationStartScreenState
         FinishMemberRegistrationScreen()
       ],
     );
+  }
+
+  void _playVoiceForCurrentScreen() {
+    switch (_currentScreen) {
+      case ScreenState.start:
+        _audioQueue = ['sounds/voice1.mp3', 'sounds/voice2.mp3'];
+        _scriptQueue = ["안녕하세요 저는 몰리에요", "무엇을 도와드릴까요?"];
+        break;
+      case ScreenState.phoneAuth:
+        _audioQueue = ['sounds/voice1.mp3', 'sounds/voice2.mp3'];
+        _scriptQueue = ["테스트1", "테스트2", "테스트3"];
+        break;
+      default:
+        _audioQueue = [];
+        _scriptQueue = [];
+        _currentVoiceScript = ""; // 기본적으로 빈 문자열로 설정
+        return;
+    }
+    _currentAudioIndex = 0;
+    _playNextAudio(); // 첫 오디오 파일 재생
+  }
+
+  void _playNextAudio() {
+    if (_currentAudioIndex < _audioQueue.length) {
+      setState(() {
+        _currentVoiceScript = _scriptQueue[_currentAudioIndex]; // 대사 스크립트 업데이트
+      });
+      _audioPlayer.play(AssetSource(_audioQueue[_currentAudioIndex]));
+      _currentAudioIndex++;
+    }
   }
 
   void _onAllConsentsChecked(bool allChecked) {
@@ -110,7 +174,7 @@ class _MemberRegistrationStartScreenState
       maintainAnimation: true,
       maintainState: true,
       child:
-          _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
+      _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
     );
   }
 
@@ -118,6 +182,7 @@ class _MemberRegistrationStartScreenState
     int nextIndex = (_currentScreen.index + 1) % ScreenState.values.length;
     setState(() {
       _currentScreen = ScreenState.values[nextIndex];
+      _playVoiceForCurrentScreen(); // 다음 페이지로 이동 시 음성 재생
     });
     _pageController.animateToPage(
       nextIndex,
