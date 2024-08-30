@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:ssyrial/config/hive_config.dart';
 import 'package:ssyrial/screens/register/member_registration_screen.dart';
 import 'login/2.sign_in_password.dart';
 
@@ -15,40 +17,27 @@ const TextStyle kFeatureTextStyleActive = TextStyle(color: Colors.blue);
 const TextStyle kFeatureTextStyleInactive = TextStyle(color: Colors.grey);
 const TextStyle kAccountCreationTextStyle = TextStyle(color: Colors.white);
 
-//TODO: 1. 로그인 버튼 제거
-//TODO: 2. flutter hive 라이브러리를 이용해 회원가입 여부 판별
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
-class HomeScreen extends StatelessWidget {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(), // AppBar 빌드
+      appBar: _buildAppBar(), // AppBar 빌드
       body: Column(
         children: [
-          Column(
-            children: [
-              Image.asset('assets/images/sol_bank_logo.png', height: 90), // 은행 로고 이미지
-              buildLoginButton(() => onLoginButtonPressed(context)), // 로그인 버튼 추가
-              buildFeatureRow(), // 기능 선택 Row 추가
-              Row(
-                children: [
-                  buildAccountCreationButton(), // 계좌 생성 버튼 추가
-                  buildEasyScreenButton(() => onEasyScreenButtonPressed(context)), // 쉬운 화면 버튼 추가
-                ],
-              ),
-            ],
-          ),
-          buildBottomNavigationBar(), // 하단 네비게이션 바 추가
+          _buildContent(), // 메인 콘텐츠 빌드
+          _buildBottomNavigationBar(), // 하단 네비게이션 바 추가
         ],
       ),
     );
   }
-}
 
-// HomeScreenWidget Extension
-extension HomeScreenWidget on HomeScreen {
-  // AppBar의 위젯들을 하나로 묶어서 관리
-  AppBar buildAppBar() {
+  // AppBar 빌드
+  AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: kAppBarBackgroundColor, // AppBar 배경색 설정
       elevation: 0, // 그림자 제거
@@ -64,20 +53,23 @@ extension HomeScreenWidget on HomeScreen {
     );
   }
 
-  // 로그인 버튼 위젯
-  Widget buildLoginButton(VoidCallback onPressed) {
-    return ElevatedButton(
-      child: Text('로그인', style: kButtonTextStyle), // 버튼 텍스트 스타일 적용
-      onPressed: onPressed, // 로그인 버튼 눌렀을 때의 동작
-      style: ElevatedButton.styleFrom(
-        backgroundColor: kLoginButtonColor, // 버튼 배경색 설정
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero), // 버튼 모서리 스타일 설정
-      ),
+  // 메인 콘텐츠 빌드
+  Widget _buildContent() {
+    return Column(
+      children: [
+        Image.asset('assets/images/sol_bank_logo.png', height: 90), // 은행 로고 이미지
+        _buildFeatureRow(), // 기능 선택 Row 추가
+        Row(
+          children: [
+            _buildEasyScreenButton(() => _handleEasyScreenButtonPress()), // 쉬운 화면 버튼 추가
+          ],
+        ),
+      ],
     );
   }
 
   // 기능 선택을 위한 Row
-  Widget buildFeatureRow() {
+  Widget _buildFeatureRow() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Row 안의 텍스트들을 균등하게 배치
       children: [
@@ -89,23 +81,8 @@ extension HomeScreenWidget on HomeScreen {
     );
   }
 
-  // 계좌 생성 버튼 위젯
-  Widget buildAccountCreationButton() {
-    return Container(
-      height: 100, // 버튼 높이 설정
-      color: kAccountCreationColor, // 버튼 배경색 설정
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center, // 콘텐츠를 가운데 정렬
-        children: [
-          Text('계좌 생성하기', style: kAccountCreationTextStyle), // 텍스트 스타일 적용
-          Icon(Icons.star, color: Colors.white), // 아이콘 색상 설정
-        ],
-      ),
-    );
-  }
-
   // 쉬운 화면 버튼 위젯
-  Widget buildEasyScreenButton(VoidCallback onPressed) {
+  Widget _buildEasyScreenButton(VoidCallback onPressed) {
     return GestureDetector(
       onTap: onPressed, // 쉬운 화면 버튼 눌렀을 때의 동작
       child: Container(
@@ -123,7 +100,7 @@ extension HomeScreenWidget on HomeScreen {
   }
 
   // 하단 네비게이션 바 위젯
-  Widget buildBottomNavigationBar() {
+  Widget _buildBottomNavigationBar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Row 안의 아이콘과 텍스트들을 균등하게 배치
       children: [
@@ -135,10 +112,30 @@ extension HomeScreenWidget on HomeScreen {
       ],
     );
   }
-}
 
-// HomeScreenFunction Extension
-extension HomeScreenFunction on HomeScreen {
+  // 쉬운 화면 버튼 클릭 처리
+  Future<void> _handleEasyScreenButtonPress() async {
+    try {
+      // Hive Box 열기
+      var box = await HiveConfig.openBox('registrationBox');
+
+      final isRegistered = box.get('isRegistrationComplete', defaultValue: false);
+      print(isRegistered);
+
+      // 등록 상태에 따른 페이지 이동
+      if (isRegistered) {
+        onLoginButtonPressed(context);
+      } else {
+        onEasyScreenButtonPressed(context);
+      }
+      // Box 닫기
+      await HiveConfig.closeBox('registrationBox');
+    } catch (e) {
+      // 예외 처리 - 오류 발생 시 로그 출력
+      print('Hive 저장 중 오류 발생: $e');
+    }
+  }
+
   // 로그인 버튼을 눌렀을 때의 동작
   void onLoginButtonPressed(BuildContext context) {
     Navigator.push(
@@ -151,7 +148,7 @@ extension HomeScreenFunction on HomeScreen {
   void onEasyScreenButtonPressed(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MemberRegistrationStartScreen()), // SignInScreen 화면으로 이동
+      MaterialPageRoute(builder: (context) => MemberRegistrationStartScreen()), // MemberRegistrationStartScreen 화면으로 이동
     );
   }
 }
