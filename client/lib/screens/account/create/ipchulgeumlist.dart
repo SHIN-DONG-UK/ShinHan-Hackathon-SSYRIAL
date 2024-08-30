@@ -77,6 +77,7 @@ class Ipchulgeumlist extends StatelessWidget {
           ),
 
           //계좌 1
+          // [API] 해당 상품을 생성하는 API 호출
           Positioned(
             bottom: screenheight * 0.02 + screenheight * 0.33,
             child: SizedBox(
@@ -121,6 +122,7 @@ class Ipchulgeumlist extends StatelessWidget {
           ),
 
           //계좌 2
+          // [API] 해당 상품을 생성하는 API 호출
           Positioned(
             bottom: screenheight * 0.02 + screenheight * 0.17,
             child: SizedBox(
@@ -158,6 +160,7 @@ class Ipchulgeumlist extends StatelessWidget {
           ),
 
           //계좌 3
+          // [API] 해당 상품을 생성하는 API 호출
           Positioned(
             bottom: screenheight * 0.028,
             child: SizedBox(

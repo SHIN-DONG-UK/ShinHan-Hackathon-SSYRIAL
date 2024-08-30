@@ -76,7 +76,7 @@ class SelectedIpchulgeumaccount extends StatelessWidget {
             ),
           ),
 
-          //확인하기
+          // 확인하기
           Positioned(
             bottom: screenheight * 0.028,
             child: SizedBox(
@@ -101,6 +101,8 @@ class SelectedIpchulgeumaccount extends StatelessWidget {
 
   void showFirstAlert(BuildContext context) {
     // 첫 번째 얼럿 띄우기
+    // [API] 사용자 목록 조회해서 한 달 이내에 계자 개설한게 있는지 확인(2.4.4)
+    // [API] 사용자 목록 조회해서 한 달 이내에 계자 개설한게 있는지 확인(2.4.6)
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -124,6 +126,9 @@ class SelectedIpchulgeumaccount extends StatelessWidget {
   }
 
   void showSecondAlert(BuildContext context) {
+    // 비대면 계좌 개설은 은행당 1개밖에 못만듦
+    // [API] 사용자 목록 조회해서 한 달 이내에 계자 개설한게 있는지 확인(2.4.4)
+    // [API] 사용자 목록 조회해서 한 달 이내에 계자 개설한게 있는지 확인(2.4.6)
     showDialog(
       context: context,
       builder: (BuildContext context) {

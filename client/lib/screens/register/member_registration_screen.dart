@@ -2,19 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:ssyrial/screens/register/personal_info_consent_screen.dart';
 import 'package:ssyrial/screens/register/phone_auth_screen.dart';
 import 'package:ssyrial/screens/register/start_screen.dart';
-import 'authentication_screen.dart';
 import '../../config/constants.dart';
 import 'personal_information_input_screen.dart';
 import '9.save_your_password.dart';
-import 'package:ssyrial/config/tts_config.dart';
 
 enum ScreenState {
   start,
   phoneAuth,
   personalInfoConsent,
-  personalInfoInput,
-  authenticationStart,
-  completionScreen,
+  personalInfoInput
 }
 
 class MemberRegistrationStartScreen extends StatefulWidget {
@@ -28,18 +24,15 @@ class MemberRegistrationStartScreen extends StatefulWidget {
 class _MemberRegistrationStartScreenState
     extends State<MemberRegistrationStartScreen> {
   ScreenState _currentScreen = ScreenState.start;
-  final List<bool> _isChecked = List.filled(5, false);
   final PageController _pageController = PageController();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _birthdayController = TextEditingController();
-  String? _selectedGender;
   bool _isAuthenticated = false;
-  final TTSConfig _ttsConfig = TTSConfig();
+  bool _allConsentsChecked = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kScaffoldBackgroundColor,
+      resizeToAvoidBottomInset: false, // 키보드가 올라와도 화면 크기를 조정하지 않도록 설정
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(kPadding),
@@ -74,7 +67,6 @@ class _MemberRegistrationStartScreenState
     );
   }
 
-
   Widget _buildPageView() {
     return PageView(
       controller: _pageController,
@@ -83,33 +75,31 @@ class _MemberRegistrationStartScreenState
           _currentScreen = ScreenState.values[index];
         });
       },
-      physics: const NeverScrollableScrollPhysics(), // 스와이프를 비활성화합니다.
+      physics: const NeverScrollableScrollPhysics(),
       children: [
-        StartScreen(onTTSComplete: _onStartScreenTTSComplete),
+        StartScreen(),
         PhoneAuthScreen(),
         PersonalInfoConsentScreen(
-          isChecked: _isChecked,
-          onCheckedChanged: _updateConsentState,
+          onAllConsentsChecked: _onAllConsentsChecked, // 콜백 전달
         ),
         PersonalInformationInputScreen(
-          nameController: _nameController,
-          birthdayController: _birthdayController,
-          selectedGender: _selectedGender,
-          onNameChanged: (value) => setState(() {}),
-          onBirthdayChanged: (value) => setState(() {}),
-          onGenderSelected: (gender) => setState(() {
-            _selectedGender = gender;
-          }),
-        ),
-        AuthenticationScreen(
-          onAuthenticationComplete: () => setState(() {
-            _onAuthenticationStart();
-          }),
-        ),
+          onAuthenticationSuccess: _onAuthenticationStart,
+        )
       ],
     );
   }
 
+  void _onAllConsentsChecked(bool allChecked) {
+    setState(() {
+      _allConsentsChecked = allChecked; // 모든 항목 체크 상태 업데이트
+    });
+  }
+
+  void _onAuthenticationStart() {
+    setState(() {
+      _isAuthenticated = true;
+    });
+  }
 
   Widget _buildNextButton() {
     return Visibility(
@@ -117,27 +107,11 @@ class _MemberRegistrationStartScreenState
       maintainSize: true,
       maintainAnimation: true,
       maintainState: true,
-      child:
-          _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
+      child: _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
     );
   }
 
-  void _updateConsentState(List<bool> newCheckedValues) {
-    setState(() {
-      for (int i = 0; i < _isChecked.length; i++) {
-        _isChecked[i] = newCheckedValues[i];
-      }
-    });
-  }
-
-  Future<void> _onStartScreenTTSComplete() async {
-    if (_currentScreen == ScreenState.start) {
-      await _onNextPressed();
-    }
-  }
-
   Future<void> _onNextPressed() async {
-    await _ttsConfig.stop();
 
     if (_currentScreen.index == ScreenState.values.length - 1) {
       Navigator.push(
@@ -157,13 +131,6 @@ class _MemberRegistrationStartScreenState
     }
   }
 
-  void _onAuthenticationStart() {
-    setState(() {
-      _isAuthenticated = true;
-      _currentScreen = ScreenState.completionScreen;
-    });
-  }
-
   void _onCancelPressed() {
     Navigator.pop(context);
   }
@@ -171,13 +138,9 @@ class _MemberRegistrationStartScreenState
   bool _canProceed() {
     switch (_currentScreen) {
       case ScreenState.personalInfoConsent:
-        return _isChecked[0];
+        return _allConsentsChecked; // 모든 항목이 체크된 경우에만 "다음" 버튼이 활성화
       case ScreenState.personalInfoInput:
-        return _selectedGender != null;
-      case ScreenState.completionScreen:
-        return _isAuthenticated;
-      case ScreenState.authenticationStart:
-        return false;
+        return _isAuthenticated; // 인증이 완료된 경우에만 "다음" 버튼이 보임
       default:
         return true;
     }

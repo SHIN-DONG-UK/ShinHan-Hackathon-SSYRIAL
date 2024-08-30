@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/screens/account/tranfer/account_info_input_screen.dart';
+import 'package:ssyrial/screens/STT/stt_test.dart';
 
 // [API] 동욱 홈 화면 진입 시 통장잔고 API 땡겨와야 함
 class DongukHomeScreen extends StatelessWidget {
@@ -41,13 +42,27 @@ class DongukHomeScreen extends StatelessWidget {
               SizedBox(height: 10),
               _buildButton('통장 조회'),
               Spacer(),
-              IconButton(onPressed: (){}, icon: Icon(Icons.mic, size: 40),),
+              _buildSTT(context),
               SizedBox(height: 20),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildSTT(BuildContext context){
+    return IconButton(onPressed: (){
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SpeechSampleApp(
+            // Pass any required arguments here if needed
+          ),
+        ),
+      );
+    },
+    icon: Icon(Icons.mic, size: 40),);
   }
 
   Widget _buildTransfer(BuildContext context, String text) {

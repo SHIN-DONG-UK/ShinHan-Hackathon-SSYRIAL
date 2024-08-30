@@ -33,15 +33,14 @@ class CreateAccoutSelectCategory extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  style: TextButton.styleFrom(
-                    overlayColor: Colors.transparent,
-                  ),
+
                   child: Text(''),
                 ),
               ),
             ),
 
-            //입출금 버튼
+            // 입출금 버튼
+            // [API] 입출금 버튼 클릭 시 출금 API 끌고오기 ( 깃랩 2.4.1 )
             Positioned(
               bottom: screenheight * 0.02 + screenheight * 0.33,
               child: SizedBox(
@@ -93,7 +92,8 @@ class CreateAccoutSelectCategory extends StatelessWidget {
               ),
             ),
 
-            //예금 버튼
+            // 예금 버튼
+            // [API] 입출금 버튼 클릭 시 상품 API 끌고오기 ( 깃랩 2.5.1 )
             Positioned(
               bottom: screenheight * 0.02 + screenheight * 0.17,
               child: SizedBox(
@@ -147,6 +147,7 @@ class CreateAccoutSelectCategory extends StatelessWidget {
             ),
 
             //적금 버튼
+            // [API] 입출금 버튼 클릭 시 상품 API 끌고오기 ( 깃랩 2.6.1 )
             Positioned(
               bottom: screenheight * 0.028,
               child: SizedBox(

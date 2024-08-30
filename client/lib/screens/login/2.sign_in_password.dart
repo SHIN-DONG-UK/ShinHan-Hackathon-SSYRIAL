@@ -179,6 +179,7 @@ extension SignInScreenWidget on _SignInScreenState {
         ),
         SizedBox(width: 16),
         Expanded(
+          // [API] DB에 저장된 사용자 비밀번호 가져와서 사용자가 입력한 비밀번호와 일치하는지 확인하기
           child: ElevatedButton(
             onPressed: () {
               verifyPassword(context); // 비밀번호 확인 호출
