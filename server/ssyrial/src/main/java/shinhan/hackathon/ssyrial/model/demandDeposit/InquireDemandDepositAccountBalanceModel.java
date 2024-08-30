@@ -29,7 +29,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -74,11 +73,13 @@ public class InquireDemandDepositAccountBalanceModel {
     private CommonHeaderModel.Response Header;
 
     @JsonProperty("REC")
-    private List<AccountInfo> REC; // 계좌 정보 리스트 (필수 아님)
+    private AccountInfo REC; // 계좌 정보 리스트 (필수 아님)
 
     /**
      * 계좌 정보를 담는 내부 클래스입니다.
      */
+    
+    // TODO: REC고치기
     @Getter
     @Setter
     @NoArgsConstructor
@@ -91,7 +92,7 @@ public class InquireDemandDepositAccountBalanceModel {
       private String accountNo; // 필수: 계좌번호, 길이: 16
 
       @JsonProperty("accountBalance")
-      private Long accountBalance; // 필수: 계좌잔액
+      private String accountBalance; // 필수: 계좌잔액
 
       @JsonProperty("accountCreatedDate")
       private String accountCreatedDate; // 필수: 계좌개설일, 길이: 8
