@@ -120,6 +120,7 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
           style: widget.titleTextStyle, // 텍스트 스타일
         ),
         SizedBox(height: 20),
+        // [API] 아래 버튼에 내가 송금할 은행의 리스트 API를 땡겨와야 함
         ElevatedButton(
           onPressed: _showBankSelectionDialog, // 은행 선택 다이얼로그 표시
           child: Text(_selectedBank.isEmpty ? widget.bankButtonText : _selectedBank), // 선택된 은행 또는 기본 텍스트 표시
@@ -137,14 +138,15 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
         // 보내기 버튼
         if (_accountNumberEntered) ...[
           SizedBox(height: 20),
+          // [API] 보내기 버튼 클릭 시, 입력된 정보의 계좌가 있는지 API로 확인하기
           ElevatedButton(
-            onPressed: _showConfirmationDialog, // 보내기 버튼 클릭 시 확인 다이얼로그 표시
+            onPressed: _showConfirmationDialog,
             style: ElevatedButton.styleFrom(
-              backgroundColor: widget.buttonColor, // 보내기 버튼의 배경색
+              backgroundColor: widget.buttonColor,
             ),
             child: Text(
-              widget.submitButtonText, // 보내기 버튼 텍스트
-              style: widget.buttonTextStyle, // 보내기 버튼 텍스트 스타일
+              widget.submitButtonText,
+              style: widget.buttonTextStyle,
             ),
           ),
         ]

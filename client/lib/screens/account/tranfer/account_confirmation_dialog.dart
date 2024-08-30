@@ -66,6 +66,7 @@ class AccountConfirmationDialog extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
+                    // [API] 현재 계좌의 통장 잔고를 확인하는 API 땡겨오기
                     child: ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(true), // true를 반환하고 팝됨
                       child: Text("네", style: TextStyle(color: Colors.white, fontSize: 16)),

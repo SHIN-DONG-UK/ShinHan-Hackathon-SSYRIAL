@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/screens/account/tranfer/account_info_input_screen.dart';
 
+// [API] 동욱 홈 화면 진입 시 통장잔고 API 땡겨와야 함
 class DongukHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class DongukHomeScreen extends StatelessWidget {
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(8),
                   ),
+                  // 여기서 Text()가 아니라 통장 잔고를 API에서 땡겨와야 함
                   child: Center(child: Text(
                     '1,520,120 원',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -33,7 +35,7 @@ class DongukHomeScreen extends StatelessWidget {
                   ),)
               ),
               SizedBox(height: 20),
-              _buildTransfer('돈 보내기'),
+              _buildTransfer(context, '돈 보내기'),
               SizedBox(height: 10),
               _buildButton('통장 생성'),
               SizedBox(height: 10),
@@ -48,7 +50,7 @@ class DongukHomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTransfer(String text) {
+  Widget _buildTransfer(BuildContext context, String text) {
     return Container(
       width: double.infinity,
       child: ElevatedButton(
@@ -59,7 +61,16 @@ class DongukHomeScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        onPressed: ()=>AccountInfoInputScreen(),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AccountInfoInputScreen(
+                // Pass any required arguments here if needed
+              ),
+            ),
+          );
+        },
       ),
     );
   }
