@@ -54,6 +54,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   @override
   void initState() {
     super.initState();
+    initSpeechState();
   }
 
   // 음성 인식 기능 초기화를 위한 비동기 메서드 -> 그대로 사용 가능
@@ -103,7 +104,6 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
           const HeaderWidget(), // 헤더 위젯 추가
           Column(
             children: <Widget>[
-              InitSpeechWidget(_hasSpeech, initSpeechState), // 초기화 버튼 위젯
               SpeechControlWidget(_hasSpeech, speech.isListening,
                   startListening, stopListening, cancelListening), // 음성 인식 제어 버튼 위젯
               SessionOptionsWidget( // 세션 옵션 설정 위젯
@@ -271,29 +271,6 @@ class HeaderWidget extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-// 음성 인식 초기화 버튼 위젯 정의
-class InitSpeechWidget extends StatelessWidget {
-  // 음성 인식 기능의 사용 가능 여부와 초기화 메서드를 전달받음
-  const InitSpeechWidget(this.hasSpeech, this.initSpeechState, {Key? key})
-      : super(key: key);
-
-  final bool hasSpeech;
-  final VoidCallback initSpeechState;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      Row(children: [
-        const Text('Initialize'),
-        IconButton(
-          icon: const Icon(Icons.settings_voice),
-          onPressed: !hasSpeech ? initSpeechState : null,
-        ),
-      ]),
-    ]);
   }
 }
 

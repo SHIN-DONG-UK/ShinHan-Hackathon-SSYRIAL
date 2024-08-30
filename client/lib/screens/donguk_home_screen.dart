@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/screens/account/tranfer/account_info_input_screen.dart';
-import 'package:ssyrial/screens/STT/tmp.dart';
+import 'package:ssyrial/screens/STT/stt_test.dart';
 
 // [API] 동욱 홈 화면 진입 시 통장잔고 API 땡겨와야 함
 class DongukHomeScreen extends StatelessWidget {
@@ -56,7 +56,7 @@ class DongukHomeScreen extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => MainSTTScreen(
+          builder: (context) => SpeechSampleApp(
             // Pass any required arguments here if needed
           ),
         ),
