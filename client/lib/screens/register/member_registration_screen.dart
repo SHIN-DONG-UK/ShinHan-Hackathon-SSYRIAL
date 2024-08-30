@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/config/constants.dart';
-import 'package:ssyrial/screens/guide/function_selection_screen.dart';
 import 'package:ssyrial/screens/register/finish_member_registration.dart';
 import 'package:ssyrial/screens/register/personal_info_consent_screen.dart';
 import 'package:ssyrial/screens/register/phone_auth_screen.dart';
