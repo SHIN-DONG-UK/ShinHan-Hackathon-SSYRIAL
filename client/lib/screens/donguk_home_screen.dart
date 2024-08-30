@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ssyrial/screens/account/tranfer/account_info_input_screen.dart';
 
 class DongukHomeScreen extends StatelessWidget {
   @override
@@ -32,7 +33,7 @@ class DongukHomeScreen extends StatelessWidget {
                   ),)
               ),
               SizedBox(height: 20),
-              _buildButton('돈 보내기'),
+              _buildTransfer('돈 보내기'),
               SizedBox(height: 10),
               _buildButton('통장 생성'),
               SizedBox(height: 10),
@@ -43,6 +44,22 @@ class DongukHomeScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildTransfer(String text) {
+    return Container(
+      width: double.infinity,
+      child: ElevatedButton(
+        child: Text(text, style: TextStyle(fontSize: 18)),
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        onPressed: ()=>AccountInfoInputScreen(),
       ),
     );
   }

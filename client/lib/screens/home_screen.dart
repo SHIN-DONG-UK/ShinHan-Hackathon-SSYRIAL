@@ -6,6 +6,7 @@ import 'package:ssyrial/screens/test_base_screen.dart';
 import 'package:ssyrial/widgets/custom_dialog.dart';
 import 'package:ssyrial/sooyeon_front/Home/1.home_screen.dart' as sooyeon;
 import 'package:ssyrial/screens/atm/_atm.dart';
+import 'package:ssyrial/screens/donguk_home_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final String title; // 화면의 제목
@@ -101,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => TTSSettingsScreen()),
+                    MaterialPageRoute(builder: (context) => DongukHomeScreen()),
                   );
                 },
                 child: Text('동욱 메인'),
