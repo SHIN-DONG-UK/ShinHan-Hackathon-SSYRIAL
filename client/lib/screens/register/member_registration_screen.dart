@@ -49,7 +49,22 @@ class _MemberRegistrationStartScreenState
               _buildActionButton(
                   context, '취소하기', kCancelButtonColor, _onCancelPressed),
               const SizedBox(height: 20),
-              Expanded(child: _buildPageView()),
+              Expanded(
+                child: Stack(
+                  children: [
+                    _buildPageView(),
+                    Positioned(
+                      left: 0,
+                      bottom: 0,
+                      child: Image.asset(
+                        'assets/images/moli.gif', // 예시 이미지
+                        width: 100,
+                        height: 100,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 20),
               _buildNextButton(),
             ],
@@ -59,6 +74,7 @@ class _MemberRegistrationStartScreenState
     );
   }
 
+
   Widget _buildPageView() {
     return PageView(
       controller: _pageController,
@@ -67,6 +83,7 @@ class _MemberRegistrationStartScreenState
           _currentScreen = ScreenState.values[index];
         });
       },
+      physics: const NeverScrollableScrollPhysics(), // 스와이프를 비활성화합니다.
       children: [
         StartScreen(onTTSComplete: _onStartScreenTTSComplete),
         PhoneAuthScreen(),
@@ -92,6 +109,7 @@ class _MemberRegistrationStartScreenState
       ],
     );
   }
+
 
   Widget _buildNextButton() {
     return Visibility(
