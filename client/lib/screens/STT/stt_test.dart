@@ -59,7 +59,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   // 음성 인식 기능 초기화를 위한 비동기 메서드 -> 그대로 사용 가능
   // [설계]
   // 그대로 사용하면 될듯
-  // initSpeechState()는 앱 실행시 최초 한 번 수행하면 됨 → 메인 화면에 진입할 때 호출하면 될듯
+  // initSpeechState()는 앱 실행시 최초 한 번 수행하면 됨 → 최초 버튼 입력때만 호출하도록 수정
   Future<void> initSpeechState() async {
     // 초기화 이벤트를 로깅
     _logEvent('Initialize');
@@ -97,7 +97,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Speech to Text Example'), // 앱의 제목 설정
+          title: const Text('어떤 도움이 필요하신가요?'), // 앱의 제목 설정
         ),
         body: Column(children: [ // 메인 화면의 UI 구성
           const HeaderWidget(), // 헤더 위젯 추가
