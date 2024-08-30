@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
 import 'package:ssyrial/config/hive_config.dart';
 import 'package:ssyrial/screens/register/member_registration_screen.dart';
 import 'login/2.sign_in_password.dart';
@@ -23,30 +23,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Box<dynamic> box;
-  bool isInitialized = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeHive();
-  }
-
-  // Hive 초기화 및 Box 열기
-  Future<void> _initializeHive() async {
-    await HiveConfig.init(); // Hive 초기화
-    box = await HiveConfig.openBox('registrationBox');
-    setState(() {
-      isInitialized = true;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (!isInitialized) {
-      return _buildLoadingScreen();
-    }
-
     return Scaffold(
       appBar: _buildAppBar(), // AppBar 빌드
       body: Column(
@@ -55,13 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
           _buildBottomNavigationBar(), // 하단 네비게이션 바 추가
         ],
       ),
-    );
-  }
-
-  // 로딩 화면 빌드
-  Widget _buildLoadingScreen() {
-    return Scaffold(
-      body: Center(child: CircularProgressIndicator()),
     );
   }
 
@@ -90,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
         _buildFeatureRow(), // 기능 선택 Row 추가
         Row(
           children: [
-            _buildAccountCreationButton(), // 계좌 생성 버튼 추가
             _buildEasyScreenButton(() => _handleEasyScreenButtonPress()), // 쉬운 화면 버튼 추가
           ],
         ),
@@ -108,21 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
         Text('은행', style: kFeatureTextStyleInactive),
         Text('보험', style: kFeatureTextStyleInactive),
       ],
-    );
-  }
-
-  // 계좌 생성 버튼 위젯
-  Widget _buildAccountCreationButton() {
-    return Container(
-      height: 100, // 버튼 높이 설정
-      color: kAccountCreationColor, // 버튼 배경색 설정
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center, // 콘텐츠를 가운데 정렬
-        children: [
-          Text('계좌 생성하기', style: kAccountCreationTextStyle), // 텍스트 스타일 적용
-          Icon(Icons.star, color: Colors.white), // 아이콘 색상 설정
-        ],
-      ),
     );
   }
 
@@ -159,13 +114,25 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // 쉬운 화면 버튼 클릭 처리
-  void _handleEasyScreenButtonPress() {
-    final isRegistered = box.get('isRegistrationComplete', defaultValue: false);
+  Future<void> _handleEasyScreenButtonPress() async {
+    try {
+      // Hive Box 열기
+      var box = await HiveConfig.openBox('registrationBox');
 
-    if (isRegistered) {
-      onLoginButtonPressed(context);
-    } else {
-      onEasyScreenButtonPressed(context);
+      final isRegistered = box.get('isRegistrationComplete', defaultValue: false);
+      print(isRegistered);
+
+      // 등록 상태에 따른 페이지 이동
+      if (isRegistered) {
+        onLoginButtonPressed(context);
+      } else {
+        onEasyScreenButtonPressed(context);
+      }
+      // Box 닫기
+      await HiveConfig.closeBox('registrationBox');
+    } catch (e) {
+      // 예외 처리 - 오류 발생 시 로그 출력
+      print('Hive 저장 중 오류 발생: $e');
     }
   }
 
