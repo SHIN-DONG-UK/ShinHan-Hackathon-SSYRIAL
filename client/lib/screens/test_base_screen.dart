@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/sooyeon_front/register/phone_auth_screen.dart';
-import '../1-2.cancle_member_registration.dart';
-import 'constants.dart';
-import '../9.save_your_password.dart';
+import '../sooyeon_front/1-2.cancle_member_registration.dart';
+import '../sooyeon_front/register/constants.dart';
+import '../sooyeon_front/9.save_your_password.dart';
 import 'package:ssyrial/config/tts_config.dart';
 
 enum ScreenState {
