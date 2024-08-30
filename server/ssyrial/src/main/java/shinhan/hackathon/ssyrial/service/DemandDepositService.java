@@ -166,7 +166,7 @@ public class DemandDepositService extends ShinhanApiService {
    */
   public UpdateDemandDepositAccountTransferModel.Response updateDemandDepositAccountTransfer(
       String userKey,
-      String depositAccountNo, String withdrawalAccountNo, String transactionBalance,
+      String depositAccountNo, String withdrawalAccountNo, Long transactionBalance,
       String depositTransactionSummary, String withdrawalTransactionSummary) {
 
     // 공통 헤더 생성
@@ -315,7 +315,7 @@ public class DemandDepositService extends ShinhanApiService {
   }
 
   /*
-   * DeleteDemandDepositAccountModel 계좌 입금
+   * DeleteDemandDepositAccountModel 계좌 삭제
    */
   public DeleteDemandDepositAccountModel.Response deleteDemandDepositAccount(String userKey, String accountNo,
       String refundAccountNo) {

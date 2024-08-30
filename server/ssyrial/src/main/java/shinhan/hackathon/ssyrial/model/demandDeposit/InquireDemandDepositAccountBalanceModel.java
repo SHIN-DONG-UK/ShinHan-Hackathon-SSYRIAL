@@ -33,6 +33,9 @@ import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotBlank;
+import java.util.List;
+
+
 
 /**
  * InquireDemandDepositAccountBalanceModel 클래스는 특정 계좌의 잔액 조회 요청 및 응답 데이터를 담는 모델
@@ -79,7 +82,6 @@ public class InquireDemandDepositAccountBalanceModel {
      * 계좌 정보를 담는 내부 클래스입니다.
      */
     
-    // TODO: REC고치기
     @Getter
     @Setter
     @NoArgsConstructor

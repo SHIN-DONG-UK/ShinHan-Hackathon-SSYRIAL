@@ -98,7 +98,7 @@ public class DepositService extends ShinhanApiService {
    */
   public InquireDepositPaymentModel.Response inquireDepositPayment(String userKey, String accountNo) {
     // 공통 헤더 생성
-    CommonHeaderModel.Request header = createCommonHeader("inquireDepositPaymentModel", "inquireDepositPaymentModel",
+    CommonHeaderModel.Request header = createCommonHeader("inquireDepositPayment", "inquireDepositPayment",
         userKey);
 
     // 요청 객체 생성
@@ -108,17 +108,17 @@ public class DepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/edu/deposit/inquireDepositPaymentModel", HttpMethod.POST, request,
+    return sendRequest("/edu/deposit/inquireDepositPayment", HttpMethod.POST, request,
         InquireDepositPaymentModel.Response.class, true);
   }
 
   /*
    * CreateDepositAccount (예금 계좌 개설 기능)
    */
-  public CreateDepositAccountModel.Response createDepositAccount(String withdrawalAccountNo, String accountTypeUniqueNo, String depositBalance) {
+  public CreateDepositAccountModel.Response createDepositAccount(String userKey, String withdrawalAccountNo, String accountTypeUniqueNo, String depositBalance) {
     // 공통 헤더 생성
-    CommonHeaderModel.Request header = createCommonHeader("createDepositAccountModel", "createDepositAccountModel",
-        null);
+    CommonHeaderModel.Request header = createCommonHeader("createDepositAccount", "createDepositAccount",
+        userKey);
 
     // 요청 객체 생성
     CreateDepositAccountModel.Request request = CreateDepositAccountModel.Request.builder()
@@ -129,7 +129,7 @@ public class DepositService extends ShinhanApiService {
         .build();
 
     // API 요청 보내기
-    return sendRequest("/edu/deposit/createDepositAccountModel", HttpMethod.POST, request,
+    return sendRequest("/edu/deposit/createDepositAccount", HttpMethod.POST, request,
     CreateDepositAccountModel.Response.class, true);
   }
 }

@@ -22,20 +22,21 @@ transactionType - 거래유형 - String - 길이1 - 필수Y - 1, 2 ...
 transactionTypeName - 거래유형명 - String - 길이8 - 필수Y - 입금이체, 출금이체 ...
 transactionAccountNo - 거래 계좌번호 - String - 길이16 - 필수Y - 이체 거래에 대한 계좌번호
 */
-
 package shinhan.hackathon.ssyrial.model.demandDeposit;
 
 import lombok.Getter;
 import lombok.Setter;
+import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotBlank;
-
-import shinhan.hackathon.ssyrial.model.CommonHeaderModel;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * UpdateDemandDepositAccountTransferModel 클래스는 계좌 이체 요청 및 응답 데이터를 담는 모델 클래스입니다.
@@ -51,26 +52,34 @@ public class UpdateDemandDepositAccountTransferModel {
   @AllArgsConstructor
   @Builder
   public static class Request {
+
     @JsonProperty("Header")
     private CommonHeaderModel.Request Header;
+
+    @NotBlank(message = "입금 계좌번호는 필수 입력 항목입니다.")
+    @Size(max = 16, message = "입금 계좌번호는 최대 16자리여야 합니다.")
+    @JsonProperty("depositAccountNo")
+    private String depositAccountNo;
 
     @NotBlank(message = "사용자 키는 필수 입력 항목입니다.")
     private String userKey;
 
-    @JsonProperty("depositAccountNo")
-    private String depositAccountNo; // 필수: 입금계좌번호, 길이: 16
-
+    @NotNull(message = "거래 금액은 필수 입력 항목입니다.")
     @JsonProperty("transactionBalance")
-    private String transactionBalance; // 필수: 거래금액
+    private Long transactionBalance;
 
+    @NotBlank(message = "출금 계좌번호는 필수 입력 항목입니다.")
+    @Size(max = 16, message = "출금 계좌번호는 최대 16자리여야 합니다.")
     @JsonProperty("withdrawalAccountNo")
-    private String withdrawalAccountNo; // 필수: 출금계좌번호, 길이: 16
+    private String withdrawalAccountNo;
 
+    @Size(max = 255, message = "입금 거래 요약 내용은 최대 255자리여야 합니다.")
     @JsonProperty("depositTransactionSummary")
-    private String depositTransactionSummary; // 선택: 거래 요약내용(입금계좌), 길이: 255
+    private String depositTransactionSummary;
 
+    @Size(max = 255, message = "출금 거래 요약 내용은 최대 255자리여야 합니다.")
     @JsonProperty("withdrawalTransactionSummary")
-    private String withdrawalTransactionSummary; // 선택: 거래 요약내용(출금계좌), 길이: 255
+    private String withdrawalTransactionSummary;
   }
 
   /**
@@ -86,33 +95,44 @@ public class UpdateDemandDepositAccountTransferModel {
     private CommonHeaderModel.Response Header;
 
     @JsonProperty("REC")
-    private TransactionInfo REC; // 거래목록
+    private List<TransactionRecord> REC;
 
     /**
-     * 거래 정보를 담는 내부 클래스입니다.
+     * 거래 정보 데이터를 담는 내부 클래스입니다.
      */
     @Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TransactionInfo {
+    public static class TransactionRecord {
+
       @JsonProperty("transactionUniqueNo")
-      private Long transactionUniqueNo; // 필수: 거래고유번호
+      private Long transactionUniqueNo;
 
+      @NotBlank(message = "계좌번호는 필수 입력 항목입니다.")
+      @Size(max = 16, message = "계좌번호는 최대 16자리여야 합니다.")
       @JsonProperty("accountNo")
-      private String accountNo; // 필수: 계좌번호, 길이: 16
+      private String accountNo;
 
+      @NotBlank(message = "거래일자는 필수 입력 항목입니다.")
+      @Size(max = 8, message = "거래일자는 YYYYMMDD 형식이어야 합니다.")
       @JsonProperty("transactionDate")
-      private String transactionDate; // 필수: 거래일자, 길이: 8, YYYYMMDD
+      private String transactionDate;
 
+      @NotBlank(message = "거래 유형은 필수 입력 항목입니다.")
+      @Size(max = 1, message = "거래 유형은 최대 1자리여야 합니다.")
       @JsonProperty("transactionType")
-      private String transactionType; // 필수: 거래유형, 길이: 1
+      private String transactionType;
 
+      @NotBlank(message = "거래 유형명은 필수 입력 항목입니다.")
+      @Size(max = 8, message = "거래 유형명은 최대 8자리여야 합니다.")
       @JsonProperty("transactionTypeName")
-      private String transactionTypeName; // 필수: 거래유형명, 길이: 8
+      private String transactionTypeName;
 
+      @NotBlank(message = "거래 계좌번호는 필수 입력 항목입니다.")
+      @Size(max = 16, message = "거래 계좌번호는 최대 16자리여야 합니다.")
       @JsonProperty("transactionAccountNo")
-      private String transactionAccountNo; // 필수: 거래 계좌번호, 길이: 16
+      private String transactionAccountNo;
     }
   }
 }

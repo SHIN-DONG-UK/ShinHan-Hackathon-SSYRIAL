@@ -24,7 +24,7 @@ public class DepositController extends BaseController {
   public ResponseEntity<ApiResponse<CreateDepositAccountModel.Response>> createDepositAccount(
       @RequestBody CreateDepositAccountModel.Request request) {
     CreateDepositAccountModel.Response response = depositService.createDepositAccount(
-        request.getWithdrawalAccountNo(), request.getAccountTypeUniqueNo(), request.getDepositBalance());
+        request.getUserKey(),request.getWithdrawalAccountNo(), request.getAccountTypeUniqueNo(), request.getDepositBalance());
     return successResponse(response);
   }
 
