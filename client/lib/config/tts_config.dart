@@ -34,8 +34,9 @@ class TTSConfig {
     }
   }
 
-  Future<void> speak(String text) async {
+  Future<bool> speak(String text) async {
     await flutterTts.speak(text);
+    return true; // 끝나는 시점을 알기 위해 return true로 수정
   }
 
   Future<void> stop() async {

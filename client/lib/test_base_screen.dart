@@ -74,10 +74,7 @@ class _TestScreenState extends State<TestScreen> {
     await _ttsConfig.stop();
 
     if (_currentScreen.index == ScreenState.values.length - 1) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SaveYourPassword()),
-      );
+
     } else {
       int nextIndex = (_currentScreen.index + 1) % ScreenState.values.length;
       setState(() {

@@ -1,3 +1,8 @@
+// 사용 시나리오 설계
+// 1. 처음에 잼민이가 나와서 샬라샬라 하고 나서 listening 시작
+// 2. 입력된 텍스트로 프로세스 이동
+// 3.
+
 import 'dart:async';
 import 'dart:math';
 
@@ -7,6 +12,7 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 // speech_to_text 패키지에서 인식 결과 관련 클래스 임포트
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:ssyrial/config/tts_config.dart';
 
 //void main() => runApp(const SpeechSampleApp());
 
@@ -49,14 +55,20 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   List<LocaleName> _localeNames = [];
   // SpeechToText 클래스의 인스턴스 생성 -> 무조건 필요( 이 인스턴스를 사용해서 함수 사용해야 함 )
   final SpeechToText speech = SpeechToText();
-
+  // Add TTSConfig instance
+  final TTSConfig _ttsConfig = TTSConfig();
   // 위젯이 생성될 때 호출되는 메서드, 초기화 작업을 수행
   @override
   void initState() {
     super.initState();
     initSpeechState();
+    _initializeAndSpeak();
   }
-
+// New method to initialize TTS and speak
+  Future<void> _initializeAndSpeak() async {
+    await _ttsConfig.initTTS();
+    await _ttsConfig.speak('어떤 도움이 필요하신가요?');
+  }
   // 음성 인식 기능 초기화를 위한 비동기 메서드 -> 그대로 사용 가능
   // [설계]
   // 그대로 사용하면 될듯
@@ -215,29 +227,6 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     });
   }
 
-  // 로케일을 변경하는 메서드
-  void _switchLang(selectedVal) {
-    setState(() {
-      _currentLocaleId = selectedVal; // 현재 로케일 ID 업데이트
-
-    });
-    _logEvent('switchLang to $selectedVal'); // 로케일 변경 이벤트 로깅
-  }
-
-  // 이벤트 로깅 여부를 변경하는 메서드
-  void _switchLogging(bool? val) {
-    setState(() {
-      _logEvents = val ?? false; // 이벤트 로깅 여부 업데이트
-    });
-  }
-
-  // 디바이스 내 음성 인식 사용 여부를 변경하는 메서드
-  void _switchOnDevice(bool? val) {
-    setState(() {
-      _onDevice = val ?? false; // 디바이스 내 음성 인식 사용 여부 업데이트
-    });
-  }
-
   // 이벤트를 로깅하는 메서드
   void _logEvent(String eventDescription) {
     if (_logEvents) { // 이벤트 로깅이 활성화되어 있을 때만 로그 출력
@@ -256,7 +245,7 @@ class HeaderWidget extends StatelessWidget {
     return Column(
       children: const <Widget>[
         Center(
-          child: Text('Speech to Text Example'),
+          child: Text(''),
         ),
       ],
     );
