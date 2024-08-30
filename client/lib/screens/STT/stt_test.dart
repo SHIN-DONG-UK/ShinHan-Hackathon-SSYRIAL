@@ -106,17 +106,6 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
             children: <Widget>[
               SpeechControlWidget(_hasSpeech, speech.isListening,
                   startListening, stopListening, cancelListening), // 음성 인식 제어 버튼 위젯
-              SessionOptionsWidget( // 세션 옵션 설정 위젯
-                _currentLocaleId,
-                _switchLang,
-                _localeNames,
-                _logEvents,
-                _switchLogging,
-                _pauseForController,
-                _listenForController,
-                _onDevice,
-                _switchOnDevice,
-              ),
             ],
           ),
           Expanded( // 인식 결과를 표시하는 위젯
@@ -317,92 +306,6 @@ class SpeechControlWidget extends StatelessWidget {
     ]);
   }
 }
-
-// 세션 옵션 설정 위젯 정의
-// [설계]
-// 직접 설정하기 위해 만들어둔 위젯
-// 우리는 사용하지 않을거임
-// 우리는 버튼 누르면 인식하고 알아서 종료되어야 함
-// 그리고 인식 결과에서 텍스트를 추출해서 원하는 서비스로 이동해야 함
-// 사용 x
-class SessionOptionsWidget extends StatelessWidget {
-  // 생성자에서 필요한 값들을 전달받음
-  const SessionOptionsWidget(
-      this.currentLocaleId,
-      this.switchLang,
-      this.localeNames,
-      this.logEvents,
-      this.switchLogging,
-      this.pauseForController,
-      this.listenForController,
-      this.onDevice,
-      this.switchOnDevice,
-      {Key? key})
-      : super(key: key);
-
-  final String currentLocaleId;
-  final void Function(String?) switchLang;
-  final List<LocaleName> localeNames;
-  final bool logEvents;
-  final void Function(bool?) switchLogging;
-  final TextEditingController pauseForController;
-  final TextEditingController listenForController;
-  final bool onDevice;
-  final void Function(bool?) switchOnDevice;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      Row(children: [
-        const Text('Language: '),
-        DropdownButton<String>(
-          onChanged: (selectedVal) => switchLang(selectedVal),
-          value: currentLocaleId,
-          items: localeNames
-              .map(
-                (localeName) => DropdownMenuItem(
-              value: localeName.localeId,
-              child: Text(localeName.name),
-            ),
-          )
-              .toList(),
-        ),
-      ]),
-      Row(children: [
-        const Text('pauseFor: '),
-        Container(
-            padding: const EdgeInsets.only(left: 8.0),
-            width: 80,
-            child: TextField(
-              controller: pauseForController,
-            )),
-        Container(
-          padding: const EdgeInsets.only(left: 16),
-          child: const Text('listenFor: '),
-        ),
-        Container(
-            padding: const EdgeInsets.only(left: 8.0),
-            width: 80,
-            child: TextField(
-              controller: listenForController,
-            )),
-      ]),
-      Row(children: [
-        const Text('On device: '),
-        Checkbox(
-          value: onDevice,
-          onChanged: switchOnDevice,
-        ),
-        const Text('Log events: '),
-        Checkbox(
-          value: logEvents,
-          onChanged: switchLogging,
-        ),
-      ]),
-    ]);
-  }
-}
-
 // 인식 결과를 표시하는 위젯 정의
 // [설계]
 // 사용해야 함
