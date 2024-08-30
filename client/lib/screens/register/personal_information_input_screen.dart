@@ -97,6 +97,7 @@ class _PersonalInformationInputScreenState
         },
       );
 
+      // 복붙 -> 데이터 올 때까지 로딩창을 띄워줘야 함
       setState(() {
         _isLoading = false;
       });
