@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
+import 'test_home.dart';
 
 void main() {
   runApp(SSYRIALApp());
@@ -13,7 +13,7 @@ class SSYRIALApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: TestHomeScreen(),
     );
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ssyrial/sooyeon_front/register/personal_info_consent_screen.dart';
-import 'package:ssyrial/sooyeon_front/register/phone_auth_screen.dart';
-import 'package:ssyrial/sooyeon_front/register/start_screen.dart';
+import 'package:ssyrial/screens/register/personal_info_consent_screen.dart';
+import 'package:ssyrial/screens/register/phone_auth_screen.dart';
+import 'package:ssyrial/screens/register/start_screen.dart';
 import 'authentication_screen.dart';
-import 'constants.dart';
+import '../../config/constants.dart';
 import 'personal_information_input_screen.dart';
 import '9.save_your_password.dart';
 import 'package:ssyrial/config/tts_config.dart';
