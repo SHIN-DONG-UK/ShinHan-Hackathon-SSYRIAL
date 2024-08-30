@@ -96,6 +96,15 @@ class HomeScreen extends StatelessWidget {
                 },
                 child: Text('TTS 설정'),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TTSSettingsScreen()),
+                  );
+                },
+                child: Text('동욱 메인'),
+              ),
             ],
           ),
         ),
