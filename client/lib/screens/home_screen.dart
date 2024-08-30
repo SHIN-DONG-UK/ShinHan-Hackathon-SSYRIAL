@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ssyrial/config/tts_screen.dart';
 import 'package:ssyrial/screens/account/create/create_account_select_category.dart';
 import 'package:ssyrial/screens/auth/help_screen.dart';
+import 'package:ssyrial/screens/test_base_screen.dart';
 import 'package:ssyrial/widgets/custom_dialog.dart';
 import 'package:ssyrial/sooyeon_front/Home/1.home_screen.dart' as sooyeon;
 import 'package:ssyrial/screens/atm/_atm.dart';
@@ -91,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => TTSSettingsScreen()),
+                    MaterialPageRoute(builder: (context) => TestScreen()),
                   );
                 },
                 child: Text('TTS 설정'),

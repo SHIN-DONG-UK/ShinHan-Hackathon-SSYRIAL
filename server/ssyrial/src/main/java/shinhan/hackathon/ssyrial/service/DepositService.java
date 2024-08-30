@@ -96,10 +96,10 @@ public class DepositService extends ShinhanApiService {
    * @param accountNo 납입 고유번호
    * @return InquireDepositPaymentModel.Response - 납입 상세 정보가 담긴 응답
    */
-  public InquireDepositPaymentModel.Response inquireDepositPayment(String accountNo) {
+  public InquireDepositPaymentModel.Response inquireDepositPayment(String userKey, String accountNo) {
     // 공통 헤더 생성
     CommonHeaderModel.Request header = createCommonHeader("inquireDepositPaymentModel", "inquireDepositPaymentModel",
-        null);
+        userKey);
 
     // 요청 객체 생성
     InquireDepositPaymentModel.Request request = InquireDepositPaymentModel.Request.builder()
