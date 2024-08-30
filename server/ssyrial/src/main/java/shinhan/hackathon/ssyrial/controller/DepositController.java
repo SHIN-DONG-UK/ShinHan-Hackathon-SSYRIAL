@@ -39,4 +39,25 @@ public class DepositController extends BaseController {
         request.getBankCode(),request.getAccountName(),request.getAccountDescription(),request.getSubscriptionPeriod(),request.getMinSubscriptionBalance(),request.getMaxSubscriptionBalance(),request.getInterestRate(),request.getRateDescription());
     return successResponse(response);
   }
+
+  /*
+   * inquireDepositPayment (예금 납입 상세 조회)
+   */
+  @PostMapping("/inquireDepositPayment")
+  public ResponseEntity<ApiResponse<InquireDepositPaymentModel.Response>> inquireDepositPayment(
+      @RequestBody InquireDepositPaymentModel.Request request) {
+    InquireDepositPaymentModel.Response response = depositService.inquireDepositPayment(
+        request.getUserKey(),request.getAccountNo());
+    return successResponse(response);
+  }
+
+  /*
+   * InquireDepositProducts (예금 상품 조회)
+   */
+  @PostMapping("/inquireDepositProducts")
+  public ResponseEntity<ApiResponse<InquireDepositProductsModel.Response>> inquireDepositProducts(
+      @RequestBody InquireDepositProductsModel.Request request) {
+    InquireDepositProductsModel.Response response = depositService.inquireDepositProducts();
+    return successResponse(response);
+  }
 }
