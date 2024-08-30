@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ssyrial/sooyeon_front/register/personal_info_consent_screen.dart';
-import 'package:ssyrial/sooyeon_front/register/phone_auth_screen.dart';
-import 'package:ssyrial/sooyeon_front/register/start_screen.dart';
+import 'package:ssyrial/screens/register/personal_info_consent_screen.dart';
+import 'package:ssyrial/screens/register/phone_auth_screen.dart';
+import 'package:ssyrial/screens/register/start_screen.dart';
 import 'authentication_screen.dart';
-import 'constants.dart';
+import '../../config/constants.dart';
 import 'personal_information_input_screen.dart';
 import '9.save_your_password.dart';
 import 'package:ssyrial/config/tts_config.dart';
@@ -49,7 +49,22 @@ class _MemberRegistrationStartScreenState
               _buildActionButton(
                   context, '취소하기', kCancelButtonColor, _onCancelPressed),
               const SizedBox(height: 20),
-              Expanded(child: _buildPageView()),
+              Expanded(
+                child: Stack(
+                  children: [
+                    _buildPageView(),
+                    Positioned(
+                      left: 0,
+                      bottom: 0,
+                      child: Image.asset(
+                        'assets/images/moli.gif', // 예시 이미지
+                        width: 100,
+                        height: 100,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 20),
               _buildNextButton(),
             ],
@@ -59,6 +74,7 @@ class _MemberRegistrationStartScreenState
     );
   }
 
+
   Widget _buildPageView() {
     return PageView(
       controller: _pageController,
@@ -67,6 +83,7 @@ class _MemberRegistrationStartScreenState
           _currentScreen = ScreenState.values[index];
         });
       },
+      physics: const NeverScrollableScrollPhysics(), // 스와이프를 비활성화합니다.
       children: [
         StartScreen(onTTSComplete: _onStartScreenTTSComplete),
         PhoneAuthScreen(),
@@ -92,6 +109,7 @@ class _MemberRegistrationStartScreenState
       ],
     );
   }
+
 
   Widget _buildNextButton() {
     return Visibility(

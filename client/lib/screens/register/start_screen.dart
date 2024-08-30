@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/config/tts_config.dart';
-import 'package:ssyrial/sooyeon_front/register/constants.dart';
+import 'package:ssyrial/config/constants.dart';
 
 class StartScreen extends StatefulWidget {
   final VoidCallback onTTSComplete;
