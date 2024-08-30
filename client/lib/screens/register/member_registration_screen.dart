@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:ssyrial/config/constants.dart';
+import 'package:ssyrial/screens/guide/function_selection_screen.dart';
+import 'package:ssyrial/screens/register/finish_member_registration.dart';
 import 'package:ssyrial/screens/register/personal_info_consent_screen.dart';
 import 'package:ssyrial/screens/register/phone_auth_screen.dart';
 import 'package:ssyrial/screens/register/start_screen.dart';
-import '../../config/constants.dart';
 import 'personal_information_input_screen.dart';
-import '9.save_your_password.dart';
 
 enum ScreenState {
   start,
   phoneAuth,
   personalInfoConsent,
-  personalInfoInput
+  personalInfoInput,
+  finishMemberRegistration
 }
 
 class MemberRegistrationStartScreen extends StatefulWidget {
@@ -84,7 +86,8 @@ class _MemberRegistrationStartScreenState
         ),
         PersonalInformationInputScreen(
           onAuthenticationSuccess: _onAuthenticationStart,
-        )
+        ),
+        FinishMemberRegistrationScreen()
       ],
     );
   }
@@ -107,28 +110,21 @@ class _MemberRegistrationStartScreenState
       maintainSize: true,
       maintainAnimation: true,
       maintainState: true,
-      child: _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
+      child:
+          _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
     );
   }
 
   Future<void> _onNextPressed() async {
-
-    if (_currentScreen.index == ScreenState.values.length - 1) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SaveYourPassword()),
-      );
-    } else {
-      int nextIndex = (_currentScreen.index + 1) % ScreenState.values.length;
-      setState(() {
-        _currentScreen = ScreenState.values[nextIndex];
-      });
-      _pageController.animateToPage(
-        nextIndex,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }
+    int nextIndex = (_currentScreen.index + 1) % ScreenState.values.length;
+    setState(() {
+      _currentScreen = ScreenState.values[nextIndex];
+    });
+    _pageController.animateToPage(
+      nextIndex,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   void _onCancelPressed() {
@@ -141,6 +137,8 @@ class _MemberRegistrationStartScreenState
         return _allConsentsChecked; // 모든 항목이 체크된 경우에만 "다음" 버튼이 활성화
       case ScreenState.personalInfoInput:
         return _isAuthenticated; // 인증이 완료된 경우에만 "다음" 버튼이 보임
+      case ScreenState.finishMemberRegistration:
+        return false; // 마지막 페이지에는 "다음" 버튼 비활성화
       default:
         return true;
     }

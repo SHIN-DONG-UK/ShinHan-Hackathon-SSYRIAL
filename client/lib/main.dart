@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:ssyrial/config/hive_config.dart';
 import 'test_home.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Hive
+  await HiveConfig.init();
+
   runApp(SSYRIALApp());
 }
 
