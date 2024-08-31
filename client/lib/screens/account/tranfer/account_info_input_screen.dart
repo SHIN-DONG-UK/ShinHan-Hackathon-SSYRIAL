@@ -4,7 +4,6 @@ import 'package:ssyrial/screens/account/tranfer/account_confirmation_dialog.dart
 import 'package:ssyrial/screens/account/tranfer/account_number_input_dialog.dart';
 import 'package:ssyrial/screens/account/tranfer/bank_selection_dialog.dart';
 import 'package:ssyrial/screens/account/tranfer/how_much_screen.dart';
-import 'package:ssyrial/widgets/custom_dialog_donguk.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class AccountInfoInputScreen extends StatefulWidget {
@@ -135,7 +134,7 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
         ),
         SizedBox(height: 20),
         // [API] 아래 버튼에 내가 송금할 은행의 리스트 API를 땡겨와야 함
-        _buildButton(context, '은행 선택하기'),
+        _buildButton(context, !_bankSelected ? '은행 선택' : _selectedBank + '은행'),
         SizedBox(height: 20),
         // 계좌 번호 입력 버튼
         if (_bankSelected) ...[
@@ -217,71 +216,23 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
       },
     ));}
   }
-}
-
-Widget _buildButton(BuildContext context, String text) {
-  return Container(
-    width: double.infinity,
-    margin: const EdgeInsets.symmetric(horizontal: 20),
-    child: ElevatedButton(
-      child: Text(text, style: const TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold)),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        padding: EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AccountInfoInputScreen(
-              // Pass any required arguments here if needed
-            ),
-          ),
-        );
-      },
-    ),
-  );
-}
-class BankSelectionWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildButton(BuildContext context, String text) {
     return Container(
-      padding: EdgeInsets.all(8.0),  // Padding around the container
-      decoration: BoxDecoration(
-        color: Colors.grey[200],  // Background color for the container
-        borderRadius: BorderRadius.circular(10.0),  // Rounded corners
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,  // Align text to the start (left)
-        children: [
-          Text(
-            '은행사',
-            style: TextStyle(fontSize: 18),  // Font size for the label text
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      child: ElevatedButton(
+        child: Text(text, style: const TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold)),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
+          padding: EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
           ),
-          SizedBox(height: 8.0),  // Space between the label and button
-          ElevatedButton(
-            onPressed: () {
-              // Handle button press here
-              print('은행 선택하기 button pressed');
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,  // Background color of the button
-              foregroundColor: Colors.black,  // Text color of the button
-              elevation: 0,  // Removes button shadow
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),  // Rounded corners for the button
-              ),
-            ),
-            child: Text(
-              '은행 선택하기',
-              style: TextStyle(fontSize: 18),  // Font size for the button text
-            ),
-          ),
-        ],
+        ),
+        onPressed: _showBankSelectionDialog,  // Provide the function reference here
       ),
     );
   }
 }
+
+

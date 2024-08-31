@@ -12,7 +12,7 @@ class BankSelectionDialog extends StatelessWidget {
     required this.onBankSelected,
     this.title = "은행을 선택하세요",
     this.titleTextStyle,
-    this.bankTextStyle,
+    this.bankTextStyle = const TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
     this.cancelButtonTextStyle,
   });
 
