@@ -7,6 +7,8 @@ import 'package:ssyrial/widgets/custom_dialog.dart';
 import 'package:ssyrial/screens/home_screen.dart' as sooyeon;
 import 'package:ssyrial/screens/atm/_atm.dart';
 import 'package:ssyrial/screens/donguk_home_screen.dart';
+import 'package:ssyrial/screens/account/create/create_account_screen.dart';
+
 
 class TestHomeScreen extends StatelessWidget {
   final String title; // 화면의 제목
@@ -55,7 +57,7 @@ class TestHomeScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CreateAccoutSelectCategory()),
+                        builder: (context) => CreateAccountScreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
