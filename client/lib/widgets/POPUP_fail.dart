@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,7 @@ class HomeScreen extends StatelessWidget {
           onPressed: () {
             showPasswordFailPopup(context);
           },
-          child: Text('Show Password Fail Popup'),
+          child: Text('실패 팝업을 띄웁니다.'),
         ),
       ),
     );
@@ -128,7 +127,7 @@ class _PasswordFailPopupState extends State<PasswordFailPopup> with SingleTicker
                   ElevatedButton(
                     onPressed: widget.onRetry,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
