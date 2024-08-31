@@ -186,7 +186,7 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
     if (result == true) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HowMuchScreen()),
+        MaterialPageRoute(builder: (context) => MoneyTransferScreen()),
       );
     }
   }
