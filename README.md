@@ -1,5 +1,7 @@
 # SSYRIAL
 ![SSYRIAL-001_0](https://github.com/user-attachments/assets/4e2dfa6b-bbee-477a-870c-f55f5c4361cd)
+SSYRIAL은 모바일 뱅킹에 소외된 고령층을 대상으로 하는 금융 어플리케이션입니다. 사용자는 이 어플리케이션을 사용하여, 좀 더 직관적이고 간소화된 절차로 동일한 금융 업무를 수행할 수 있습니다.
+
 ## 👥 팀원 소개
 
 
