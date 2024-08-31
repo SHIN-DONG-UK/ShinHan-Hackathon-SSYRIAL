@@ -173,10 +173,13 @@ SSYRIAL은 모바일 뱅킹에 소외된 고령층을 대상으로 하는 금융
 
 *❕ 주요 해결법
 1, 2.  신한은행에서는 고령층을 위한 ATM기기를 운영하고 있다.
-고령층을 위한 기기인 만큼, 고령층에 적합한 은행 업무가 들어가 있을 가능성이 높다. 이를 기반으로 Everywhere Bank에 적용하기 위해 스마트폰의 어플리케이션을 이 ATM의 디자인과 비슷하게 만들어보자!
+고령층을 위한 기기인 만큼, 고령층에 적합한 은행 업무가 들어가 있을 가능성이 높다. 
+이를 기반으로 Everywhere Bank에 적용하기 위해 스마트폰의 어플리케이션을 이 ATM의 디자인과 비슷하게 만들어보자!
 3. 디자인은 figma로 목업 작업을 할 때, 최대한 일정한 디자인을 유지하며, 추후 flutter로 개발할 때 이 목업을 최대한 따라갈 수 있도록 한다.
-4. # 현재 인증 방식은 먼저 모든 동의를 받고, 이후 천천히 입력하도록 하고 있다. 다만 이러한 동의 절차에 어떠한 설명이나 이유, 사용자가 제공해야 하는 정보를 알려주지 않아 불안감을 높이고 있다는 결론이 프론트엔드 셀의 회의에 의해 도출되었다. 이를 타파하기 위해, 동의를 구하기 전 해당 동의를 받아야 하는 정보들로 인해 일어날 수 있는 사고를 예시로 제시하고, 그러한 사고를 방지하기 위해선 사용자의 동의를 구해야 할 수 있다는 식으로 정당성을 부여하였다. 또한 이 동의를 함으로써 어떤 정보를 제공해야 하는지 동의를 표하기 직전 명확하게 안내함으로써 어떤 정보를 제공해야할지 모른다는 불안감을 해소하도록 노력했다. 그리고 음성안내를 추가하였고, 팀 전체 회의에서 고령층을 주 목적으로 하는 프로젝트이니 음성 안내의 목소리를 손자뻘 나이대로 하여 친근감을 높아자는 아이디어가 의결되어, AI를 활용한 음성 합성 웹 서비스를 이용해 음성 안내의 친근감을 상향시켰다.
-5. # 문자 메시지는 고령층에겐 인증 문자를 보내는 것, 인증 번호가 적힌 문자를 받는 것 모두 어려워 할 가능성이 있다. 따라서 이 프로젝트에서는, 정보를 얻을 때 휴대폰 번호와 통신사 정보도 같이 얻기 때문에, 이렇게 수집한 번호로 자동 인증을 해 보는 것은 어떨까 싶은 의견이 있었다.
+4. 
+# 현재 인증 방식은 먼저 모든 동의를 받고, 이후 천천히 입력하도록 하고 있다. 다만 이러한 동의 절차에 어떠한 설명이나 이유, 사용자가 제공해야 하는 정보를 알려주지 않아 불안감을 높이고 있다는 결론이 프론트엔드 셀의 회의에 의해 도출되었다. 이를 타파하기 위해, 동의를 구하기 전 해당 동의를 받아야 하는 정보들로 인해 일어날 수 있는 사고를 예시로 제시하고, 그러한 사고를 방지하기 위해선 사용자의 동의를 구해야 할 수 있다는 식으로 정당성을 부여하였다. 또한 이 동의를 함으로써 어떤 정보를 제공해야 하는지 동의를 표하기 직전 명확하게 안내함으로써 어떤 정보를 제공해야할지 모른다는 불안감을 해소하도록 노력했다. 그리고 음성안내를 추가하였고, 팀 전체 회의에서 고령층을 주 목적으로 하는 프로젝트이니 음성 안내의 목소리를 손자뻘 나이대로 하여 친근감을 높아자는 아이디어가 의결되어, AI를 활용한 음성 합성 웹 서비스를 이용해 음성 안내의 친근감을 상향시켰다.
+5. 
+# 문자 메시지는 고령층에겐 인증 문자를 보내는 것, 인증 번호가 적힌 문자를 받는 것 모두 어려워 할 가능성이 있다. 따라서 이 프로젝트에서는, 정보를 얻을 때 휴대폰 번호와 통신사 정보도 같이 얻기 때문에, 이렇게 수집한 번호로 자동 인증을 해 보는 것은 어떨까 싶은 의견이 있었다.
 6. 처음 보는 언어였지만, 다행히 익숙한 팀원이 1명 있었고, 기초적 코드를 chatGPT를 활용해 만들고 거기서 살을 붙여 나가는 식으로 작업하여 괜찮은 스크린 결과물을 얻을 수 있었다. 또한, 매일 일정 시간에 팀원들이 모여 알게된 지식을 공유하는 식으로 나름의 돌파구를 찾을 수 있었다.
 
 
@@ -200,7 +203,130 @@ API 서버 구축 자체를 처음 해보아서 모든게 힘들었습니다.
 ## 🛠️ 클라이언트 구조 
 
 <a name="client"></a>
-
+홈
+│
+├── 쉬운화면버튼
+│   │
+│   ├── 회원가입
+│   │   ├── 시작화면
+│   │   ├── 문자인증
+│   │   ├── 필수항목동의
+│   │   ├── 개인정보입력(회원조회API)
+│   │   ├── 비밀번호생성(회원가입API)
+│   │   └── 완료
+│   │
+│   └── 로그인
+│       └── 비밀번호인증
+│
+├── 메인화면
+│   │
+│   ├── 잔고표시 (통장조회API)
+│   │
+│   ├── 버튼 선택
+│   │
+│   ├── STT 음성 메뉴 (STT 기능)
+│   │
+│   └── 튜토리얼
+│        └── 모바일 ATM 인출
+│
+└── 기능
+    ├── 송금
+    │   ├── 은행 선택   
+    │   ├── 계좌번호 입력
+    │   ├── 송금 금액 입력
+    │   ├── 비밀번호 확인
+    │   └── 송금 메모
+    │
+    ├── 통장조회
+    │
+    └── 통장개설
+        └── 계좌 종류 선택
+            ├── 설명 팝업
+            └── 입출금 
+                   └── 개설 가능 여부 확인 ( 개설가능여부API true=개설완료팝업 / false=계설실패팝업 )
 
 <div align="right"><a href="#tableContents">목차로 이동</a></div>
 <br/>
+
+
+└─ src
+   ├─ main
+      ├─ java
+      │  └─ shinhan
+      │     └─ hackathon
+      │        └─ ssyrial
+      │           ├─ common
+      │           │  ├─ codes
+      │           │  │  ├─ ErrorCode.java
+      │           │  │  └─ SuccessCode.java
+      │           │  └─ response
+      │           │     ├─ ApiResponse.java
+      │           │     └─ ErrorResponse.java
+      │           ├─ config
+      │           │  ├─ exception
+      │           │  │  ├─ BusinessExceptionHandler.java
+      │           │  │  └─ GlobalExceptionHandler.java
+      │           │  ├─ FirebaseConfig.java
+      │           │  ├─ RestTemplateConfig.java
+      │           │  ├─ ShinhanApiConfig.java
+      │           │  └─ WebConfig.java
+      │           ├─ controller
+      │           │  ├─ AppController.java
+      │           │  ├─ BankController.java
+      │           │  ├─ BaseController.java
+      │           │  ├─ CreateAccountController.java
+      │           │  ├─ DemandDepositController.java
+      │           │  ├─ DepositController.java
+      │           │  ├─ MemberController.java
+      │           │  └─ TransactionMemoController.java
+      │           ├─ model
+      │           │  ├─ api
+      │           │  │  ├─ IssuedApiKeyModel.java
+      │           │  │  └─ ReIssuedApiKeyModel.java
+      │           │  ├─ ApiResponse.java
+      │           │  ├─ bank
+      │           │  │  └─ InquireBankCodes.java
+      │           │  ├─ CommonHeaderModel.java
+      │           │  ├─ CreateAccountModel.java
+      │           │  ├─ demandDeposit
+      │           │  │  ├─ CreateDemandDepositAccountModel.java
+      │           │  │  ├─ CreateDemandDepositModel.java
+      │           │  │  ├─ DeleteDemandDepositAccountModel.java
+      │           │  │  ├─ InquireDemandDepositAccountBalanceModel.java
+      │           │  │  ├─ InquireDemandDepositAccountHolderNameModel.java
+      │           │  │  ├─ InquireDemandDepositAccountListModel.java
+      │           │  │  ├─ InquireDemandDepositAccountModel.java
+      │           │  │  ├─ InquireDemandDepositListModel.java
+      │           │  │  ├─ InquireTransactionHistoryListModel.java
+      │           │  │  ├─ InquireTransactionHistoryModel.java
+      │           │  │  ├─ UpdateDemandDepositAccountDepositModel.java
+      │           │  │  └─ UpdateDemandDepositAccountTransferModel.java
+      │           │  ├─ deposit
+      │           │  │  ├─ CreateDepositAccountModel.java
+      │           │  │  ├─ CreateDepositModel.java
+      │           │  │  ├─ InquireDepositPaymentModel.java
+      │           │  │  └─ InquireDepositProductsModel.java
+      │           │  ├─ member
+      │           │  │  ├─ MemberModel.java
+      │           │  │  └─ MemberSearchModel.java
+      │           │  └─ transactionMemo
+      │           │     └─ TransactionMemoModel.java
+      │           ├─ service
+      │           │  ├─ AppService.java
+      │           │  ├─ BankService.java
+      │           │  ├─ CreateAccountService.java
+      │           │  ├─ DemandDepositService.java
+      │           │  ├─ DepositService.java
+      │           │  ├─ MemberService.java
+      │           │  ├─ ShinhanApiService.java
+      │           │  └─ TransactionMemoService.java
+      │           └─ SsyrialApplication.java
+      └─ resources
+         ├─ application-dev.properties
+         ├─ application-prod.properties
+         ├─ application.properties
+         ├─ banner.txt
+         ├─ keystore.p12
+         ├─ log4j2.yml
+         └─ static
+            └─ index.html
