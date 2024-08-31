@@ -8,8 +8,6 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:ssyrial/screens/account/tranfer/account_info_input_screen.dart';
 
-//void main() => runApp(const SpeechSampleApp());
-
 class SpeechSampleApp extends StatefulWidget {
   const SpeechSampleApp({Key? key}) : super(key: key);
 
@@ -34,6 +32,11 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   final SpeechToText speech = SpeechToText();
   final AudioPlayer _audioPlayer = AudioPlayer();
 
+  String _currentVoiceScript = ''; // Text to display
+  List<String> _audioQueue = ['sounds/13.mp3']; // Initial audio file
+  List<String> _scriptQueue = ["휴대폰에 대고\n 돈 보내기라고 해보세요"]; // Corresponding text
+  int _currentAudioIndex = 0;
+
   @override
   void dispose() {
     _audioPlayer.dispose();
@@ -45,9 +48,9 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     super.initState();
     initSpeechState();
     _audioPlayer.onPlayerComplete.listen((event) {
-      startListening();
+      startListening(); // Start listening after the audio completes
     });
-    _audioPlayer.play(AssetSource('sounds/13.mp3'));
+    _playVoiceForCurrentScreen(); // Play initial audio
   }
 
   Future<void> initSpeechState() async {
@@ -78,107 +81,134 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: const Color(0xFFE8F5E9),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                TextButton(onPressed: (){
-                  Navigator.of(context).pop();},
-                    child: Text("돌아가기")),
-                const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
+    return Scaffold(
+      backgroundColor: const Color(0xFFE8F5E9),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("돌아가기"),
                   ),
-                  child: Column(
-                    children: [
-                      const Text(
-                        '어떤 도움이',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      children: [
+                        const Text(
+                          '어떤 도움이',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const Text(
-                        '필요하신가요',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                        const Text(
+                          '필요하신가요',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 32),
-                      GestureDetector(
-                        onTapDown: (_) => startListening(),
-                        onTapUp: (_) => stopListening(),
-                        child: Container(
-                          width: 80,
-                          height: 80,
+                        const SizedBox(height: 32),
+                        GestureDetector(
+                          onTapDown: (_) => startListening(),
+                          onTapUp: (_) => stopListening(),
+                          child: Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: const Icon(
+                              Icons.mic,
+                              size: 48,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+                        const Text(
+                          '예시:',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Text(
+                          '돈 보내기',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+                        Container(
+                          padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: const Icon(
-                            Icons.mic,
-                            size: 48,
-                            color: Colors.black,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                '들은 내용:',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                lastWords,
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 32),
-                      const Text(
-                        '예시:',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Text(
-                        '돈 보내기',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              '들은 내용:',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              lastWords,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
+                ],
+              ),
+              Positioned(
+                left: 0,
+                bottom: 0,
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/images/moli.gif', // Replace with your asset path
+                      width: 100,
+                      height: 100,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      _currentVoiceScript, // Display the current voice script
+                      style: const TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      ),);
-    }
+      ),
+    );
+  }
 
   void startListening() {
     _logEvent('start listening');
@@ -224,46 +254,34 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   void resultListener(SpeechRecognitionResult result) {
     _logEvent('Result listener final: ${result.finalResult}, words: ${result.recognizedWords}');
     setState(() {
-      lastWords = '${result.recognizedWords}';
+      lastWords = result.recognizedWords;
 
       // "보내"라는 단어가 포함되어 있는지 체크
       if (lastWords.contains("보내")) {
         _logEvent('Detected the word "보내"');
         cancelListening();
-        // 필요한 동작을 수행합니다.
-        // 예: 메시지를 전송하거나 다른 로직을 실행할 수 있습니다.
-        _showConfirmationDialog(context);
+        _showSuccessPopup(context, "돈 보내기가 인식되었습니다!");
       }
     });
   }
-  void _showConfirmationDialog(BuildContext context) {
+
+  void _showSuccessPopup(BuildContext context, String message) {
     showDialog(
       context: context,
+      barrierDismissible: false, // Prevents closing by tapping outside
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('확인'),
-          content: Text('정말 이 작업을 수행하시겠습니까?'),
-          actions: [
-            TextButton(
-              child: Text('아니오'),
-              onPressed: () {
-                Navigator.of(context).pop(); // 다이얼로그 닫기
-              },
-            ),
-            TextButton(
-              child: Text('예'),
-              onPressed: () {
-                Navigator.of(context).pop(); // 다이얼로그 닫기
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AccountInfoInputScreen(),
-                    // 필요한 경우 여기에 인자를 추가로 전달
-                  ),
-                );
-              },
-            ),
-          ],
+        return SuccessPopup(
+          message: message, // Pass the custom message
+          onComplete: () {
+            Navigator.of(context).pop();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AccountInfoInputScreen(),
+                // Pass additional arguments if needed
+              ),
+            );
+          },
         );
       },
     );
@@ -288,13 +306,142 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     _logEvent('Received listener status: $status, listening: ${speech.isListening}');
     setState(() {
       lastStatus = '$status';
-      }
-    );
+    });
+  }
+
+  void _playVoiceForCurrentScreen() {
+    if (_currentAudioIndex < _audioQueue.length) {
+      setState(() {
+        _currentVoiceScript = _scriptQueue[_currentAudioIndex]; // Update the text
+      });
+      _audioPlayer.play(AssetSource(_audioQueue[_currentAudioIndex]));
+      _currentAudioIndex++;
+    }
   }
 
   void _logEvent(String eventDescription) {
     if (_logEvents) {
       print(eventDescription);
     }
+  }
+}
+
+class SuccessPopup extends StatefulWidget {
+  final String message; // Message to display in the popup
+  final VoidCallback onComplete;
+
+  const SuccessPopup({
+    Key? key,
+    required this.message, // Required parameter for the message
+    required this.onComplete,
+  }) : super(key: key);
+
+  @override
+  _SuccessPopupState createState() => _SuccessPopupState();
+}
+
+class _SuccessPopupState extends State<SuccessPopup> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+    );
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double dialogWidth = MediaQuery.of(context).size.width * 0.8; // 80% of screen width
+
+    return ScaleTransition(
+      scale: _animation,
+      child: Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          width: dialogWidth,
+          padding: const EdgeInsets.all(24), // Larger padding
+          decoration: BoxDecoration(
+            color: Colors.grey[800],
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 24), // Extra top margin
+              Container(
+                padding: const EdgeInsets.all(24), // Increase inner padding
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 80, // Larger icon size
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.green,
+                        size: 50, // Increase icon size
+                      ),
+                    ),
+                    const SizedBox(height: 24), // Increase space between icon and text
+                    Text(
+                      widget.message, // Display custom message
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18, // Increase font size
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24), // Extra bottom margin
+              ElevatedButton(
+                onPressed: widget.onComplete,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green, // Set the background color to green
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  '완료',
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white, // Set the text color to white
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
