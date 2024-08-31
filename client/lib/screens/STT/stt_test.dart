@@ -6,6 +6,7 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:ssyrial/screens/account/tranfer/account_info_input_screen.dart';
 
 //void main() => runApp(const SpeechSampleApp());
 
@@ -150,7 +151,48 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     _logEvent('Result listener final: ${result.finalResult}, words: ${result.recognizedWords}');
     setState(() {
       lastWords = '${result.recognizedWords} - ${result.finalResult}';
+
+      // "보내"라는 단어가 포함되어 있는지 체크
+      if (lastWords.contains("보내")) {
+        _logEvent('Detected the word "보내"');
+        cancelListening();
+        // 필요한 동작을 수행합니다.
+        // 예: 메시지를 전송하거나 다른 로직을 실행할 수 있습니다.
+        _showConfirmationDialog(context);
+      }
     });
+  }
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('확인'),
+          content: Text('정말 이 작업을 수행하시겠습니까?'),
+          actions: [
+            TextButton(
+              child: Text('아니오'),
+              onPressed: () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+              },
+            ),
+            TextButton(
+              child: Text('예'),
+              onPressed: () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AccountInfoInputScreen(),
+                    // 필요한 경우 여기에 인자를 추가로 전달
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void soundLevelListener(double level) {
