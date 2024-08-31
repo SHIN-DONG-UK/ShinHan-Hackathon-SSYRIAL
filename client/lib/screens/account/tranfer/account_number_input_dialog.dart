@@ -58,7 +58,7 @@ class _AccountNumberInputDialogState extends State<AccountNumberInputDialog> {
                 ),
                 child: Text(
                   _enteredAccountNumber, // 입력된 계좌 번호를 표시
-                  style: widget.accountNumberTextStyle ?? TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: widget.accountNumberTextStyle ?? TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(height: 16), // 계좌 번호와 키패드 사이의 간격
@@ -122,7 +122,7 @@ class _AccountNumberInputDialogState extends State<AccountNumberInputDialog> {
           return _buildKeypadButton(
             text: "전체삭제",
             onPressed: () => setState(() => _enteredAccountNumber = ""), // 입력된 계좌번호 초기화
-            color: Colors.grey[300]!,
+            color: Colors.red,
           );
         } else if (index == 10) {
           // 0 버튼
@@ -135,13 +135,13 @@ class _AccountNumberInputDialogState extends State<AccountNumberInputDialog> {
           // 하나삭제 버튼
           return _buildKeypadButton(
             text: "하나삭제",
+            color: Colors.red,
             onPressed: () {
               // 마지막 입력된 문자 삭제
               if (_enteredAccountNumber.isNotEmpty) {
                 setState(() => _enteredAccountNumber = _enteredAccountNumber.substring(0, _enteredAccountNumber.length - 1));
               }
             },
-            color: Colors.grey[300]!,
           );
         } else {
           // 1~9 숫자 버튼
@@ -159,7 +159,7 @@ class _AccountNumberInputDialogState extends State<AccountNumberInputDialog> {
   Widget _buildKeypadButton({required String text, required VoidCallback onPressed, Color color = Colors.green}) {
     return ElevatedButton(
       onPressed: onPressed,
-      child: Text(text, style: TextStyle(fontSize: 20, color: Colors.black)), // 버튼 텍스트 스타일
+      child: Text(text, style: TextStyle(fontSize: 30, color: Colors.white)), // 버튼 텍스트 스타일
       style: ElevatedButton.styleFrom(
         backgroundColor: color, // 버튼 배경색
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)), // 버튼 모서리 둥글게 설정

@@ -134,11 +134,11 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
         ),
         SizedBox(height: 20),
         // [API] 아래 버튼에 내가 송금할 은행의 리스트 API를 땡겨와야 함
-        _buildButton(context, !_bankSelected ? '은행 선택' : _selectedBank + '은행'),
+        _buildButton(context, !_bankSelected ? '은행 선택' : _selectedBank + '은행', _showBankSelectionDialog),
         SizedBox(height: 20),
         // 계좌 번호 입력 버튼
         if (_bankSelected)
-          _buildButton(context, '계좌번호 입력'),
+          _buildButton(context, !_accountNumberEntered ? '계좌번호 입력' : _accountNumber, _showCustomAccountNumberDialog),
         // 보내기 버튼
         if (_accountNumberEntered) ...[
           SizedBox(height: 20),
@@ -210,12 +210,19 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
       },
     ));}
   }
-  Widget _buildButton(BuildContext context, String text) {
+  Widget _buildButton(BuildContext context, String text, VoidCallback onPressed) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: ElevatedButton(
-        child: Text(text, style: const TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold)),
+        child: Text(
+          text,
+          style: const TextStyle(
+            fontSize: 30,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.green,
           padding: EdgeInsets.symmetric(vertical: 16),
@@ -223,10 +230,11 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        onPressed: _showBankSelectionDialog,  // Provide the function reference here
+        onPressed: onPressed,  // Use the passed in onPressed parameter here
       ),
     );
   }
+
 }
 
 
