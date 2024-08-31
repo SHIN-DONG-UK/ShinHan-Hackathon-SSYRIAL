@@ -6,7 +6,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize Hive
-  //await HiveConfig.init();
+//  await HiveConfig.init();
 
   runApp(SSYRIALApp());
 }
