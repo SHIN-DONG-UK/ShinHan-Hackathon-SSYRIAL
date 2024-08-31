@@ -21,7 +21,7 @@ class AccountInfoInputScreen extends StatefulWidget {
 
   const AccountInfoInputScreen({
     Key? key,
-    this.initialTitle = '안녕하세요\n돈 보내는 법을 알려드릴게요!',
+    this.initialTitle = '돈 보내는 법을\n 알려드릴게요!',
     this.newTitle = '돈을 받는\n통장의 정보를\n입력해 주세요.',
     this.backButtonText = '돌아가기',
     this.bankButtonText = '은행 선택하기',

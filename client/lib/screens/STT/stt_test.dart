@@ -21,8 +21,8 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   bool _hasSpeech = false;
   bool _logEvents = false;
   bool _onDevice = false;
-  final TextEditingController _pauseForController = TextEditingController(text: '3');
-  final TextEditingController _listenForController = TextEditingController(text: '30');
+  final TextEditingController _pauseForController = TextEditingController(text: '5');
+  final TextEditingController _listenForController = TextEditingController(text: '10');
   double level = 0.0;
   double minSoundLevel = 50000;
   double maxSoundLevel = -50000;
@@ -80,31 +80,105 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('어떤 도움이 필요하신가요?'),
-        ),
-        body: Column(
-          children: [
-            const HeaderWidget(),
-            Column(
-              children: <Widget>[
-                SpeechControlWidget(_hasSpeech, speech.isListening, startListening, stopListening, cancelListening),
+        backgroundColor: const Color(0xFFE8F5E9),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextButton(onPressed: (){
+                  Navigator.of(context).pop();},
+                    child: Text("돌아가기")),
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        '어떤 도움이',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Text(
+                        '필요하신가요',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                      GestureDetector(
+                        onTapDown: (_) => startListening(),
+                        onTapUp: (_) => stopListening(),
+                        child: Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const Icon(
+                            Icons.mic,
+                            size: 48,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                      const Text(
+                        '예시:',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Text(
+                        '돈 보내줘',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              '들은 내용:',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              lastWords,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
-            Expanded(
-              flex: 4,
-              child: RecognitionResultsWidget(lastWords: lastWords, level: level),
-            ),
-            Expanded(
-              flex: 1,
-              child: ErrorWidget(lastError: lastError),
-            ),
-            SpeechStatusWidget(speech: speech),
-          ],
+          ),
         ),
-      ),
-    );
-  }
+      ),);
+    }
 
   void startListening() {
     _logEvent('start listening');
@@ -225,60 +299,84 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   }
 }
 
-class HeaderWidget extends StatelessWidget {
-  const HeaderWidget({Key? key}) : super(key: key);
+class VoiceInputScreen extends StatelessWidget {
+  const VoiceInputScreen({Key? key, required this.lastWords, required this.level}) : super(key: key);
+
+  final String lastWords;
+  final double level;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const <Widget>[
-        Center(
-          child: Text(''),
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '어떤 도움이 필요하',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                '신가요',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 30),
+              Center(
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Icon(Icons.mic, size: 50, color: Colors.black),
+                ),
+              ),
+              SizedBox(height: 30),
+              Text(
+                '예시:',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                '며느리한테 돈을',
+                style: TextStyle(fontSize: 18),
+              ),
+              Text(
+                '불일래',
+                style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(height: 20),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Text(
+                  '들은 내용:',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              RecognitionResultsWidget(lastWords: lastWords, level: level),
+            ],
+          ),
         ),
-      ],
+      ),
     );
   }
 }
-
-class SpeechControlWidget extends StatelessWidget {
-  const SpeechControlWidget(this.hasSpeech, this.isListening, this.startListening, this.stopListening, this.cancelListening, {Key? key}) : super(key: key);
-
-  final bool hasSpeech;
-  final bool isListening;
-  final VoidCallback startListening;
-  final VoidCallback stopListening;
-  final VoidCallback cancelListening;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      Row(children: [
-        Container(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: ElevatedButton(
-            child: const Text('Start'),
-            onPressed: !hasSpeech || isListening ? null : startListening,
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: ElevatedButton(
-            child: const Text('Stop'),
-            onPressed: isListening ? stopListening : null,
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: ElevatedButton(
-            child: const Text('Cancel'),
-            onPressed: isListening ? cancelListening : null,
-          ),
-        ),
-      ]),
-    ]);
-  }
-}
-
 class RecognitionResultsWidget extends StatelessWidget {
   const RecognitionResultsWidget({Key? key, required this.lastWords, required this.level}) : super(key: key);
 
@@ -289,74 +387,35 @@ class RecognitionResultsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      child: Column(children: [
-        const Text('Recognized Words', style: TextStyle(fontSize: 22.0)),
-        Expanded(
-          child: Stack(
-            children: [
-              Container(
-                child: Text(lastWords, style: const TextStyle(fontSize: 32.0)),
-              ),
-              Positioned.fill(
-                bottom: 10,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: .26,
-                              spreadRadius: level * 1.5,
-                              color: Colors.black.withOpacity(.05))
-                        ],
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.all(Radius.circular(50))),
-                  ),
-                ),
-              ),
-            ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('들은 내용: ', style: TextStyle(fontSize: 22.0)),
+          const SizedBox(height: 16),
+          Expanded(
+            child: Container(
+              child: Text(lastWords, style: const TextStyle(fontSize: 32.0)),
+            ),
           ),
-        ),
-      ]),
-    );
-  }
-}
-
-class ErrorWidget extends StatelessWidget {
-  const ErrorWidget({Key? key, required this.lastError}) : super(key: key);
-
-  final String lastError;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Text(lastError),
-    );
-  }
-}
-
-class SpeechStatusWidget extends StatelessWidget {
-  const SpeechStatusWidget({Key? key, required this.speech}) : super(key: key);
-
-  final SpeechToText speech;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Center(
-        child: speech.isListening
-            ? const Text(
-          "I'm listening...",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        )
-            : const Text(
-          'Not listening',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+          const SizedBox(height: 16),
+          Center(
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: .26,
+                    spreadRadius: level * 1.5,
+                    color: Colors.black.withOpacity(.05),
+                  )
+                ],
+                color: Colors.white,
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
