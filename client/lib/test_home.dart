@@ -1,118 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:ssyrial/config/tts_screen.dart';
-import 'package:ssyrial/screens/account/create/create_account_select_category.dart';
-import 'package:ssyrial/screens/auth/help_screen.dart';
-import 'package:ssyrial/test_base_screen.dart';
-import 'package:ssyrial/widgets/custom_dialog.dart';
-import 'package:ssyrial/screens/home_screen.dart' as sooyeon;
-import 'package:ssyrial/screens/atm/_atm.dart';
 import 'package:ssyrial/screens/donguk_home_screen.dart';
-import 'package:ssyrial/screens/account/create/create_account_screen.dart';
+import 'package:ssyrial/config/hive_config.dart';
+import 'package:ssyrial/screens/login/2.sign_in_password.dart';
+import 'package:ssyrial/screens/register/member_registration_screen.dart';
 
+// 상수 정의
+const Color kEasyScreenColor = Colors.green;
+
+const TextStyle kButtonTextStyle = TextStyle(color: Colors.white, fontSize: 18);
 
 class TestHomeScreen extends StatelessWidget {
-  final String title; // 화면의 제목
-  final String buttonText; // 버튼에 표시할 텍스트
-  final TextStyle? titleTextStyle; // 제목 텍스트 스타일
-  final TextStyle? buttonTextStyle; // 버튼 텍스트 스타일
-  final Color buttonColor; // 버튼 배경색
-  final double buttonPadding; // 버튼의 패딩
-
-  const TestHomeScreen({
-    super.key,
-    this.title = 'SOL Bank',
-    this.buttonText = '도움말 모드',
-    this.titleTextStyle,
-    this.buttonTextStyle,
-    this.buttonColor = Colors.blue, // 기본 버튼 색상
-    this.buttonPadding = 16.0, // 기본 버튼 패딩
-  });
+  const TestHomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    //화면 크기 변환 변수
+    final double screenwidth = MediaQuery.of(context).size.width;
+    final double screenheight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title, style: titleTextStyle), // 제목과 스타일 설정
-      ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(buttonPadding), // 버튼 주위의 패딩 설정
-          child: Column(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  // 도움말 다이얼로그 표시
-                  showDialog(
-                    context: context,
-                    builder: (context) => CustomDialog(child: HelpScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: buttonColor, // 버튼 배경색 설정
-                ),
-                child: Text(buttonText, style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CreateAccountScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: buttonColor, // 버튼 배경색 설정
-                ),
-                child: Text("계좌 생성하기", style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ATM()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: buttonColor, // 버튼 배경색 설정
-                ),
-                child: Text("ATM", style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => sooyeon.HomeScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: buttonColor, // 버튼 배경색 설정
-                ),
-                child: Text("수연홈스크린", style: buttonTextStyle), // 버튼 텍스트 및 스타일 설정
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => TestScreen()),
-                  );
-                },
-                child: Text('TTS 설정'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => DongukHomeScreen()),
-                  );
-                },
-                child: Text('동욱 메인'),
-              ),
-            ],
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/shinhan_home_screen.png', // 여기에 이미지 경로를 맞춰주세요
+              fit: BoxFit.fitHeight, // 이미지를 화면에 꽉 차게 설정
+            ),
           ),
-        ),
+          Positioned(
+            top: screenwidth,
+            child: SizedBox(
+              width: screenwidth,
+              height: screenheight,
+              child: TextButton(
+                onPressed: () {_handleEasyScreenButtonPress(context);
+                },
+                style: TextButton.styleFrom(
+                  overlayColor: Colors.transparent,
+                ),
+                child: Text(''),
+              ),
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  // 쉬운 화면 버튼 클릭 처리
+  Future<void> _handleEasyScreenButtonPress(BuildContext context) async {
+    try {
+      // Hive Box 열기
+      var box = await HiveConfig.openBox('registrationBox');
+
+      final isRegistered = box.get('isRegistrationComplete', defaultValue: false);
+      print(isRegistered);
+
+      // 등록 상태에 따른 페이지 이동
+      if (isRegistered) {
+        onLoginButtonPressed(context);
+      } else {
+        onEasyScreenButtonPressed(context);
+      }
+      // Box 닫기
+      await HiveConfig.closeBox('registrationBox');
+    } catch (e) {
+      // 예외 처리 - 오류 발생 시 로그 출력
+      print('Hive 저장 중 오류 발생: $e');
+    }
+  }
+
+  // 로그인 버튼을 눌렀을 때의 동작
+  void onLoginButtonPressed(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignInScreen()), // SignInScreen 화면으로 이동
+    );
+  }
+
+  // 쉬운 화면 버튼을 눌렀을 때의 동작
+  void onEasyScreenButtonPressed(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MemberRegistrationStartScreen()), // MemberRegistrationStartScreen 화면으로 이동
     );
   }
 }
