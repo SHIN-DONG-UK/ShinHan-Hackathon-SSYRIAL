@@ -9,5 +9,4 @@ import java.time.LocalDate;
 @Setter
 public class IsAccountOpenableModel {
     private String userKey;
-    private LocalDate dateReceived; // userKey 입력을 받은 날짜
 }
