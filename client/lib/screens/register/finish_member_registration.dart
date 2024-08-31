@@ -33,6 +33,8 @@ class _FinishMemberRegistrationScreenState extends State<FinishMemberRegistratio
   // Hive에 회원 등록 완료 상태 저장
   Future<void> _storeRegistrationStatus() async {
     try {
+      //TODO:하이브 주석
+      /*
       // Hive Box 열기
       var box = await HiveConfig.openBox('registrationBox');
 
@@ -41,6 +43,7 @@ class _FinishMemberRegistrationScreenState extends State<FinishMemberRegistratio
 
       // Box 닫기
       await HiveConfig.closeBox('registrationBox');
+      */
     } catch (e) {
       // 예외 처리 - 오류 발생 시 로그 출력
       print('Hive 저장 중 오류 발생: $e');

@@ -50,6 +50,8 @@ class HomeScreen extends StatelessWidget {
   // 쉬운 화면 버튼 클릭 처리
   Future<void> _handleEasyScreenButtonPress(BuildContext context) async {
     try {
+
+      //TODO:하이브 주석
       /*
       // Hive Box 열기
       var box = await HiveConfig.openBox('registrationBox');

@@ -5,6 +5,7 @@ import 'package:ssyrial/screens/account/create/create_account_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  //TODO:하이브 주석
   // Initialize Hive
 //  await HiveConfig.init();
 
