@@ -26,58 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(), // AppBar 빌드
-      body: Column(
-        children: [
-          _buildContent(), // 메인 콘텐츠 빌드
-          _buildBottomNavigationBar(), // 하단 네비게이션 바 추가
-        ],
-      ),
-    );
-  }
-
-  // AppBar 빌드
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: kAppBarBackgroundColor, // AppBar 배경색 설정
-      elevation: 0, // 그림자 제거
-      leading: IconButton(
-        icon: Text('홈', style: kAppBarTextStyle), // 홈 버튼 텍스트 스타일 적용
-        onPressed: () {}, // 홈 버튼 눌렀을 때의 동작
-      ),
-      actions: [
-        IconButton(icon: Icon(Icons.message, color: kAppBarIconColor), onPressed: () {}), // 메시지 아이콘
-        IconButton(icon: Icon(Icons.mic, color: kAppBarIconColor), onPressed: () {}), // 마이크 아이콘
-        IconButton(icon: Icon(Icons.person, color: kAppBarIconColor), onPressed: () {}), // 사용자 아이콘
-      ],
-    );
-  }
-
-  // 메인 콘텐츠 빌드
-  Widget _buildContent() {
-    return Column(
-      children: [
-        Image.asset('assets/images/sol_bank_logo.png', height: 90), // 은행 로고 이미지
-        _buildFeatureRow(), // 기능 선택 Row 추가
-        Row(
-          children: [
-            _buildEasyScreenButton(() => _handleEasyScreenButtonPress()), // 쉬운 화면 버튼 추가
-          ],
-        ),
-      ],
-    );
-  }
-
-  // 기능 선택을 위한 Row
-  Widget _buildFeatureRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Row 안의 텍스트들을 균등하게 배치
-      children: [
-        Text('Super SOL', style: kFeatureTextStyleActive),
-        Text('카드', style: kFeatureTextStyleInactive),
-        Text('은행', style: kFeatureTextStyleInactive),
-        Text('보험', style: kFeatureTextStyleInactive),
-      ],
+      body: _buildEasyScreenButton(() => _handleEasyScreenButtonPress()), // 쉬운 화면 버튼 추가,
     );
   }
 
@@ -96,20 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  // 하단 네비게이션 바 위젯
-  Widget _buildBottomNavigationBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Row 안의 아이콘과 텍스트들을 균등하게 배치
-      children: [
-        Column(children: [Icon(Icons.home), Text('홈')]), // 홈 아이콘과 텍스트
-        Column(children: [Icon(Icons.search), Text('자산관리')]), // 자산관리 아이콘과 텍스트
-        Column(children: [Icon(Icons.send), Text('상품')]), // 상품 아이콘과 텍스트
-        Column(children: [Icon(Icons.account_balance), Text('혜택')]), // 혜택 아이콘과 텍스트
-        Column(children: [Icon(Icons.menu), Text('전체메뉴')]), // 전체메뉴 아이콘과 텍스트
-      ],
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:ssyrial/screens/account/tranfer/account_number_input_dialog.dart
 import 'package:ssyrial/screens/account/tranfer/bank_selection_dialog.dart';
 import 'package:ssyrial/screens/account/tranfer/how_much_screen.dart';
 import 'package:ssyrial/widgets/custom_dialog_donguk.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class AccountInfoInputScreen extends StatefulWidget {
   final String initialTitle; // 초기 화면의 제목
@@ -44,17 +45,30 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
   bool _bankSelected = false; // 은행이 선택되었는지 여부를 나타내는 플래그
   String _accountNumber = ""; // 사용자가 입력한 계좌번호
   bool _accountNumberEntered = false; // 계좌번호가 입력되었는지 여부를 나타내는 플래그
+  final AudioPlayer _audioPlayer = AudioPlayer(); // 오디오 플레이어 인스턴스 생성
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose(); // 위젯이 해제될 때 오디오 플레이어도 해제
+    super.dispose();
+  }
 
   @override
   void initState() {
     super.initState();
     // 2초 후에 초기 화면에서 계좌 정보 입력 화면으로 전환
-    // TODO: 음성 재생이 종료되면 넘어가기
-    Timer(Duration(seconds: 2), () {
+    _audioPlayer.onPlayerComplete.listen((event) {
       setState(() {
         _isInitialScreen = false; // 화면 전환 플래그를 업데이트
       });
     });
+    _audioPlayer.play(AssetSource('sounds/teach_send_money.mp3'));
+    // // TODO: 음성 재생이 종료되면 넘어가기
+    // Timer(Duration(seconds: 2), () {
+    //   setState(() {
+    //     _isInitialScreen = false; // 화면 전환 플래그를 업데이트
+    //   });
+    // });
   }
 
   @override
