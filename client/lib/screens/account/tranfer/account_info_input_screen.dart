@@ -137,14 +137,8 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
         _buildButton(context, !_bankSelected ? '은행 선택' : _selectedBank + '은행'),
         SizedBox(height: 20),
         // 계좌 번호 입력 버튼
-        if (_bankSelected) ...[
-          Text(widget.accountNumberLabel, style: widget.labelTextStyle),
-          SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: _showCustomAccountNumberDialog, // 계좌 번호 입력 다이얼로그 표시
-            child: Text(_accountNumber.isEmpty ? '계좌번호 입력' : _accountNumber), // 선택된 계좌 또는 기본 텍스트 표시
-          ),
-        ],
+        if (_bankSelected)
+          _buildButton(context, '계좌번호 입력'),
         // 보내기 버튼
         if (_accountNumberEntered) ...[
           SizedBox(height: 20),
