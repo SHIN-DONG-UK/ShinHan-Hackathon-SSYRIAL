@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:ssyrial/config/hive_config.dart';
+import 'package:ssyrial/screens/donguk_home_screen.dart';
 import 'package:ssyrial/screens/guide/function_selection_screen.dart';
 import '../../config/constants.dart';
 import 'dart:async'; // 타이머를 위해 추가
@@ -57,7 +58,7 @@ class _FinishMemberRegistrationScreenState extends State<FinishMemberRegistratio
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildRegistrationImage(), // 이미지 위젯 생성
+          //_buildRegistrationImage(), // 이미지 위젯 생성
           const SizedBox(height: 20),
           _buildCompletionText(), // 완료 메시지 텍스트 위젯 생성
           const SizedBox(height: 30),
@@ -111,7 +112,7 @@ class _FinishMemberRegistrationScreenState extends State<FinishMemberRegistratio
       // FunctionSelectionScreen으로 이동
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => FunctionSelectionScreen()),
+        MaterialPageRoute(builder: (context) => DongukHomeScreen()),
       );
     } catch (e) {
       // 예외 처리 - 오류 발생 시 사용자에게 알림
