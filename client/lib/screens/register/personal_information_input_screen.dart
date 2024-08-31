@@ -82,27 +82,35 @@ class _PersonalInformationInputScreenState
     });
   }
 
+  // userId 생성 로직
+  String _generateUserId() {
+    String name = _nameController.text.trim().toLowerCase();
+    String numericName = convertHangulToNumber(name);
+    String birthday = _birthdayController.text.trim();
+    return "$birthday$numericName@ssafy.com";
+  }
+
   // 인증 요청 메서드
   Future<void> _authenticate() async {
     setState(() {
       _isLoading = true;
     });
 
+    String userId = _generateUserId(); // userId 생성
+
     try {
       final response = await _dio.post(
-        'https://jsonplaceholder.typicode.com/posts', // 예시 API 요청
+        'https://port-0-shinhan-hackathon-ssyrial-ss7z32llwg3l2ao.sel5.cloudtype.app/api/member/login', // 새 API 엔드포인트
         data: {
-          'name': _nameController.text,
-          'birthday': _birthdayController.text,
+          'userId': userId, // 생성한 userId 전송
         },
       );
 
-      // 복붙 -> 데이터 올 때까지 로딩창을 띄워줘야 함
       setState(() {
         _isLoading = false;
       });
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         widget.onAuthenticationSuccess(); // 인증 성공 시 콜백 호출
         context.showResultPopup('성공했습니다'); // 성공 팝업
       } else {
@@ -245,4 +253,31 @@ extension ContextExtensions on BuildContext {
       },
     );
   }
+}
+
+String convertHangulToNumber(String name) {
+  StringBuffer numberBuffer = StringBuffer();
+
+  for (int i = 0; i < name.length; i++) {
+    int codeUnit = name.codeUnitAt(i);
+
+    if (codeUnit >= 0xAC00 && codeUnit <= 0xD7A3) {
+      // 한글 음절
+      int baseCode = codeUnit - 0xAC00;
+
+      int jongseongIndex = baseCode % 28; // 종성 인덱스
+      int jungseongIndex = ((baseCode - jongseongIndex) / 28).toInt() % 21; // 중성 인덱스
+      int choseongIndex = (((baseCode - jongseongIndex) / 28).toInt() / 21).toInt(); // 초성 인덱스
+
+      // 초성, 중성, 종성을 각각 숫자로 변환하여 붙이기
+      numberBuffer.write((choseongIndex + 1).toString().padLeft(2, '0'));
+      numberBuffer.write((jungseongIndex + 1).toString().padLeft(2, '0'));
+      numberBuffer.write((jongseongIndex + 1).toString().padLeft(2, '0'));
+    } else {
+      // 한글이 아닌 경우 해당 문자 그대로 추가 (예: 영어, 숫자)
+      numberBuffer.write(codeUnit.toString());
+    }
+  }
+
+  return numberBuffer.toString();
 }

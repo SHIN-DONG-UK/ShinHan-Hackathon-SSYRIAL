@@ -9,8 +9,8 @@ import 'personal_information_input_screen.dart';
 
 enum ScreenState {
   start,
-  phoneAuth,
   personalInfoConsent,
+  phoneAuth,
   personalInfoInput,
   finishMemberRegistration
 }
@@ -113,10 +113,10 @@ class _MemberRegistrationStartScreenState
       physics: const NeverScrollableScrollPhysics(),
       children: [
         StartScreen(),
-        PhoneAuthScreen(),
         PersonalInfoConsentScreen(
           onAllConsentsChecked: _onAllConsentsChecked, // 콜백 전달
         ),
+        PhoneAuthScreen(),
         PersonalInformationInputScreen(
           onAuthenticationSuccess: _onAuthenticationStart,
         ),
@@ -128,12 +128,50 @@ class _MemberRegistrationStartScreenState
   void _playVoiceForCurrentScreen() {
     switch (_currentScreen) {
       case ScreenState.start:
-        _audioQueue = ['sounds/voice1.mp3', 'sounds/voice2.mp3'];
-        _scriptQueue = ["안녕하세요 저는 몰리에요", "무엇을 도와드릴까요?"];
+        _audioQueue = ['sounds/1.mp3'];
+        _scriptQueue = ["안녕하세요! 회원가입을 성공적으로 마칠 수 있도록 도와드릴게요!"];
+        break;
+      case ScreenState.personalInfoConsent:
+        _audioQueue = [
+          'sounds/2.mp3',
+          'sounds/3.mp3',
+          'sounds/4.mp3',
+          'sounds/10.mp3',
+          'sounds/5.mp3',
+          'sounds/6.mp3'
+        ];
+        _scriptQueue = [
+          "우선 은행이 사용자를 알 수 있어야 해요.",
+          "다른 사용자가 내 계좌에서 돈을 빼 가면 안되잖아요?",
+          "그런 일을 방지하기 위해 은행에서 몇 가지 정보를 받고 있어요.",
+          "바로 할 수는 없고, 사용자 동의가 있어야만 할 수 있어요.",
+          "은행이 받을 정보는 이름, 생년월일, 성별이 있어요.",
+          "정보 제공에 동의하시나요?"
+        ];
         break;
       case ScreenState.phoneAuth:
-        _audioQueue = ['sounds/voice1.mp3', 'sounds/voice2.mp3'];
-        _scriptQueue = ["테스트1", "테스트2", "테스트3"];
+        _audioQueue = [
+          'sounds/7.mp3',
+          'sounds/8.mp3',
+          'sounds/9.mp3',
+          'sounds/10.mp3',
+          'sounds/6.mp3'
+        ];
+        _scriptQueue = [
+          "다음으로, 이 전화기가 본인의 것인지 확인해야 해요.",
+          "다른 사람이 나인 척 하면서 내 계좌에 접근하는 것을 막으려고 해요.",
+          "그 목적을 달성하기 위해 은행에서 몇 가지 정보를 받고 있어요.",
+          "바로 할 수는 없고, 사용자 동의가 있어야만 할 수 있어요.",
+          "정보 제공에 동의하시나요?"
+        ];
+        break;
+      case ScreenState.personalInfoInput:
+        _audioQueue = ['sounds/11.mp3'];
+        _scriptQueue = ["이름과 생년월일을 입력해주세요."];
+        break;
+      case ScreenState.finishMemberRegistration:
+        _audioQueue = ['sounds/12.mp3'];
+        _scriptQueue = ["짠! 회원가입이 완료되었어요!"];
         break;
       default:
         _audioQueue = [];
@@ -174,7 +212,7 @@ class _MemberRegistrationStartScreenState
       maintainAnimation: true,
       maintainState: true,
       child:
-      _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
+          _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
     );
   }
 
