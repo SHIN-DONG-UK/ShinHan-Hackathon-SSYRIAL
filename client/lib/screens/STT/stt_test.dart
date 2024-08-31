@@ -72,7 +72,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     _audioPlayer.onPlayerComplete.listen((event) {
       startListening(); // 현재 오디오가 끝나면 다음 오디오 재생
     });
-    _audioPlayer.play(AssetSource('sounds/voice1.mp3'));
+    _audioPlayer.play(AssetSource('sounds/voice2.mp3'));
   }
   // 음성 인식 기능 초기화를 위한 비동기 메서드 -> 그대로 사용 가능
   // [설계]
