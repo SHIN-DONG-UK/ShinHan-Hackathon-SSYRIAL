@@ -22,13 +22,13 @@ class AccountInfoInputScreen extends StatefulWidget {
 
   const AccountInfoInputScreen({
     Key? key,
-    this.initialTitle = '안녕하세요\n송금하는 법을 알려드릴게요\n(음성 끝나면 자동으로 다음페이지)',
-    this.newTitle = '돈을 받는 통장의 정보를 입력해 주세요.',
+    this.initialTitle = '안녕하세요\n송금하는 법을 알려드릴게요!',
+    this.newTitle = '돈을 받는\n통장의 정보를\n입력해 주세요.',
     this.backButtonText = '돌아가기',
     this.bankButtonText = '은행 선택하기',
     this.accountNumberLabel = '계좌 번호',
     this.submitButtonText = '보내기',
-    this.titleTextStyle,
+    this.titleTextStyle = const TextStyle(fontSize: 24, fontWeight: FontWeight.bold), // 기본 스타일 제공
     this.labelTextStyle,
     this.buttonTextStyle,
     this.buttonColor = Colors.blue,
@@ -111,7 +111,7 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
         Text(
           widget.initialTitle, // 초기 화면의 텍스트
           textAlign: TextAlign.center,
-          style: widget.titleTextStyle, // 텍스트 스타일
+          style: widget.titleTextStyle,
         ),
         SizedBox(height: 20),
         Image.asset(
@@ -135,10 +135,7 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
         ),
         SizedBox(height: 20),
         // [API] 아래 버튼에 내가 송금할 은행의 리스트 API를 땡겨와야 함
-        ElevatedButton(
-          onPressed: _showBankSelectionDialog, // 은행 선택 다이얼로그 표시
-          child: Text(_selectedBank.isEmpty ? widget.bankButtonText : _selectedBank), // 선택된 은행 또는 기본 텍스트 표시
-        ),
+        _buildButton(context, '은행 선택하기'),
         SizedBox(height: 20),
         // 계좌 번호 입력 버튼
         if (_bankSelected) ...[
@@ -219,5 +216,72 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
         return HowMuchScreen();
       },
     ));}
+  }
+}
+
+Widget _buildButton(BuildContext context, String text) {
+  return Container(
+    width: double.infinity,
+    margin: const EdgeInsets.symmetric(horizontal: 20),
+    child: ElevatedButton(
+      child: Text(text, style: const TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold)),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.green,
+        padding: EdgeInsets.symmetric(vertical: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AccountInfoInputScreen(
+              // Pass any required arguments here if needed
+            ),
+          ),
+        );
+      },
+    ),
+  );
+}
+class BankSelectionWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),  // Padding around the container
+      decoration: BoxDecoration(
+        color: Colors.grey[200],  // Background color for the container
+        borderRadius: BorderRadius.circular(10.0),  // Rounded corners
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,  // Align text to the start (left)
+        children: [
+          Text(
+            '은행사',
+            style: TextStyle(fontSize: 18),  // Font size for the label text
+          ),
+          SizedBox(height: 8.0),  // Space between the label and button
+          ElevatedButton(
+            onPressed: () {
+              // Handle button press here
+              print('은행 선택하기 button pressed');
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,  // Background color of the button
+              foregroundColor: Colors.black,  // Text color of the button
+              elevation: 0,  // Removes button shadow
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),  // Rounded corners for the button
+              ),
+            ),
+            child: Text(
+              '은행 선택하기',
+              style: TextStyle(fontSize: 18),  // Font size for the button text
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
