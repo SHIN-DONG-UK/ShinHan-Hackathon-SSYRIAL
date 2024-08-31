@@ -13,6 +13,7 @@ SSYRIAL은 모바일 뱅킹에 소외된 고령층을 대상으로 하는 금융
 | **역할** |  UI/UX<br>프론트엔드<br>음성인식 | 백엔드 개발<br>개발총괄 | 백엔드 개발<br>캐릭터 컨텐츠 개발<br>프론트엔드 UI/UX<br>음성인식 | UI/UX<br>프론트엔드<br>아이디어 제안<br>목업 디자인 | UI/UX<br>프론트 엔드<br>컨텐츠 개발<br>레이아웃 검수 |
 <br/>
 
+
 ## ⌨️ 개발 기간
 
 - **2024.08.14 ~ 2024.08.31**
@@ -23,10 +24,11 @@ SSYRIAL은 모바일 뱅킹에 소외된 고령층을 대상으로 하는 금융
 ## 🔎 목차
 
 1. <a href="#subject">🎯 주제</a>
-1. <a href="#mainContents">⭐️ 주요 기능</a>
 1. <a href="#systemArchitecture">⚙ 시스템 아키텍쳐</a>
 1. <a href="#skills">🛠️ 기술 스택</a>
-1. <a href="#erd">💾 ERD</a>
+1. <a href="#mockup">🎨 목업</a>
+1. <a href="#question">❔ 주요 고민 및 해결법</a>
+1. <a href="#client">❔ 클라이언트 구조</a>
 
 
 <br/>
@@ -36,23 +38,27 @@ SSYRIAL은 모바일 뱅킹에 소외된 고령층을 대상으로 하는 금융
 ## 🎯 주제
 
 <a name="subject"></a>
-
-설명
-
-**주요 기능**
-
-- 기능1
-- 기능2
-- 기능3...
+고령층도 원활하게 은행 업무를 볼 수 있도록 하는 고령층 특화 은행 어플
+![image](https://github.com/user-attachments/assets/25692e1a-35f4-4279-a193-1c98469083cf)
 
 <div align="right"><a href="#tableContents">목차로 이동</a></div>
 <br/>
 
-<!------- 주요 기능 시작 -------->
+## 🥕 기획 배경
 
-## ⭐️ 주요 기능
+디지털 금융 서비스의 확산과 디지털 서비스 적응에 어려운 고령층:
+* 코로나19 이후 8.2% 증가한 모바일 금융서비스 이용률(한국은행 모바일금융서비스 이용 행태 조사 결과, 2022)
+* 하지만 모바일뱅킹 이용자 중 60대 이상 사용자는 10.3%로, 상대적으로 낮게 나타남(대한경제, 2023)
 
-<a name="mainContents"></a>
+디지털 금융 서비스 교육의 필요성과 정부정책 방향:
+* 고령층의 디지털 접근성은 뛰어나지만, 디지털 역량 및 활용 능력은 젊은 층에 비해 상당히 부족함(금융위원회, ‘디지털 금융이해력’, 2024)
+* 금융의원회에서는 은행권과 함께 ｢고령자 친화적 모바일 금융앱 구성지침｣을 마련하여 고령 금융소비자의 금융접근성을 개선하고자 함
+
+
+따라서, 신한은행의 모토인 ‘Everywhere Bank’를 “누구나” 실현 가능하게 하려면, 현재 소외되어 있는 고령층의 디지털 금융 교육, 또는 고령층을 위한 디지털 금융 어플리케이션의 수요가 높다고 할 수 있음
+
+
+
 
 ## 🌟 주요 차별점
 
@@ -114,9 +120,35 @@ SSYRIAL은 모바일 뱅킹에 소외된 고령층을 대상으로 하는 금융
 ![Mattermost](https://img.shields.io/badge/mattermost-0058CC.svg?style=for-the-badge&logo=mattermost&logoColor=white)
 ![Notion](https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white)
 
+
+<div align="right"><a href="#tableContents">목차로 이동</a></div>
+<br/>
+
+<!------- 목업 시작 -------->
+
+## 🎨 목업
+
+<a name="mockup"></a>
+
+
+<div align="right"><a href="#tableContents">목차로 이동</a></div>
+<br/>
+
+<!------- 주요 고민 시작 -------->
+## ❔ 주요 고민 및 해결법
+
+<a name="question"></a>
+
+
 <div align="right"><a href="#tableContents">목차로 이동</a></div>
 <br/>
 
 <!------- 클라이언트 구조 시작 -------->
 
 ## 🛠️ 클라이언트 구조 
+
+<a name="client"></a>
+
+
+<div align="right"><a href="#tableContents">목차로 이동</a></div>
+<br/>
