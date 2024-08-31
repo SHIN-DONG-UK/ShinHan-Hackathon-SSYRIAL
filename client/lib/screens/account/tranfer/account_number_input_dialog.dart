@@ -129,6 +129,7 @@ class _AccountNumberInputDialogState extends State<AccountNumberInputDialog> {
           return _buildKeypadButton(
             text: "0",
             onPressed: () => setState(() => _enteredAccountNumber += "0"),
+            color: Colors.green, // 초록색 배경
           );
         } else if (index == 11) {
           // 하나삭제 버튼
@@ -147,6 +148,7 @@ class _AccountNumberInputDialogState extends State<AccountNumberInputDialog> {
           return _buildKeypadButton(
             text: (index + 1).toString(),
             onPressed: () => setState(() => _enteredAccountNumber += (index + 1).toString()),
+            color: Colors.green, // 초록색 배경
           );
         }
       }),
@@ -154,7 +156,7 @@ class _AccountNumberInputDialogState extends State<AccountNumberInputDialog> {
   }
 
   // 키패드 버튼을 생성하는 함수
-  Widget _buildKeypadButton({required String text, required VoidCallback onPressed, Color color = Colors.white}) {
+  Widget _buildKeypadButton({required String text, required VoidCallback onPressed, Color color = Colors.green}) {
     return ElevatedButton(
       onPressed: onPressed,
       child: Text(text, style: TextStyle(fontSize: 20, color: Colors.black)), // 버튼 텍스트 스타일

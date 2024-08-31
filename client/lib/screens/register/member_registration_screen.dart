@@ -30,6 +30,7 @@ class _MemberRegistrationStartScreenState
   final AudioPlayer _audioPlayer = AudioPlayer(); // 오디오 플레이어 인스턴스 생성
   bool _isAuthenticated = false;
   bool _allConsentsChecked = false;
+  bool _isPhoneVerified = false; // 핸드폰 인증 상태
   String _currentVoiceScript = ""; // 현재 음성 스크립트
   List<String> _audioQueue = []; // 오디오 파일 순서 리스트
   List<String> _scriptQueue = []; // 대사 스크립트 순서 리스트
@@ -63,7 +64,7 @@ class _MemberRegistrationStartScreenState
             children: [
               _buildActionButton(
                   context, '취소하기', kCancelButtonColor, _onCancelPressed),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Expanded(
                 child: Stack(
                   children: [
@@ -92,7 +93,7 @@ class _MemberRegistrationStartScreenState
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               _buildNextButton(),
             ],
           ),
@@ -116,7 +117,9 @@ class _MemberRegistrationStartScreenState
         PersonalInfoConsentScreen(
           onAllConsentsChecked: _onAllConsentsChecked, // 콜백 전달
         ),
-        PhoneAuthScreen(),
+        PhoneAuthScreen(
+          onSendButtonPressed: _onPhoneVerified, // 콜백 전달
+        ),
         PersonalInformationInputScreen(
           onAuthenticationSuccess: _onAuthenticationStart,
         ),
@@ -193,6 +196,12 @@ class _MemberRegistrationStartScreenState
     }
   }
 
+  void _onPhoneVerified() {
+    setState(() {
+      _isPhoneVerified = true; // 핸드폰 인증 완료 상태 업데이트
+    });
+  }
+
   void _onAllConsentsChecked(bool allChecked) {
     setState(() {
       _allConsentsChecked = allChecked; // 모든 항목 체크 상태 업데이트
@@ -212,7 +221,7 @@ class _MemberRegistrationStartScreenState
       maintainAnimation: true,
       maintainState: true,
       child:
-          _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
+      _buildActionButton(context, '다음', kNextButtonColor, _onNextPressed),
     );
   }
 
@@ -237,6 +246,8 @@ class _MemberRegistrationStartScreenState
     switch (_currentScreen) {
       case ScreenState.personalInfoConsent:
         return _allConsentsChecked; // 모든 항목이 체크된 경우에만 "다음" 버튼이 활성화
+      case ScreenState.phoneAuth:
+        return _isPhoneVerified; // 핸드폰 인증이 완료된 경우에만 "다음" 버튼이 보임
       case ScreenState.personalInfoInput:
         return _isAuthenticated; // 인증이 완료된 경우에만 "다음" 버튼이 보임
       case ScreenState.finishMemberRegistration:
@@ -251,7 +262,7 @@ class _MemberRegistrationStartScreenState
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         decoration: BoxDecoration(
           color: color,
           borderRadius: kButtonBorderRadius,
@@ -260,7 +271,7 @@ class _MemberRegistrationStartScreenState
           label,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: kButtonFontSize,
+            fontSize: 30,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
