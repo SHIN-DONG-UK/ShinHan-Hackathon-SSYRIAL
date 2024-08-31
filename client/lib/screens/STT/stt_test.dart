@@ -12,7 +12,7 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 // speech_to_text 패키지에서 인식 결과 관련 클래스 임포트
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:ssyrial/config/tts_config.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 //void main() => runApp(const SpeechSampleApp());
 
@@ -55,19 +55,24 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   List<LocaleName> _localeNames = [];
   // SpeechToText 클래스의 인스턴스 생성 -> 무조건 필요( 이 인스턴스를 사용해서 함수 사용해야 함 )
   final SpeechToText speech = SpeechToText();
-  // Add TTSConfig instance
-  final TTSConfig _ttsConfig = TTSConfig();
+
+  final AudioPlayer _audioPlayer = AudioPlayer(); // 오디오 플레이어 인스턴스 생성
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose(); // 위젯이 해제될 때 오디오 플레이어도 해제
+    super.dispose();
+  }
+
   // 위젯이 생성될 때 호출되는 메서드, 초기화 작업을 수행
   @override
   void initState() {
     super.initState();
     initSpeechState();
-    _initializeAndSpeak();
-  }
-// New method to initialize TTS and speak
-  Future<void> _initializeAndSpeak() async {
-    await _ttsConfig.initTTS();
-    await _ttsConfig.speak('어떤 도움이 필요하신가요?');
+    _audioPlayer.onPlayerComplete.listen((event) {
+      startListening(); // 현재 오디오가 끝나면 다음 오디오 재생
+    });
+    _audioPlayer.play(AssetSource('sounds/voice1.mp3'));
   }
   // 음성 인식 기능 초기화를 위한 비동기 메서드 -> 그대로 사용 가능
   // [설계]
