@@ -9,8 +9,8 @@ const Color kEasyScreenColor = Colors.green;
 
 const TextStyle kButtonTextStyle = TextStyle(color: Colors.white, fontSize: 18);
 
-class TestHomeScreen extends StatelessWidget {
-  const TestHomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +50,11 @@ class TestHomeScreen extends StatelessWidget {
   // 쉬운 화면 버튼 클릭 처리
   Future<void> _handleEasyScreenButtonPress(BuildContext context) async {
     try {
+      /*
       // Hive Box 열기
       var box = await HiveConfig.openBox('registrationBox');
 
       final isRegistered = box.get('isRegistrationComplete', defaultValue: false);
-      print(isRegistered);
 
       // 등록 상태에 따른 페이지 이동
       if (isRegistered) {
@@ -64,6 +64,8 @@ class TestHomeScreen extends StatelessWidget {
       }
       // Box 닫기
       await HiveConfig.closeBox('registrationBox');
+       */
+      onEasyScreenButtonPressed(context);
     } catch (e) {
       // 예외 처리 - 오류 발생 시 로그 출력
       print('Hive 저장 중 오류 발생: $e');

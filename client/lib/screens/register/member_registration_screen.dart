@@ -129,7 +129,7 @@ class _MemberRegistrationStartScreenState
     switch (_currentScreen) {
       case ScreenState.start:
         _audioQueue = ['sounds/1.mp3'];
-        _scriptQueue = ["안녕하세요! 회원가입을 성공적으로 마칠 수 있도록 도와드릴게요!"];
+        _scriptQueue = ["안녕하세요! 회원가입을 성공적으로\n 마칠 수 있도록 도와드릴게요!"];
         break;
       case ScreenState.personalInfoConsent:
         _audioQueue = [

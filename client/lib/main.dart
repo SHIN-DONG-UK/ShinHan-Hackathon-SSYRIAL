@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/config/hive_config.dart';
-import 'test_home.dart';
+import 'home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,7 @@ class SSYRIALApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TestHomeScreen(),
+      home: HomeScreen(),
     );
   }
 }
