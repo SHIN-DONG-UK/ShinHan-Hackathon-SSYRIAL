@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
           onPressed: () {
             showPasswordFailPopup(context);
           },
-          child: Text('실패 팝업을 띄웁니다.'),
+          child: Text('성공 화면을 팝업합니다.'),
         ),
       ),
     );
@@ -89,7 +89,7 @@ class _PasswordFailPopupState extends State<PasswordFailPopup> with SingleTicker
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: Colors.blue,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -102,7 +102,7 @@ class _PasswordFailPopupState extends State<PasswordFailPopup> with SingleTicker
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Icon(
-                        Icons.close,
+                        Icons.panorama_fish_eye,
                         color: Colors.red,
                         size: 40,
                       ),
