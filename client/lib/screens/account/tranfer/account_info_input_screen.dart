@@ -21,7 +21,7 @@ class AccountInfoInputScreen extends StatefulWidget {
 
   const AccountInfoInputScreen({
     Key? key,
-    this.initialTitle = '안녕하세요\n송금하는 법을 알려드릴게요!',
+    this.initialTitle = '안녕하세요\n돈 보내는 법을 알려드릴게요!',
     this.newTitle = '돈을 받는\n통장의 정보를\n입력해 주세요.',
     this.backButtonText = '돌아가기',
     this.bankButtonText = '은행 선택하기',
@@ -61,7 +61,7 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
         _isInitialScreen = false; // 화면 전환 플래그를 업데이트
       });
     });
-    _audioPlayer.play(AssetSource('sounds/teach_send_money.mp3'));
+    _audioPlayer.play(AssetSource('sounds/14.mp3'));
     // // TODO: 음성 재생이 종료되면 넘어가기
     // Timer(Duration(seconds: 2), () {
     //   setState(() {
