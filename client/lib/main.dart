@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ssyrial/config/hive_config.dart';
-import 'package:ssyrial/screens/account/create/create_account_screen.dart';
+import 'package:ssyrial/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
