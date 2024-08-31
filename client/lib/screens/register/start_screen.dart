@@ -31,7 +31,6 @@ class _StartScreenState extends State<StartScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('pass_authentication_app_capture.png'),
           Text(
             '시작하기 위해\n회원 등록을\n진행할게요.',
             textAlign: TextAlign.center,

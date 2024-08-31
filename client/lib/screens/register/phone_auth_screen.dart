@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
+import 'package:ssyrial/config/global_state.dart';
 import '../../config/constants.dart';
 
 class PhoneAuthScreen extends StatefulWidget {
@@ -116,7 +117,6 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
     );
   }
 
-
   // userId 생성 로직
   String _generateUserId(String phoneNumber) {
     return "$phoneNumber@ssafy.com";
@@ -144,6 +144,11 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
       });
 
       if (response.statusCode == 200) {
+        // Assuming the response contains a 'userKey'
+        final data = response.data;
+        GlobalState.userId = data['userId']; // Store userId in global state
+        GlobalState.userKey = data['userKey']; // Store userKey in global state
+
         widget.onSendButtonPressed(); // 인증 성공 시 콜백 호출
         context.showResultPopup('인증에 성공했습니다'); // 성공 팝업
       } else {
@@ -157,6 +162,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
     }
   }
 }
+
 
 
 // 유틸리티 함수들을 확장 메서드로 분리하여 코드 간소화
