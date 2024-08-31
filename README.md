@@ -26,7 +26,9 @@ SSYRIAL은 모바일 뱅킹에 소외된 고령층을 대상으로 하는 금융
 1. <a href="#subject">🎯 주제</a>
 1. <a href="#systemArchitecture">⚙ 시스템 아키텍쳐</a>
 1. <a href="#skills">🛠️ 기술 스택</a>
-1. <a href="#erd">💾 ERD</a>
+1. <a href="#mockup">🎨 목업</a>
+1. <a href="#question">❔ 주요 고민 및 해결법</a>
+1. <a href="#client">❔ 클라이언트 구조</a>
 
 
 <br/>
@@ -118,9 +120,35 @@ SSYRIAL은 모바일 뱅킹에 소외된 고령층을 대상으로 하는 금융
 ![Mattermost](https://img.shields.io/badge/mattermost-0058CC.svg?style=for-the-badge&logo=mattermost&logoColor=white)
 ![Notion](https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white)
 
+
+<div align="right"><a href="#tableContents">목차로 이동</a></div>
+<br/>
+
+<!------- 목업 시작 -------->
+
+## 🎨 목업
+
+<a name="mockup"></a>
+
+
+<div align="right"><a href="#tableContents">목차로 이동</a></div>
+<br/>
+
+<!------- 주요 고민 시작 -------->
+## ❔ 주요 고민 및 해결법
+
+<a name="question"></a>
+
+
 <div align="right"><a href="#tableContents">목차로 이동</a></div>
 <br/>
 
 <!------- 클라이언트 구조 시작 -------->
 
 ## 🛠️ 클라이언트 구조 
+
+<a name="client"></a>
+
+
+<div align="right"><a href="#tableContents">목차로 이동</a></div>
+<br/>
