@@ -17,7 +17,7 @@ class _PersonalInfoConsentScreenState extends State<PersonalInfoConsentScreen> {
   static const List<String> _consentTexts = [
     '필수 항목 전체 동의',
     '[필수] 개인정보 수집이용',
-    '[필수] 고유식별정보처리 동의',
+    '[필수] 고유식별\n정보처리 동의',
     '[필수] 통신사 이용약관',
     '[필수] 서비스 이용 동의',
   ];
@@ -42,7 +42,7 @@ class _PersonalInfoConsentScreenState extends State<PersonalInfoConsentScreen> {
         children: [
           const Text(
             '회원 등록을 위해\n항목에 동의해주세요.',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
           ..._consentTexts.asMap().entries.map(
@@ -63,11 +63,15 @@ class _PersonalInfoConsentScreenState extends State<PersonalInfoConsentScreen> {
             onChanged: (bool? value) => _updateConsentState(index, value ?? false),
           ),
           const SizedBox(width: 10),
-          Text(text),
+          Text(
+            text,
+            style: const TextStyle(fontSize: 25), // 원하는 글자 크기 설정
+          ),
         ],
       ),
     );
   }
+
 
   void _updateConsentState(int index, bool value) {
     setState(() {
