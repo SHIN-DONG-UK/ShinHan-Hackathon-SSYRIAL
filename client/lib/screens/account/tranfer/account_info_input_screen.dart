@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ssyrial/screens/account/tranfer/account_confirmation_dialog.dart';
-import 'package:ssyrial/screens/account/tranfer/account_number_input_dialog.dart';
 import 'package:ssyrial/screens/account/tranfer/bank_selection_dialog.dart';
 import 'package:ssyrial/screens/account/tranfer/how_much_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -30,7 +29,7 @@ class AccountInfoInputScreen extends StatefulWidget {
     this.titleTextStyle = const TextStyle(fontSize: 24, fontWeight: FontWeight.bold), // 기본 스타일 제공
     this.labelTextStyle,
     this.buttonTextStyle,
-    this.buttonColor = Colors.blue,
+    this.buttonColor = Colors.green,
     this.padding = const EdgeInsets.all(16.0),
   }) : super(key: key);
 
@@ -43,7 +42,6 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
   String _selectedBank = ""; // 선택된 은행 이름
   bool _bankSelected = false; // 은행이 선택되었는지 여부를 나타내는 플래그
   String _accountNumber = ""; // 사용자가 입력한 계좌번호
-  bool _accountNumberEntered = false; // 계좌번호가 입력되었는지 여부를 나타내는 플래그
   final AudioPlayer _audioPlayer = AudioPlayer(); // 오디오 플레이어 인스턴스 생성
 
   @override
@@ -62,12 +60,6 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
       });
     });
     _audioPlayer.play(AssetSource('sounds/14.mp3'));
-    // // TODO: 음성 재생이 종료되면 넘어가기
-    // Timer(Duration(seconds: 2), () {
-    //   setState(() {
-    //     _isInitialScreen = false; // 화면 전환 플래그를 업데이트
-    //   });
-    // });
   }
 
   @override
@@ -134,25 +126,30 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
         ),
         SizedBox(height: 20),
         // [API] 아래 버튼에 내가 송금할 은행의 리스트 API를 땡겨와야 함
-        _buildButton(context, !_bankSelected ? '은행 선택' : _selectedBank + '은행', _showBankSelectionDialog),
+        _buildButton(context, !_bankSelected ? '은행 선택하기' : _selectedBank + '은행', _showBankSelectionDialog),
         SizedBox(height: 20),
-        // 계좌 번호 입력 버튼
+        // 계좌 번호 입력 필드
         if (_bankSelected)
-          _buildButton(context, !_accountNumberEntered ? '계좌번호 입력' : _accountNumber, _showCustomAccountNumberDialog),
-        // 보내기 버튼
-        if (_accountNumberEntered) ...[
-          SizedBox(height: 20),
-          // [API] 보내기 버튼 클릭 시, 입력된 정보의 계좌가 있는지 API로 확인하기
-          ElevatedButton(
-            onPressed: _showConfirmationDialog,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: widget.buttonColor,
-            ),
-            child: Text(
-              widget.submitButtonText,
-              style: widget.buttonTextStyle,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: widget.accountNumberLabel,
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                setState(() {
+                  _accountNumber = value;
+                });
+              },
             ),
           ),
+        SizedBox(height: 20),
+        // 보내기 버튼
+        if (_accountNumber.isNotEmpty) ...[
+          SizedBox(height: 20),
+          _buildButton(context, '보내기', _showConfirmationDialog),
         ]
       ],
     );
@@ -175,23 +172,6 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
     );
   }
 
-  // 계좌 번호 입력 다이얼로그 표시 함수
-  void _showCustomAccountNumberDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AccountNumberInputDialog(
-          onAccountNumberEntered: (enteredAccountNumber) {
-            setState(() {
-              _accountNumber = enteredAccountNumber; // 입력된 계좌 번호 저장
-              _accountNumberEntered = true; // 계좌 번호가 입력되었음을 나타내는 플래그 설정
-            });
-          },
-        );
-      },
-    );
-  }
-
   // 확인 다이얼로그 표시 함수
   void _showConfirmationDialog() async {
     bool? result = await showDialog<bool>(
@@ -203,13 +183,14 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
         );
       },
     );
-    if(result == true){
-      Navigator.push(context, MaterialPageRoute(
-          builder: (context){
-        return HowMuchScreen();
-      },
-    ));}
+    if (result == true) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HowMuchScreen()),
+      );
+    }
   }
+
   Widget _buildButton(BuildContext context, String text, VoidCallback onPressed) {
     return Container(
       width: double.infinity,
@@ -224,7 +205,7 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
           ),
         ),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.green,
+          backgroundColor: widget.buttonColor,
           padding: EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -234,7 +215,4 @@ class _AccountInfoInputScreenState extends State<AccountInfoInputScreen> {
       ),
     );
   }
-
 }
-
-

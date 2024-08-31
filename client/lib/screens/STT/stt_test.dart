@@ -140,7 +140,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
                         ),
                       ),
                       const Text(
-                        '돈 보내줘',
+                        '돈 보내기',
                         style: TextStyle(
                           fontSize: 18,
                         ),
@@ -224,7 +224,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   void resultListener(SpeechRecognitionResult result) {
     _logEvent('Result listener final: ${result.finalResult}, words: ${result.recognizedWords}');
     setState(() {
-      lastWords = '${result.recognizedWords} - ${result.finalResult}';
+      lastWords = '${result.recognizedWords}';
 
       // "보내"라는 단어가 포함되어 있는지 체크
       if (lastWords.contains("보내")) {
@@ -296,127 +296,5 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     if (_logEvents) {
       print(eventDescription);
     }
-  }
-}
-
-class VoiceInputScreen extends StatelessWidget {
-  const VoiceInputScreen({Key? key, required this.lastWords, required this.level}) : super(key: key);
-
-  final String lastWords;
-  final double level;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '어떤 도움이 필요하',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                '신가요',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 30),
-              Center(
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Icon(Icons.mic, size: 50, color: Colors.black),
-                ),
-              ),
-              SizedBox(height: 30),
-              Text(
-                '예시:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                '며느리한테 돈을',
-                style: TextStyle(fontSize: 18),
-              ),
-              Text(
-                '불일래',
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(height: 20),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Text(
-                  '들은 내용:',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ),
-              RecognitionResultsWidget(lastWords: lastWords, level: level),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-class RecognitionResultsWidget extends StatelessWidget {
-  const RecognitionResultsWidget({Key? key, required this.lastWords, required this.level}) : super(key: key);
-
-  final String lastWords;
-  final double level;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('들은 내용: ', style: TextStyle(fontSize: 22.0)),
-          const SizedBox(height: 16),
-          Expanded(
-            child: Container(
-              child: Text(lastWords, style: const TextStyle(fontSize: 32.0)),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Center(
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: .26,
-                    spreadRadius: level * 1.5,
-                    color: Colors.black.withOpacity(.05),
-                  )
-                ],
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(50)),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
