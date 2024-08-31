@@ -47,7 +47,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     _audioPlayer.onPlayerComplete.listen((event) {
       startListening();
     });
-    _audioPlayer.play(AssetSource('sounds/voice2.mp3'));
+    _audioPlayer.play(AssetSource('sounds/2.mp3'));
   }
 
   Future<void> initSpeechState() async {
