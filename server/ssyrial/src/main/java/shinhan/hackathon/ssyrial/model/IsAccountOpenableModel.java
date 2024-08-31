@@ -1,7 +1,7 @@
 package shinhan.hackathon.ssyrial.model;
-
 import lombok.Getter;
 import lombok.Setter;
+
 
 @Getter
 @Setter

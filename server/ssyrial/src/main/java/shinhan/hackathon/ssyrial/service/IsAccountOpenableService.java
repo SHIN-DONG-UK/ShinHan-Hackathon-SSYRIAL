@@ -11,10 +11,10 @@ import java.time.LocalDate;
 public class IsAccountOpenableService {
 
     public boolean isAccountOpenable(IsAccountOpenableModel model) {
-        LocalDate db = LocalDate.parse("2024-08-29");
+        LocalDate DB = LocalDate.parse("1990-01-01");
         LocalDate today = LocalDate.now();
 
-        // DB날짜 + 30일이 오늘 날짜보다 크거나 같은지 확인
-        return db.plusDays(30).isBefore(today);
+        // userKey 입력을 받은 날짜 + 30일이 오늘 날짜보다 크거나 같은지 확인
+        return DB.plusDays(30).isBefore(today);
     }
 }
