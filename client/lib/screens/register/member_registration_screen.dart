@@ -167,11 +167,11 @@ class _MemberRegistrationStartScreenState
         break;
       case ScreenState.personalInfoInput:
         _audioQueue = ['sounds/11.mp3'];
-        _scriptQueue = ["이름과 생년월일을 입력해주세요."];
+        _scriptQueue = ["이름과 생년월일을\n입력해주세요."];
         break;
       case ScreenState.finishMemberRegistration:
         _audioQueue = ['sounds/12.mp3'];
-        _scriptQueue = ["짠! 회원가입이 완료되었어요!"];
+        _scriptQueue = ["짠! 회원가입이\n완료되었어요!"];
         break;
       default:
         _audioQueue = [];
