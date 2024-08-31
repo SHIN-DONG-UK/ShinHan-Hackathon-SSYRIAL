@@ -93,23 +93,29 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
 
   // 전송 버튼 생성
   Widget _buildSendButton() {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          FocusManager.instance.primaryFocus?.unfocus(); // 열려있는 입력창 닫기
-          _sendPhoneNumber();
-        },
-        child: Text(
-          '문자 전송',
-          style: TextStyle(fontSize: 24),
-        ),
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-          shape: RoundedRectangleBorder(borderRadius: kButtonBorderRadius),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0), // 좌우 여백 설정
+      child: SizedBox(
+        width: double.infinity, // 버튼이 가로로 가득 차도록 설정
+        child: ElevatedButton(
+          onPressed: () {
+            FocusManager.instance.primaryFocus?.unfocus(); // 열려있는 입력창 닫기
+            _sendPhoneNumber();
+          },
+          child: Text(
+            '인증',
+            style: TextStyle(fontSize: 40, color: Colors.white), // 하얀색 글자
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green, // 초록색 배경
+            padding: EdgeInsets.symmetric(vertical: 12), // 세로 여백
+            shape: RoundedRectangleBorder(borderRadius: kButtonBorderRadius),
+          ),
         ),
       ),
     );
   }
+
 
   // userId 생성 로직
   String _generateUserId(String phoneNumber) {
