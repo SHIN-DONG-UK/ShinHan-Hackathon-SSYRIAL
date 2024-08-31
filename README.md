@@ -130,6 +130,23 @@ SSYRIAL은 모바일 뱅킹에 소외된 고령층을 대상으로 하는 금융
 
 <a name="mockup"></a>
 
+### 디자인 컴포넌트 설명과 약속
+![RUN AND INIT_NEW](https://github.com/user-attachments/assets/070ae4e9-9038-47cc-9477-aafe379f9aee)
+
+#### 폴더블 폰 디자인 컴포넌트 예시 1
+![Foldable phone](https://github.com/user-attachments/assets/e788b44b-2361-4cf0-ab30-0b1e57c6ec03)
+
+### SSYRIAL의 실행 및 가입
+![RUN AND INIT_NEW](https://github.com/user-attachments/assets/94e038ce-b086-4072-9c1c-f318e929c967)
+
+### SSYRIAL의 메인
+![SSYRIAL_MAIN](https://github.com/user-attachments/assets/17428b33-b6ea-40cc-b784-d9f73c3b38be)
+
+### 계좌 생성
+![Create_Account](https://github.com/user-attachments/assets/e924e8c6-7866-4d9c-9592-53cf05a7dda0)
+
+### 송금
+![RUN AND INIT_NEW](https://github.com/user-attachments/assets/df3dacee-723b-4ac7-8673-218c4524abc6)
 
 <div align="right"><a href="#tableContents">목차로 이동</a></div>
 <br/>

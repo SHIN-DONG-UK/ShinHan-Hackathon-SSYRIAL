@@ -164,9 +164,10 @@ class _PersonalInformationInputScreenState
         } : null,
         child: Text(
           '확인',
-          style: TextStyle(fontSize: kButtonFontSize),
+          style: TextStyle(fontSize: 16,color: Colors.white),
         ),
         style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
           shape: RoundedRectangleBorder(borderRadius: kButtonBorderRadius),
         ),
