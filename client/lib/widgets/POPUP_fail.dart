@@ -1,40 +1,23 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Screen'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            showPasswordFailPopup(context);
-          },
-          child: Text('실패 팝업을 띄웁니다.'),
-        ),
-      ),
-    );
-  }
-}
 
 class PasswordFailPopup extends StatefulWidget {
   final VoidCallback onRetry;
   final VoidCallback onCancel;
+  final String message; // The message to display in the popup
 
   const PasswordFailPopup({
     Key? key,
     required this.onRetry,
     required this.onCancel,
+    required this.message, // Required parameter for message
   }) : super(key: key);
 
   @override
   _PasswordFailPopupState createState() => _PasswordFailPopupState();
 }
 
-class _PasswordFailPopupState extends State<PasswordFailPopup> with SingleTickerProviderStateMixin {
+class _PasswordFailPopupState extends State<PasswordFailPopup>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -50,13 +33,6 @@ class _PasswordFailPopupState extends State<PasswordFailPopup> with SingleTicker
       curve: Curves.easeOut,
     );
     _controller.forward();
-
-    // 3초 후 자동으로 팝업 닫기
-    Timer(const Duration(seconds: 3), () {
-      if (mounted) {
-        Navigator.of(context).pop();
-      }
-    });
   }
 
   @override
@@ -108,10 +84,10 @@ class _PasswordFailPopupState extends State<PasswordFailPopup> with SingleTicker
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      '여기에 원하는 텍스트를 써주세요',
+                    Text(
+                      widget.message, // Displaying the custom message
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -144,21 +120,22 @@ class _PasswordFailPopupState extends State<PasswordFailPopup> with SingleTicker
   }
 }
 
-// 팝업을 표시하는 함수
-void showPasswordFailPopup(BuildContext context) {
+// Function to show the popup
+void showPasswordFailPopup(BuildContext context, String message) {
   showDialog(
     context: context,
-    barrierDismissible: false, // 팝업 외부를 클릭해도 닫히지 않도록 설정
+    barrierDismissible: false, // Prevent dismissing by tapping outside
     builder: (BuildContext context) {
       return PasswordFailPopup(
         onRetry: () {
           Navigator.of(context).pop();
-          // 비밀번호 재입력 로직 추가 가능
+          // Add logic for retrying, e.g., re-prompting for password
         },
         onCancel: () {
           Navigator.of(context).pop();
-          // 취소 로직 추가 가능
+          // Add logic for canceling, e.g., returning to the previous screen
         },
+        message: message, // Pass the custom message
       );
     },
   );

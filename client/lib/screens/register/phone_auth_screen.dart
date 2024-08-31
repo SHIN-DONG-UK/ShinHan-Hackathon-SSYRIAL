@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
 import 'package:ssyrial/config/global_state.dart';
+import 'package:ssyrial/widgets/POPUP_fail.dart';
+import 'package:ssyrial/widgets/POPUP_success.dart';
 import '../../config/constants.dart';
 
 class PhoneAuthScreen extends StatefulWidget {
@@ -150,60 +152,15 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
         GlobalState.userKey = data['userKey']; // Store userKey in global state
 
         widget.onSendButtonPressed(); // 인증 성공 시 콜백 호출
-        context.showResultPopup('인증에 성공했습니다'); // 성공 팝업
+        showSuccessPopup(context, '인증에 성공했습니다!'); // 성공 팝업
       } else {
-        context.showResultPopup('인증에 실패했습니다'); // 실패 팝업
+        showPasswordFailPopup(context, '인증에 실패했습니다. 다시 시도해주세요.'); // 실패 팝업
       }
     } catch (e) {
       setState(() {
         _isLoading = false;
       });
-      context.showResultPopup('인증에 실패했습니다: $e'); // 예외 발생 시 실패 팝업
+      showPasswordFailPopup(context, '인증에 실패했습니다'); // 예외 발생 시 실패 팝업
     }
-  }
-}
-
-
-
-// 유틸리티 함수들을 확장 메서드로 분리하여 코드 간소화
-extension ContextExtensions on BuildContext {
-  // 인증 결과 팝업 표시
-  void showResultPopup(String message) {
-    showDialog(
-      context: this,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('인증 결과', style: TextStyle(fontSize: kTitleFontSize)),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('확인', style: TextStyle(fontSize: kButtonFontSize)),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // 로딩 중 팝업 표시
-  void showLoadingPopup() {
-    showDialog(
-      context: this,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Row(
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(width: kPadding),
-              Text("확인중입니다.....", style: TextStyle(fontSize: kButtonFontSize)),
-            ],
-          ),
-        );
-      },
-    );
   }
 }
