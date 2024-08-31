@@ -48,7 +48,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         });
       },
       children: [
-        HomeScreen(), // Updated with HomeScreen
+        CreateAccountHome(), // Updated with HomeScreen
         // Add more screens here as needed
       ],
     );
@@ -108,7 +108,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class CreateAccountHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
