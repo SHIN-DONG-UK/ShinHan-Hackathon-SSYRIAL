@@ -37,6 +37,7 @@ SSYRIAL은 모바일 뱅킹에 소외된 고령층을 대상으로 하는 금융
 
 <a name="subject"></a>
 고령층도 원활하게 은행 업무를 볼 수 있도록 하는 고령층 특화 은행 어플
+![image](https://github.com/user-attachments/assets/25692e1a-35f4-4279-a193-1c98469083cf)
 
 <div align="right"><a href="#tableContents">목차로 이동</a></div>
 <br/>
