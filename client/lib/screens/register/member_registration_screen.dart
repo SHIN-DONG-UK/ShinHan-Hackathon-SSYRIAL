@@ -82,7 +82,7 @@ class _MemberRegistrationStartScreenState
                           Text(
                             _currentVoiceScript, // 현재 음성 스크립트 표시
                             style: const TextStyle(
-                              fontSize: 16,
+                              fontSize: 21,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -129,7 +129,7 @@ class _MemberRegistrationStartScreenState
     switch (_currentScreen) {
       case ScreenState.start:
         _audioQueue = ['sounds/1.mp3'];
-        _scriptQueue = ["안녕하세요! 회원가입을 성공적으로\n 마칠 수 있도록 도와드릴게요!"];
+        _scriptQueue = ["안녕하세요! 회원가입을\n성공적으로 마칠 수 있도록\n도와드릴게요!"];
         break;
       case ScreenState.personalInfoConsent:
         _audioQueue = [
@@ -141,10 +141,10 @@ class _MemberRegistrationStartScreenState
           'sounds/6.mp3'
         ];
         _scriptQueue = [
-          "우선 은행이 사용자를 알 수\n 있어야 해요.",
-          "다른 사용자가 내 계좌에서 \n돈을 빼 가면 안되잖아요?",
-          "그런 일을 방지하기 위해 은행에서 \n몇 가지 정보를 받고 있어요.",
-          "바로 할 수는 없고, 사용자 \n동의가 있어야만 할 수 있어요.",
+          "우선 은행이 사용자를 알 수\n있어야 해요.",
+          "다른 사용자가 내 계좌에서\n돈을 빼 가면 안되잖아요?",
+          "그런 일을 방지하기 위해 \n은행에서 몇 가지 정보를\n받고 있어요.",
+          "바로 할 수는 없고, 사용자\n동의가 있어야만 할 수\n있어요.",
           "은행이 받을 정보는 이름, \n생년월일, 성별이 있어요.",
           "정보 제공에 동의하시나요?"
         ];
@@ -158,10 +158,10 @@ class _MemberRegistrationStartScreenState
           'sounds/6.mp3'
         ];
         _scriptQueue = [
-          "다음으로, 이 전화기가 본인의 \n것인지 확인해야 해요.",
-          "다른 사람이 나인 척 하면서 내\n계좌에 접근하는 것을 막으려고 해요.",
-          "그 목적을 달성하기 위해 은행에서\n몇 가지 정보를 받고 있어요.",
-          "바로 할 수는 없고, 사용자 동의가\n있어야만 할 수 있어요.",
+          "다음으로, 이 전화기가\n본인의 것인지 확인해야\n해요.",
+          "다른 사람이 나인 척 하면서\n내 계좌에 접근하는 것을\n막으려고 해요.",
+          "그 목적을 달성하기 위해\n은행에서 몇 가지 정보를\n받고 있어요.",
+          "바로 할 수는 없고, 사용자\n동의가 있어야만 할\n수 있어요.",
           "정보 제공에 동의하시나요?"
         ];
         break;
