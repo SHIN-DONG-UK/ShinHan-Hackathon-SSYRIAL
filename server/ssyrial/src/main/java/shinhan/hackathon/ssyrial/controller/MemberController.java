@@ -30,7 +30,7 @@ public class MemberController extends BaseController {
   }
 
   /**
-   * 로그인 요청을 처리합니다. 
+   * 로그인 요청을 처리합니다.
    * 이 메서드는 회원을 검색하고, 만약 회원이 존재하지 않으면 회원을 생성합니다.
    *
    * @param request MemberModel.Request - 회원 로그인 요청 데이터
@@ -44,7 +44,7 @@ public class MemberController extends BaseController {
       MemberSearchModel.Request searchRequest = new MemberSearchModel.Request(
           request.getApiKey(), request.getUserId());
       MemberSearchModel.Response searchResponse = memberService.searchMember(searchRequest);
-      
+
       // 검색된 회원 정보를 반환
       MemberModel.Response response = new MemberModel.Response(
           searchResponse.getUserId(),
@@ -52,13 +52,14 @@ public class MemberController extends BaseController {
           searchResponse.getInstitutionCode(),
           searchResponse.getUserKey(),
           searchResponse.getCreated(),
-          searchResponse.getModified()
-      );
+          searchResponse.getModified());
+
       return successResponse(response);
 
     } catch (Exception e) {
       // 회원 검색에 실패하면 회원 생성 시도
       MemberModel.Response response = memberService.createMember(request);
+
       return successResponse(response);
     }
   }
