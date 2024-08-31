@@ -23,6 +23,10 @@ class _PersonalInformationInputScreenState
   bool _isLoading = false; // 로딩 상태
   final Dio _dio = Dio();
 
+  // 정규식 패턴
+  final RegExp _nameRegExp = RegExp(r'^[가-힣]{2,}$'); // 한글만 최소 2자 이상
+  final RegExp _birthdayRegExp = RegExp(r'^\d{6}$'); // 6자리 숫자
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,14 +75,14 @@ class _PersonalInformationInputScreenState
   // 이름 입력 필드 변경 시 호출
   void _onNameChanged(String value) {
     setState(() {
-      _isBirthdayFieldEnabled = value.isNotEmpty; // 이름 입력 시 생년월일 필드 활성화
+      _isBirthdayFieldEnabled = _nameRegExp.hasMatch(value); // 이름 정규식 검증 후 생년월일 필드 활성화
     });
   }
 
   // 생년월일 입력 필드 변경 시 호출
   void _onBirthdayChanged(String value) {
     setState(() {
-      _isAuthenticateButtonEnabled = value.length == 6; // 6자리 입력 시 인증 버튼 활성화
+      _isAuthenticateButtonEnabled = _birthdayRegExp.hasMatch(value); // 생년월일 정규식 검증 후 인증 버튼 활성화
     });
   }
 
@@ -171,7 +175,7 @@ extension WidgetExtensions on _PersonalInformationInputScreenState {
           TextField(
             controller: _birthdayController,
             decoration: InputDecoration(
-              hintText: 'oooooo',
+              hintText: 'ooMMDD',
               border: InputBorder.none,
               filled: true,
               fillColor: Colors.white,
