@@ -25,6 +25,8 @@ SSYRIAL은 모바일 뱅킹에 소외된 고령층을 대상으로 하는 금융
 
 [![Video Label](http://img.youtube.com/vi/xffRZ0fkqB0/0.jpg)](https://youtu.be/xffRZ0fkqB0)
 
+<img src="https://github.com/user-attachments/assets/d54267ac-d447-44c6-a675-884570e7954b" width="200"/>
+
 ## 🔎 목차
 
 1. <a href="#subject">🎯 주제</a>
